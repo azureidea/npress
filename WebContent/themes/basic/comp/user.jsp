@@ -35,9 +35,9 @@ $}
 <script type="text/javascript">
 I.run(function(){
   I.net.Rmi.call('action-Login','check',function(r){
-    I.util.JTpl.rend(r,'user_info','comp_user');
+    I.$('comp_user').innerHTML = I.util.Template.render(r,I.$('TPL_user_info').value);
   },function(){
-    I.util.JTpl.rend(null,'user_info','comp_user');
+    I.$('comp_user').innerHTML = I.util.Template.render(null,I.$('TPL_user_info').value);
   });
 });
 </script>

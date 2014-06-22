@@ -13,11 +13,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <link type="text/css" rel="stylesheet" href="${PATH}/themes/${theme}/css/style.css" />
-<script type="text/javascript" src="${PATH}/js/iloader.js"></script>
+<script type="text/javascript" src="${PATH}/js/icore.js"></script>
 <script type="text/javascript">
 function userLogin(){
   I.run(function(){
-    I.net.Rmi.from('account','password');
+    I.net.Rmi.set('account',I.$('account').value);
+    I.net.Rmi.set('password',I.$('password').value);
     I.net.Rmi.call('action-Login','login',function(r){
       if('1'==r){
         self.location = '${PATH}/admin-Main/page';
