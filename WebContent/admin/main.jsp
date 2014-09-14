@@ -11,7 +11,7 @@
 FIND_CONTAINER = 'main';
 var panel_show = false;
 function suit(){
-  I.run(function(){
+  I.want(function(){
     var r = I.region();
     var rl = I.region(I.$('left'));
     var rp = I.region(I.$('panel'));
@@ -41,16 +41,16 @@ function hidePanel(){
 }
 
 function showPanel(u){
-  I.run(function(){
+  I.want(function(){
     panel_show = true;
     I.$('panel_close').style.right = '8px';
-    find(u,null,I.$('panel'));
+    I.net.Page.find(u,null,I.$('panel'));
     suit();
   });
 }
 
 function trOnSelected(table,callback){
-  I.run(function(){
+  I.want(function(){
       var tbody = I.$(table,'tag','tbody')[0];
       var trs = I.$(tbody,'*');
       I.listen(trs,'click',function(m,e){
@@ -111,7 +111,7 @@ function trOnSelected(table,callback){
     }
     var u =m.getAttribute('data-u');
     if(u){
-      find(u);
+      I.net.Page.find(u);
     }
     var sub = null;
     for(var i=0;i<menus.length;i++){
@@ -148,7 +148,7 @@ function trOnSelected(table,callback){
         selectSec(m,p);
       });
     }
-    I.run(function(){
+    I.want(function(){
       var ani = I.util.Animator.create();
       ani.move(
         'linear',
@@ -168,7 +168,7 @@ function trOnSelected(table,callback){
   function selectSec(m,p){
     I.$('thi').style.display = 'none';
     suit();
-    I.run(function(){
+    I.want(function(){
       var ani = I.util.Animator.create();
       ani.move(
         'linear',
@@ -186,7 +186,7 @@ function trOnSelected(table,callback){
     });
     var u = p.getAttribute('data-u');
     if(u){
-      find(u);
+      I.net.Page.find(u);
     }
     var code = m.getAttribute('data-n');
     var sup = null;
@@ -257,12 +257,12 @@ function trOnSelected(table,callback){
       }
     }
     if(n.getAttribute('data-u')){
-      find(n.getAttribute('data-u'));
+      I.net.Page.find(n.getAttribute('data-u'));
     }
   }
   function initMenu(menu){
     menus = menu;
-    I.run(function(){
+    I.want(function(){
       for(var i=0;i<menu.length;i++){
         var q = menu[i];
         var li = I.insert('li',I.$('menu'));
@@ -280,7 +280,7 @@ function trOnSelected(table,callback){
       }
     });
   }
-  I.run(function(){
+  I.want(function(){
     var r = [
       {n:'art',t:'文章管理',c:[
         {n:'art_add',t:'写文章',u:'admin-Article/pageAdd'},
@@ -307,8 +307,36 @@ function trOnSelected(table,callback){
     I.listen(self,'scroll',function(){
       suit();
     });
+    I.listen(I.$(),'click',function(o,e){
+      try{
+        o = e.srcElement || e.target;
+        if(I.$('sec')==o){
+          return;
+        }
+        var r = I.region(I.$('sec'));
+        if(r.x<0){
+          return;
+        }
+        I.want(function(){
+          var ani = I.util.Animator.create();
+          ani.move(
+            'linear',
+            function(toX,toY){
+              I.$('sec').style.left = toX+'px';
+            },
+            function(){
+            },
+            10,
+            r.x,
+            0,
+            -130,
+            0
+          );
+        });
+      }catch(ee){}
+    });
     suit();
-    find('admin-Main/home');
+    I.net.Page.find('admin-Main/home');
   });
   </script>
 </body>

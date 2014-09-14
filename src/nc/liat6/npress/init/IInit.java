@@ -1,15 +1,15 @@
 package nc.liat6.npress.init;
 
 /**
- * ³õÊ¼»¯½Ó¿Ú
+ * åˆå§‹åŒ–æ¥å£
+ * 
  * @author 6tail
- *
+ * 
  */
 public interface IInit{
-	
-	/**
-	 * ³õÊ¼»¯
-	 */
-	public void init();
 
+  /**
+   * åˆå§‹åŒ–
+   */
+  public void init();
 }

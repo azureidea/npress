@@ -9,38 +9,43 @@ import nc.liat6.npress.service.ICatService;
 import nc.liat6.npress.service.IModuleService;
 
 /**
- * ��ҳ
+ * 首页
  * 
  * @author 6tail
  * 
  */
 public class Home{
 
-	private IModuleService moduleService;
-	private IArticleService articleService;
-	private ICatService catService;
+  /** 模块业务接口 */
+  private IModuleService moduleService;
+  /** 文章业务接口 */
+  private IArticleService articleService;
+  /** 分类业务接口 */
+  private ICatService catService;
 
-	public void setModuleService(IModuleService moduleService){
-		this.moduleService = moduleService;
-	}
+  public void setModuleService(IModuleService moduleService){
+    this.moduleService = moduleService;
+  }
 
-	public void setArticleService(IArticleService articleService){
-		this.articleService = articleService;
-	}
+  public void setArticleService(IArticleService articleService){
+    this.articleService = articleService;
+  }
 
-	public void setCatService(ICatService catService){
-		this.catService = catService;
-	}
+  public void setCatService(ICatService catService){
+    this.catService = catService;
+  }
 
-	public Object page(){
-		Request r = Context.get(Statics.REQUEST);
-		Paging p = new Paging();
-		p.setPageData(articleService.pageArticles(r.getPageNumber(),r.getPageSize()));
-		p.setUri("home.jsp");
-		p.set("modules",moduleService.listModules());
-		p.set("cats",catService.listCats());
-		p.deliver();
-		return p;
-	}
-
+  /**
+   * 文章列表，带分页
+   * @return
+   */
+  public Object page(){
+    Request r = Context.get(Statics.REQUEST);
+    Paging p = new Paging("home.jsp");
+    p.setPageData(articleService.pageArticles(r.getPageNumber(),r.getPageSize()));
+    p.set("modules",moduleService.listModules());
+    p.set("cats",catService.listCats());
+    p.deliver();
+    return p;
+  }
 }

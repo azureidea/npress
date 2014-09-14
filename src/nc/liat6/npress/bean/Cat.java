@@ -1,42 +1,41 @@
 package nc.liat6.npress.bean;
 
 /**
- * ·ÖÀà
+ * åˆ†ç±»
  * 
  * @author 6tail
  * 
  */
 public class Cat{
 
-	/** ID */
-	private long id;
-	/** Ãû³Æ */
-	private String name;
-	/** ÎÄÕÂÊı */
-	private int count;
+  /** ID */
+  private long id;
+  /** åç§° */
+  private String name;
+  /** æ–‡ç« æ•° */
+  private int count;
 
-	public int getCount(){
-		return count;
-	}
+  public int getCount(){
+    return count;
+  }
 
-	public void setCount(int count){
-		this.count = count;
-	}
+  public void setCount(int count){
+    this.count = count;
+  }
 
-	public long getId(){
-		return id;
-	}
+  public long getId(){
+    return id;
+  }
 
-	public void setId(long id){
-		this.id = id;
-	}
+  public void setId(long id){
+    this.id = id;
+  }
 
-	public String getName(){
-		return name;
-	}
+  public String getName(){
+    return name;
+  }
 
-	public void setName(String name){
-		this.name = name;
-	}
-
+  public void setName(String name){
+    this.name = name;
+  }
 }

@@ -1,37 +1,45 @@
 package nc.liat6.npress.service;
 
 import java.util.List;
-
 import nc.liat6.frame.paging.PageData;
 import nc.liat6.npress.bean.Article;
 import nc.liat6.npress.bean.Cat;
 
 /**
- * ÎÄÕÂÒµÎñ½Ó¿Ú
+ * æ–‡ç« ä¸šåŠ¡æ¥å£
+ * 
  * @author 6tail
- *
+ * 
  */
 public interface IArticleService{
-	
-	/**
-	 * »ñÈ¡ÎÄÕÂ·ÖÒ³ÁĞ±í
-	 * @return ÎÄÕÂÁĞ±í
-	 */
-	public PageData pageArticles(int pageNumber,int pageSize);
-	
-	/**
-	 * ¸ù¾İID»ñÈ¡ÎÄÕÂ
-	 * @param id ÎÄÕÂID
-	 * @return ÎÄÕÂ
-	 */
-	public Article getArticle(long id);
-	
-	/**
-	 * »ñÈ¡Ö¸¶¨·ÖÀàÏÂµÄÎÄÕÂ·ÖÒ³ÁĞ±í
-	 * @return ÎÄÕÂÁĞ±í
-	 */
-	public PageData pageByCat(long catId,int pageNumber,int pageSize);
-	
-	public List<Cat> listCats(long id);
 
+  /**
+   * è·å–æ–‡ç« åˆ†é¡µåˆ—è¡¨
+   * 
+   * @return æ–‡ç« åˆ—è¡¨
+   */
+  public PageData pageArticles(int pageNumber,int pageSize);
+
+  /**
+   * æ ¹æ®IDè·å–æ–‡ç« 
+   * 
+   * @param id æ–‡ç« ID
+   * @return æ–‡ç« 
+   */
+  public Article getArticle(long id);
+
+  /**
+   * è·å–æŒ‡å®šåˆ†ç±»ä¸‹çš„æ–‡ç« åˆ†é¡µåˆ—è¡¨
+   * 
+   * @return æ–‡ç« åˆ—è¡¨
+   */
+  public PageData pageByCat(long catId,int pageNumber,int pageSize);
+
+  /**
+   * è·å–æ–‡ç« æ‰€å±åˆ†ç±»åˆ—è¡¨
+   * 
+   * @param id æ–‡ç« ID
+   * @return åˆ†ç±»åˆ—è¡¨
+   */
+  public List<Cat> listCats(long id);
 }

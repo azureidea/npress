@@ -3,29 +3,28 @@ package nc.liat6.npress.admin;
 import nc.liat6.frame.web.response.Page;
 
 /**
- * ¹ÜÀíÖ÷½çÃæ
+ * åå°-ç®¡ç†ä¸»ç•Œé¢
  * 
  * @author 6tail
  * 
  */
 public class Main{
 
-	/**
-	 * Ö÷½çÃæ
-	 * @return
-	 */
-	public Object page(){
-		Page p = new Page();
-		p.setUri("/admin/main.jsp");
-		return p;
-	}
+  /**
+   * ä¸»ç•Œé¢
+   * 
+   * @return
+   */
+  public Object page(){
+    return new Page("/admin/main.jsp");
+  }
 
-	/**
-	 * Ê×Ò³
-	 * @return
-	 */
-	public Object home(){
-		Page p = new Page("/admin/home.jsp");
-		return p;
-	}
+  /**
+   * é¦–é¡µ
+   * 
+   * @return
+   */
+  public Object home(){
+    return new Page("/admin/home.jsp");
+  }
 }

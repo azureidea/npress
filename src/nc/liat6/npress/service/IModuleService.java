@@ -1,26 +1,28 @@
 package nc.liat6.npress.service;
 
 import java.util.List;
-
 import nc.liat6.npress.bean.Module;
 
 /**
- * 模块业务接口
+ * 妯″潡涓氬姟鎺ュ彛
+ * 
  * @author 6tail
- *
+ * 
  */
 public interface IModuleService{
-	
-	/**
-	 * 获取模块列表
-	 * @return 模块列表
-	 */
-	public List<Module> listModules();
 
-	/**
-	 * 根据ID获取模块
-	 * @param id 模块ID
-	 * @return 模块
-	 */
-	public Module getModule(long id);
+  /**
+   * 鑾峰彇妯″潡鍒楄〃
+   * 
+   * @return 妯″潡鍒楄〃
+   */
+  public List<Module> listModules();
+
+  /**
+   * 鏍规嵁ID鑾峰彇妯″潡
+   * 
+   * @param id 妯″潡ID
+   * @return 妯″潡
+   */
+  public Module getModule(long id);
 }

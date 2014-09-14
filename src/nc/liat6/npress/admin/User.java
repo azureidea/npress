@@ -74,14 +74,14 @@ public class User{
 		String account = r.get("account");
 		String name = r.get("name");
 		
-		Validator.check(account,new RuleNotEmpty("ÓÃ»§Ãû"));
-		Validator.check(name,new RuleNotEmpty("ĞÕÃû"));
+		Validator.check(account,new RuleNotEmpty("ç”¨æˆ·å"));
+		Validator.check(name,new RuleNotEmpty("å§“å"));
 		
 		ITrans t = TransFactory.getTrans();
 		if(t.getCounter().table("T_USER").where("C_ACCOUNT",account).whereNq("C_ID",id).count()>0){
 			t.rollback();
 			t.close();
-			throw new BadException("¸ÃÓÃ»§ÃûÒÑ´æÔÚ");
+			throw new BadException("è¯¥ç”¨æˆ·åå·²å­˜åœ¨");
 		}
 		
 		IUpdater iup = t.getUpdater().table("T_USER");
@@ -92,7 +92,7 @@ public class User{
 		t.commit();
 		t.close();
 		
-		return new Tip("ĞŞ¸Ä³É¹¦");
+		return new Tip("ä¿®æ”¹æˆåŠŸ");
 	}
 	
 	public Object modifyPwd(){
@@ -102,25 +102,25 @@ public class User{
 		String npd = r.get("npd",false);
 		String npd1 = r.get("npd1",false);
 		
-		Validator.check(opd,"opd",new RuleNotEmpty("Ô­ÃÜÂë"));
-		Validator.check(npd,"npd",new RuleNotEmpty("ĞÂÃÜÂë"));
-		Validator.check(npd1,"npd1",new RuleNotEmpty("ĞÂÃÜÂë"));
+		Validator.check(opd,"opd",new RuleNotEmpty("åŸå¯†ç "));
+		Validator.check(npd,"npd",new RuleNotEmpty("æ–°å¯†ç "));
+		Validator.check(npd1,"npd1",new RuleNotEmpty("æ–°å¯†ç "));
 		
 		if(!npd.equals(npd1)){
-			return new Bad("Á½´ÎÊäÈëµÄĞÂÃÜÂë²»Í¬£¡","npd1");
+			return new Bad("ä¸¤æ¬¡è¾“å…¥çš„æ–°å¯†ç ä¸åŒï¼","npd1");
 		}
 		
 		ITrans t = TransFactory.getTrans();
 		Bean user = t.getSelecter().table("T_USER").where("C_ID",id).one();
 		
 		if(!user.get("C_PASSWORD").equals(opd)){
-			return new Bad("Ô­ÃÜÂëÊäÈëÓĞÎó£¡","opd");
+			return new Bad("åŸå¯†ç è¾“å…¥æœ‰è¯¯ï¼","opd");
 		}
 		t.getUpdater().table("T_USER").set("C_PASSWORD",npd).where("C_ID",user.get("C_ID")).update();
 		t.commit();
 		t.close();
 		
-		return new Tip("ĞŞ¸Ä³É¹¦£¡");
+		return new Tip("ä¿®æ”¹æˆåŠŸï¼");
 	}
 	
 }

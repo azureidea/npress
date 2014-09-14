@@ -1,77 +1,109 @@
 package nc.liat6.npress;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import nc.liat6.frame.context.Context;
+import nc.liat6.frame.execute.Request;
+import nc.liat6.frame.web.WebContext;
 import nc.liat6.frame.web.WebExecute;
 import nc.liat6.frame.web.config.ClassMethod;
 import nc.liat6.frame.web.config.IWebConfig;
 import nc.liat6.frame.web.config.WebManager;
 import nc.liat6.frame.web.response.Page;
+import nc.liat6.npress.cache.CacheAction;
 
 /**
- * WEB¹ÜÀíÆ÷
+ * WEBç®¡ç†å™¨
  * 
  * @author 6tail
  * 
  */
 public class WebManagerNPress extends WebManager{
 
-	/** ÍøÕ¾Ê¹ÓÃµÄÖ÷Ìâ */
-	private String theme;
+  /** ç½‘ç«™ä½¿ç”¨çš„ä¸»é¢˜ */
+  private String theme;
+  
+  /** éœ€è¦åšç¼“å­˜çš„æ–¹æ³•åˆ—è¡¨ */
+  public static final List<String> cacheMethods = new ArrayList<String>();
+  static{
+    cacheMethods.add("page");
+    cacheMethods.add("detail");
+  }
 
-	public WebManagerNPress(IWebConfig config){
-		super(config);
-		theme = config.getGlobalVars().get("theme") + "";
-	}
+  public WebManagerNPress(IWebConfig config){
+    super(config);
+    theme = config.getGlobalVars().get("theme")+"";
+  }
 
-	@Override
-	public ClassMethod before(String path){
-		// Æ¥ÅäÂ·¾¶£¬package-package-Class/method
-		if(!path.matches("[/].{1,}[-].{1,}[/]\\w{1,}")){
-			return null;
-		}
-		String[] keys = path.split("/");
+  @Override
+  public ClassMethod before(String path){
+    // åŒ¹é…è·¯å¾„ï¼Œpackage-package-Class/method
+    if(!path.matches("[/].{1,}[-].{1,}[/]\\w{1,}")){
+      return null;
+    }
+    String[] keys = path.split("/");
+    // package-package.Class
+    String klass = keys[1];
+    // method
+    String method = keys[2];
+    // package-package-Classè½¬ä¸ºpackage.package.Class
+    klass = klass.replace("-",".");
+    ClassMethod cm = new ClassMethod();
+    cm.setKlass(klass);
+    cm.setMethod(method);
+    Context.set("NPRESS_CLASS_METHOD",cm);
+    ClassMethod ncm = new ClassMethod();
+    ncm.setKlass(klass);
+    ncm.setMethod(method);
+    // å¦‚æœè¯·æ±‚ä»¥action.å¼€å¤´ï¼Œåˆ™è‡ªåŠ¨é‡å®šå‘åˆ°nc.liat6.npress.actionåŒ…
+    if(klass.startsWith("action.")){
+      ncm.setKlass("nc.liat6.npress."+klass);
+      HttpServletRequest r = Context.get("NLF_HTTP_SERVLET_REQUEST");
+      // éœ€è¦è¯·æ±‚ç¼“å­˜
+      if(cacheMethods.contains(method)){
+        // ä¼ æ¥çš„idå‚æ•°
+        String id = r.getParameter("id");
+        id = null==id?"":id;
+        // ä¼ æ¥çš„é¡µç 
+        int pageNum = 1;
+        try{
+          pageNum = Integer.parseInt(r.getParameter(Request.PAGE_NUMBER_VAR));
+        }catch(Exception e){}
+       
+        // ç¼“å­˜æ–‡ä»¶å”¯ä¸€åç§°
+        String fileName = klass+"-"+id+"-"+pageNum+".html";
+        File dir = new File(WebContext.REAL_PATH,Global.DEFAULT_CACHE_DIR);
+        if(!dir.exists()||!dir.isDirectory()){
+          dir.mkdirs();
+        }
+        File file = new File(dir,fileName);
+        // å¦‚æœç¼“å­˜æ–‡ä»¶å­˜åœ¨ï¼Œå°±è½¬åˆ°CacheActionæ˜¾ç¤ºç¼“å­˜æ–‡ä»¶
+        if(file.exists()){
+          ncm.setKlass(CacheAction.class.getName());
+          ncm.setMethod("getFile");
+          Context.set("file",fileName);
+          Context.set("NPRESS_CLASS_METHOD",ncm);
+        }
+      }
+    }else if(klass.startsWith("admin.")){
+      // å¦‚æœè¯·æ±‚ä»¥admin.å¼€å¤´ï¼Œåˆ™è‡ªåŠ¨é‡å®šå‘åˆ°nc.liat6.npress.adminåŒ…
+      ncm.setKlass("nc.liat6.npress."+klass);
+    }
+    return ncm;
+  }
 
-		// package-package.Class
-		String klass = keys[1];
-
-		// method
-		String method = keys[2];
-
-		// package-package-Class×ªÎªpackage.package.Class
-		klass = klass.replace("-",".");
-
-		ClassMethod cm = new ClassMethod();
-		cm.setKlass(klass);
-		cm.setMethod(method);
-
-		Context.set("NPRESS_CLASS_METHOD",cm);
-		
-		ClassMethod ncm = new ClassMethod();
-		ncm.setKlass(klass);
-		ncm.setMethod(method);
-
-		//Èç¹ûÇëÇóÒÔaction.¿ªÍ·£¬Ôò×Ô¶¯ÖØ¶¨Ïòµ½nc.liat6.npress.action°ü
-		if(klass.startsWith("action.")){
-			ncm.setKlass("nc.liat6.npress."+klass);
-		}
-		//Èç¹ûÇëÇóÒÔadmin.¿ªÍ·£¬Ôò×Ô¶¯ÖØ¶¨Ïòµ½nc.liat6.npress.admin°ü
-		if(klass.startsWith("admin.")){
-			ncm.setKlass("nc.liat6.npress."+klass);
-		}
-		return ncm;
-	}
-
-	@Override
-	public void filter(){
-		super.filter();
-		Object r = Context.get(WebExecute.EXECUTE_RETURN);
-		// Èç¹û·µ»ØµÄÊÇPage£¬×Ô¶¯ÖØ¶¨Ïòµ½µ±Ç°Ö÷ÌâÏÂ
-		if(r instanceof Page){
-			Page p = (Page)r;
-			if(!p.getUri().startsWith("/")){
-				p.setUri("/themes/" + theme + "/" + p.getUri());
-			}
-		}
-	}
-
+  @Override
+  public void filter(){
+    super.filter();
+    Object r = Context.get(WebExecute.EXECUTE_RETURN);
+    // å¦‚æœè¿”å›çš„æ˜¯Pageï¼Œè‡ªåŠ¨é‡å®šå‘åˆ°å½“å‰ä¸»é¢˜ä¸‹
+    if(r instanceof Page){
+      Page p = (Page)r;
+      if(!p.getUri().startsWith("/")){
+        p.setUri("/themes/"+theme+"/"+p.getUri());
+      }
+    }
+  }
 }

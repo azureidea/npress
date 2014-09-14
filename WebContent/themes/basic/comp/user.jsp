@@ -1,8 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-<%@ taglib uri="/nlfe" prefix="nlfe"%>
 <%@ taglib uri="/nlft" prefix="nlft"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<script type="text/javascript">
+function userLogin(){
+  I.want(function(){
+    I.net.Rmi.set('account',I.$('account').value);
+    I.net.Rmi.set('password',I.$('password').value);
+    I.net.Rmi.call('action-Login','login',function(r){
+      if('1'==r){
+        self.location = '${PATH}/admin-Main/page';
+      }else{
+        self.location = '${PATH}/';
+      }
+    });
+  });
+}
+function userLogout(){
+  I.want(function(){
+    I.net.Rmi.call('action-Login','logout',function(r){
+      self.location = '${PATH}/';
+    });
+  });
+}
+</script>
 <nlft:tpl id="user_info">
 <div class="comp_header">
 {$
@@ -33,7 +53,7 @@ $}
 </nlft:tpl>
 <div id="comp_user" class="comp container"></div>
 <script type="text/javascript">
-I.run(function(){
+I.want(function(){
   I.net.Rmi.call('action-Login','check',function(r){
     I.$('comp_user').innerHTML = I.util.Template.render(r,I.$('TPL_user_info').value);
   },function(){

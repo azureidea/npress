@@ -2,7 +2,6 @@ package nc.liat6.npress;
 
 import java.util.List;
 import java.util.Map;
-
 import nc.liat6.frame.Factory;
 import nc.liat6.frame.execute.IExecute;
 import nc.liat6.frame.web.config.IWebManager;
@@ -10,67 +9,67 @@ import nc.liat6.frame.web.config.WebConfig;
 import nc.liat6.npress.init.IInit;
 
 /**
- * ÍøÕ¾ÅäÖÃ
+ * ç½‘ç«™é…ç½®
+ * 
  * @author 6tail
- *
+ * 
  */
 public class WebConfigNPress extends WebConfig{
 
-	@Override
-	public void init(){
-		super.init();
-	}
-	
-	@Override
-	public String getErrorPage(){
-			return "/themes/"+getGlobalVars().get("theme")+"/error.jsp";
-	}
-	
-	@Override
-	public Map<String,Object> getGlobalVars(){
-		Map<String,Object> m = super.getGlobalVars();
-		//ÉèÖÃÍøÕ¾×÷Õß
-		m.put("WEB_AUTHOR",Global.DEFAULT_WEB_AUTHOR);
-		//ÉèÖÃÍøÕ¾Ãû
-		m.put("WEB_NAME",Global.DEFAULT_WEB_NAME);
-		//ÉèÖÃÍøÕ¾¹Ø¼ü´Ê
-		m.put("WEB_KEY",Global.DEFAULT_WEB_KEY);
-		//ÉèÖÃÍøÕ¾ÃèÊö
-		m.put("WEB_DESC",Global.DEFAULT_WEB_DESCIPTION);
-		//ÉèÖÃÍøÕ¾°æÈ¨
-		m.put("WEB_COPYRIGHT",Global.DEFAULT_WEB_COPYRIGHT);
-		//ÉèÖÃÍøÕ¾Ö÷Ìâ
-		m.put("theme",Global.DEFAULT_THEME);
-		return m;
-	}
-	
-	@Override
-	public List<String> getForbiddenPaths(){
-		List<String> l = super.getForbiddenPaths();
-		//ÆÁ±Î·ÃÎÊ
-		l.add("/nc.liat6.npress");
-		return l;
-	}
-	
-	@Override
-	public IWebManager getWebManager(){
-		return new WebManagerNPress(this);
-	}
-	
-	@Override
-	public IExecute getExecuter(){
-		return new ExecuterNPress();
-	}
-	
-	@Override
-	public void start(){
-		super.start();
-		
-		//³õÊ¼»¯
-		List<String> inits = Factory.getImpls(IInit.class.getName());
-		for(String klass:inits){
-			IInit initer = Factory.getCaller().newInstance(klass);
-			initer.init();
-		}
-	}
+  @Override
+  public void init(){
+    super.init();
+  }
+
+  @Override
+  public String getErrorPage(){
+    return "/themes/"+getGlobalVars().get("theme")+"/error.jsp";
+  }
+
+  @Override
+  public Map<String,Object> getGlobalVars(){
+    Map<String,Object> m = super.getGlobalVars();
+    // è®¾ç½®ç½‘ç«™ä½œè€…
+    m.put("WEB_AUTHOR",Global.DEFAULT_WEB_AUTHOR);
+    // è®¾ç½®ç½‘ç«™å
+    m.put("WEB_NAME",Global.DEFAULT_WEB_NAME);
+    // è®¾ç½®ç½‘ç«™å…³é”®è¯
+    m.put("WEB_KEY",Global.DEFAULT_WEB_KEY);
+    // è®¾ç½®ç½‘ç«™æè¿°
+    m.put("WEB_DESC",Global.DEFAULT_WEB_DESCIPTION);
+    // è®¾ç½®ç½‘ç«™ç‰ˆæƒ
+    m.put("WEB_COPYRIGHT",Global.DEFAULT_WEB_COPYRIGHT);
+    // è®¾ç½®ç½‘ç«™ä¸»é¢˜
+    m.put("theme",Global.DEFAULT_THEME);
+    return m;
+  }
+
+  @Override
+  public List<String> getForbiddenPaths(){
+    List<String> l = super.getForbiddenPaths();
+    // å±è”½è®¿é—®
+    l.add("/nc.liat6.npress");
+    return l;
+  }
+
+  @Override
+  public IWebManager getWebManager(){
+    return new WebManagerNPress(this);
+  }
+
+  @Override
+  public IExecute getExecuter(){
+    return new ExecuterNPress();
+  }
+
+  @Override
+  public void start(){
+    super.start();
+    // åˆå§‹åŒ–
+    List<String> inits = Factory.getImpls(IInit.class.getName());
+    for(String klass:inits){
+      IInit initer = Factory.getCaller().newInstance(klass);
+      initer.init();
+    }
+  }
 }

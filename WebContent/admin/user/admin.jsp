@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="/nlfe" prefix="nlfe"%>
 <%@ taglib uri="/nlft" prefix="nlft"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <div class="form">
 <table class="list">
     <thead>
@@ -21,7 +18,7 @@
     </tfoot>
     <tbody>
     <c:if test="${empty nlfPagingData.data}">
-    <tr>
+        <tr>
             <td colspan="4">暂无管理员</td>
         </tr>
     </c:if>
@@ -35,8 +32,9 @@
     </c:forEach>
     </tbody>
 </table>
-<nlft:jsbegin>
+</div>
+<script type="text/javascript">
 trOnSelected(I.$('class','list')[0],function(id){
   showPanel('admin-User/pageModify?id='+id);
 });
-</nlft:jsbegin>
+</script>

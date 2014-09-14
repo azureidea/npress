@@ -8,46 +8,35 @@ import nc.liat6.npress.bean.Module;
 import nc.liat6.npress.init.IInit;
 
 /**
- * Ä£¿é³õÊ¼»¯
+ * æ¨¡å—åˆå§‹åŒ–
+ * 
  * @author 6tail
- *
+ * 
  */
 public class InitModule implements IInit{
 
-	@Override
-	public void init(){
-		ITrans t = TransFactory.getTrans();
-		try{
-			if(t.getCounter().table("T_MODULE").count() > 0){
-				t.rollback();
-				t.close();
-				return;
-			}
-		}catch(DaoException e){}
-
-		IInserter ins = t.getInserter();
-		ins.table("T_MODULE");
-		ins.set("C_ID",1);
-		ins.set("C_NAME","Ê×Ò³");
-		ins.set("C_TYPE",Module.TYPE_IN_SELF_URL);
-		ins.set("C_URL","action-Home/page");
-		ins.set("C_CONTENT","");
-		ins.set("C_IS_HOME",1);
-		ins.set("C_INDEX",0);
-		ins.insert();
-		
-		ins = t.getInserter();
-		ins.table("T_MODULE");
-		ins.set("C_ID",2);
-		ins.set("C_NAME","¹ØÓÚÎÒ");
-		ins.set("C_TYPE",Module.TYPE_SELF_PAGE);
-		ins.set("C_URL","");
-		ins.set("C_CONTENT","about me");
-		ins.set("C_IS_HOME",0);
-		ins.set("C_INDEX",10);
-		ins.insert();
-		t.commit();
-		t.close();
-	}
-
+  @Override
+  public void init(){
+    ITrans t = TransFactory.getTrans();
+    try{
+      if(t.getCounter().table("T_MODULE").count()>0){
+        t.rollback();
+        t.close();
+        return;
+      }
+    }catch(DaoException e){
+    }
+    IInserter ins = t.getInserter();
+    ins.table("T_MODULE");
+    ins.set("C_ID",1);
+    ins.set("C_NAME","é¦–é¡µ");
+    ins.set("C_TYPE",Module.TYPE_IN_SELF_URL);
+    ins.set("C_URL","action-Home/page");
+    ins.set("C_CONTENT","");
+    ins.set("C_IS_HOME",1);
+    ins.set("C_INDEX",0);
+    ins.insert();
+    t.commit();
+    t.close();
+  }
 }

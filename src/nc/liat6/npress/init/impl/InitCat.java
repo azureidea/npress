@@ -7,30 +7,30 @@ import nc.liat6.frame.db.transaction.TransFactory;
 import nc.liat6.npress.init.IInit;
 
 /**
- * ·ÖÀà³õÊ¼»¯
+ * åˆ†ç±»åˆå§‹åŒ–
+ * 
  * @author 6tail
- *
+ * 
  */
 public class InitCat implements IInit{
 
-	@Override
-	public void init(){
-		ITrans t = TransFactory.getTrans();
-		try{
-			if(t.getCounter().table("T_CAT").count() > 0){
-				t.rollback();
-				t.close();
-				return;
-			}
-		}catch(DaoException e){}
-
-		IInserter ins = t.getInserter();
-		ins.table("T_CAT");
-		ins.set("C_ID",1);
-		ins.set("C_NAME","Î´·ÖÀà");
-		ins.insert();
-		t.commit();
-		t.close();
-	}
-
+  @Override
+  public void init(){
+    ITrans t = TransFactory.getTrans();
+    try{
+      if(t.getCounter().table("T_CAT").count()>0){
+        t.rollback();
+        t.close();
+        return;
+      }
+    }catch(DaoException e){
+    }
+    IInserter ins = t.getInserter();
+    ins.table("T_CAT");
+    ins.set("C_ID",1);
+    ins.set("C_NAME","æœªåˆ†ç±»");
+    ins.insert();
+    t.commit();
+    t.close();
+  }
 }

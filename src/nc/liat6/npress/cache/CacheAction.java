@@ -1,27 +1,23 @@
 package nc.liat6.npress.cache;
 
 import nc.liat6.frame.context.Context;
-import nc.liat6.frame.context.Statics;
-import nc.liat6.frame.execute.Request;
 import nc.liat6.frame.web.response.Page;
 
 /**
- * »º´æÎÄ¼ş¿ØÖÆÆ÷
+ * ç¼“å­˜æ–‡ä»¶æ§åˆ¶å™¨
+ * 
  * @author 6tail
- *
+ * 
  */
 public class CacheAction{
-	
-	/**
-	 * ·µ»Ø»º´æÎÄ¼şÒ³Ãæ
-	 * @return
-	 */
-	public Object getFile(){
-		Request r = Context.get(Statics.REQUEST);
-		String file = r.get("file");
-		Page p = new Page();
-		p.setUri("/cache/"+file);
-		return p;
-	}
 
+  /**
+   * è¿”å›ç¼“å­˜æ–‡ä»¶é¡µé¢
+   * 
+   * @return
+   */
+  public Object getFile(){
+    String file = Context.get("file");
+    return new Page("/cache/"+file);
+  }
 }

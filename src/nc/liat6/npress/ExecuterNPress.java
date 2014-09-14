@@ -1,13 +1,9 @@
 package nc.liat6.npress;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import nc.liat6.frame.context.Context;
 import nc.liat6.frame.context.Statics;
 import nc.liat6.frame.exception.BadException;
@@ -18,115 +14,62 @@ import nc.liat6.frame.web.WebContext;
 import nc.liat6.frame.web.WebExecute;
 import nc.liat6.frame.web.config.ClassMethod;
 import nc.liat6.frame.web.response.Page;
-import nc.liat6.npress.cache.CacheAction;
 import nc.liat6.npress.cache.CacheResponse;
 
 /**
- * ÍøÕ¾Ö´ĞĞÆ÷
+ * ç½‘ç«™æ‰§è¡Œå™¨
  * 
  * @author 6tail
  * 
  */
 public class ExecuterNPress extends WebExecute{
 
-	/** ĞèÒª×ö»º´æµÄ·½·¨ÁĞ±í */
-	private static final List<String> cacheMethods = new ArrayList<String>();
-
-	static{
-		cacheMethods.add("page");
-		cacheMethods.add("detail");
-	}
-
-	@Override
-	public void request(){
-		super.request();
-
-		// Èç¹ûµ÷ÓÃµÄ²»ÊÇapp°ü£¬²»×ö»º´æ
-		ClassMethod cm = Context.get("NPRESS_CLASS_METHOD");
-		String klass = cm.getKlass();
-		String method = cm.getMethod();
-		if(!klass.startsWith("action.")){
-			return;
-		}
-		Request r = Context.get(Statics.REQUEST);
-
-		// ĞèÒªÇëÇó»º´æ
-		if(cacheMethods.contains(method)){
-			// ´«À´µÄid²ÎÊı
-			String id = r.get("id");
-			// ´«À´µÄÒ³Âë
-			int pageNum = r.getPageNumber();
-
-			//»º´æÎÄ¼şÎ¨Ò»Ãû³Æ
-			String fileName = klass + "-" + id + "-" + pageNum + ".html";
-
-			File dir = new File(WebContext.REAL_PATH,Global.DEFAULT_CACHE_DIR);
-			if(!dir.exists() || !dir.isDirectory()){
-				dir.mkdirs();
-			}
-			File file = new File(dir,fileName);
-			
-			//Èç¹û»º´æÎÄ¼ş´æÔÚ£¬¾Í×ªµ½CacheActionÏÔÊ¾»º´æÎÄ¼ş
-			if(file.exists()){
-				cm.setKlass(CacheAction.class.getName());
-				cm.setMethod("getFile");
-				r.setParam("file",fileName);
-			}
-		}
-	}
-
-	protected void responsePage(Page p){
-		Request r = Context.get(Statics.REQUEST);
-		Response res = Context.get(Statics.RESPONSE);
-		HttpServletRequest oreq = r.find(TAG_REQUEST);
-		HttpServletResponse ores = res.find(TAG_RESPONSE);
-		
-		//debug
-		Iterator<String> it = p.keySet().iterator();
-		if(it.hasNext()){
-			appendLog("Ò³Ãæ¸³Öµ£º\r\n");
-		}
-		while(it.hasNext()){
-			String key = it.next();
-			oreq.setAttribute(key,p.get(key));
-			appendLog(Stringer.print("\t?=?",key,p.get(key)) + "\r\n");
-		}
-		appendLog(Stringer.print("·µ»ØÒ³Ãæ£º?",p.getUri()));
-		writeLog();
-		
-		try{
-			CacheResponse wrapperResponse = new CacheResponse(ores);
-			oreq.getRequestDispatcher(p.getUri()).include(oreq,wrapperResponse);
-			String html = wrapperResponse.getContent();
-			ClassMethod cm = Context.get("NPRESS_CLASS_METHOD");
-			String klass = cm.getKlass();
-			String method = cm.getMethod();
-			
-			// Ğ´»º´æÎÄ¼ş
-			if(klass.startsWith("action.")){
-				if(cacheMethods.contains(method)){
-					// ´«À´µÄid²ÎÊı
-					String id = r.get("id");
-					// ´«À´µÄÒ³Âë
-					int pageNum = r.getPageNumber();
-
-					//»º´æÎÄ¼şÎ¨Ò»Ãû³Æ
-					String fileName = klass + "-" + id + "-" + pageNum + ".html";
-
-					File dir = new File(WebContext.REAL_PATH,Global.DEFAULT_CACHE_DIR);
-					if(!dir.exists() || !dir.isDirectory()){
-						dir.mkdirs();
-					}
-					File file = new File(dir,fileName);
-					Stringer.writeToFile(html,file,"UTF-8");
-				}
-			}
-			ores.setContentType("text/html");
-			ores.getOutputStream().write(html.getBytes("UTF-8"));
-			return;
-		}catch(Exception e){
-			throw new BadException(e);
-		}
-	}
-
+  protected void responsePage(Page p){
+    Request r = Context.get(Statics.REQUEST);
+    Response res = Context.get(Statics.RESPONSE);
+    HttpServletRequest oreq = r.find(TAG_REQUEST);
+    HttpServletResponse ores = res.find(TAG_RESPONSE);
+    // debug
+    Iterator<String> it = p.keySet().iterator();
+    if(it.hasNext()){
+      appendLog("é¡µé¢èµ‹å€¼ï¼š\r\n");
+    }
+    while(it.hasNext()){
+      String key = it.next();
+      oreq.setAttribute(key,p.get(key));
+      appendLog(Stringer.print("\t?=?",key,p.get(key))+"\r\n");
+    }
+    appendLog(Stringer.print("è¿”å›é¡µé¢ï¼š?",p.getUri()));
+    writeLog();
+    try{
+      CacheResponse wrapperResponse = new CacheResponse(ores);
+      oreq.getRequestDispatcher(p.getUri()).include(oreq,wrapperResponse);
+      String html = wrapperResponse.getContent();
+      ClassMethod cm = Context.get("NPRESS_CLASS_METHOD");
+      String klass = cm.getKlass();
+      String method = cm.getMethod();
+      // å†™ç¼“å­˜æ–‡ä»¶
+      if(klass.startsWith("action.")){
+        if(WebManagerNPress.cacheMethods.contains(method)){
+          // ä¼ æ¥çš„idå‚æ•°
+          String id = r.get("id");
+          // ä¼ æ¥çš„é¡µç 
+          int pageNum = r.getPageNumber();
+          // ç¼“å­˜æ–‡ä»¶å”¯ä¸€åç§°
+          String fileName = klass+"-"+id+"-"+pageNum+".html";
+          File dir = new File(WebContext.REAL_PATH,Global.DEFAULT_CACHE_DIR);
+          if(!dir.exists()||!dir.isDirectory()){
+            dir.mkdirs();
+          }
+          File file = new File(dir,fileName);
+          Stringer.writeToFile(html,file,"UTF-8");
+        }
+      }
+      ores.setContentType("text/html");
+      ores.getOutputStream().write(html.getBytes("UTF-8"));
+      return;
+    }catch(Exception e){
+      throw new BadException(e);
+    }
+  }
 }

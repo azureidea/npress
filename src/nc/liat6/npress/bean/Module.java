@@ -1,100 +1,93 @@
 package nc.liat6.npress.bean;
 
 /**
- * Ä£¿é
+ * æ¨¡å—
  * 
  * @author 6tail
  * 
  */
 public class Module{
 
-	/** ±¾´°¿Ú´ò¿ªµÄ±¾Õ¾URL */
-	public static final int TYPE_IN_SELF_URL = 0;
+  /** æœ¬çª—å£æ‰“å¼€çš„æœ¬ç«™URL */
+  public static final int TYPE_IN_SELF_URL = 0;
+  /** æ–°çª—å£æ‰“å¼€çš„æœ¬ç«™URL */
+  public static final int TYPE_IN_BLANK_URL = 1;
+  /** æœ¬çª—å£æ‰“å¼€çš„å¤–ç«™URL */
+  public static final int TYPE_OUT_SELF_URL = 2;
+  /** æ–°çª—å£æ‰“å¼€çš„å¤–ç«™URL */
+  public static final int TYPE_OUT_BLANK_URL = 3;
+  /** æœ¬çª—å£æ‰“å¼€çš„é¡µé¢ */
+  public static final int TYPE_SELF_PAGE = 4;
+  /** æ–°çª—å£æ‰“å¼€çš„é¡µé¢ */
+  public static final int TYPE_BLANK_PAGE = 5;
+  /** ID */
+  private long id;
+  /** åç§° */
+  private String name;
+  /** ç±»å‹ */
+  private int type;
+  /** URL */
+  private String url;
+  /** æ˜¯å¦æ˜¯é»˜è®¤é¦–é¡µï¼Œ1æ˜¯ï¼Œ0å¦ */
+  private int home;
+  /** å†…å®¹ */
+  private String content;
+  /** åºå· */
+  private int index;
 
-	/** ĞÂ´°¿Ú´ò¿ªµÄ±¾Õ¾URL */
-	public static final int TYPE_IN_BLANK_URL = 1;
+  public int getIndex(){
+    return index;
+  }
 
-	/** ±¾´°¿Ú´ò¿ªµÄÍâÕ¾URL */
-	public static final int TYPE_OUT_SELF_URL = 2;
+  public void setIndex(int index){
+    this.index = index;
+  }
 
-	/** ĞÂ´°¿Ú´ò¿ªµÄÍâÕ¾URL */
-	public static final int TYPE_OUT_BLANK_URL = 3;
+  public String getContent(){
+    return content;
+  }
 
-	/** ±¾´°¿Ú´ò¿ªµÄÒ³Ãæ */
-	public static final int TYPE_SELF_PAGE = 4;
+  public void setContent(String content){
+    this.content = content;
+  }
 
-	/** ĞÂ´°¿Ú´ò¿ªµÄÒ³Ãæ */
-	public static final int TYPE_BLANK_PAGE = 5;
+  public int getHome(){
+    return home;
+  }
 
-	/** ID */
-	private long id;
-	/** Ãû³Æ */
-	private String name;
-	/** ÀàĞÍ */
-	private int type;
-	/** URL */
-	private String url;
-	/** ÊÇ·ñÊÇÄ¬ÈÏÊ×Ò³£¬1ÊÇ£¬0·ñ */
-	private int home;
+  public void setHome(int home){
+    this.home = home;
+  }
 
-	private String content;
+  public long getId(){
+    return id;
+  }
 
-	private int index;
+  public void setId(long id){
+    this.id = id;
+  }
 
-	public int getIndex(){
-		return index;
-	}
+  public String getName(){
+    return name;
+  }
 
-	public void setIndex(int index){
-		this.index = index;
-	}
+  public void setName(String name){
+    this.name = name;
+  }
 
-	public String getContent(){
-		return content;
-	}
+  public int getType(){
+    return type;
+  }
 
-	public void setContent(String content){
-		this.content = content;
-	}
+  public void setType(int type){
+    this.type = type;
+  }
 
-	public int getHome(){
-		return home;
-	}
+  public String getUrl(){
+    return url;
+  }
 
-	public void setHome(int home){
-		this.home = home;
-	}
-
-	public long getId(){
-		return id;
-	}
-
-	public void setId(long id){
-		this.id = id;
-	}
-
-	public String getName(){
-		return name;
-	}
-
-	public void setName(String name){
-		this.name = name;
-	}
-
-	public int getType(){
-		return type;
-	}
-
-	public void setType(int type){
-		this.type = type;
-	}
-
-	public String getUrl(){
-		return url;
-	}
-
-	public void setUrl(String url){
-		this.url = url;
-	}
-
+  public void setUrl(String url){
+    this.url = url;
+  }
 }

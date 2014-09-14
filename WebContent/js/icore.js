@@ -2,8 +2,11 @@
  * 类加载器
  */
 (function(W,D){
+  if(W.I){
+    return;
+  }
   W.I = {
-    version:'2.0.0',
+    version:'2.0.3',
     ROOT:'auto',
     debug:true
   };
@@ -13,6 +16,8 @@
   var L = false;
   var SYN = true;
   var Q = {};
+  //加载队列
+  var P = {};
   
   var _dir = function(u){
     var r = '';
@@ -77,6 +82,54 @@
     return p;
   };
   
+  var localLoad = function(c,callback){
+    if(I.debug){
+      I.lang.Store.clear();
+      throw 'I.js debug mode';
+    }
+    var v = I.lang.Store.get('i_js_version');
+    if(!v||I.version!=v){
+      I.lang.Store.remove('I.*');
+      I.lang.Store.set('i_js_version',I.version);
+      throw 'I.js need update';
+    }
+    var code = I.lang.Store.get('I.'+c);
+    if(!code){
+      throw c+' need update';
+    }
+    var o = D.createElement('script');
+    o.text = code;
+    D.getElementsByTagName('head')[0].appendChild(o);
+    try{
+      o.parentNode.removeChild(o);
+    }catch(e){}
+    callback.call(callback,c);
+  };
+  var lazyLoad = function(c,callback){
+    var o = D.createElement('script');
+    o.type = 'text/javascript';
+    var src = R+c.replace(/\./g,'/')+'.js?t='+new Date().getTime();
+    o.src = src;
+    o.onload = function(){
+      try{
+        this.parentNode.removeChild(this);
+      }catch(e){
+        return;
+      }
+      callback.call(callback,c);
+    };
+    o.onreadystatechange = function(){
+      if(/loaded|complete/.test(this.readyState)){
+        try{
+          this.parentNode.removeChild(this);
+        }catch(e){
+          return;
+        }
+        callback.call(callback,c);
+      }
+    };
+    D.getElementsByTagName('head')[0].appendChild(o);
+  };
   var initClass = function(klass,code){
     var k = klass.split('.');
     var name = k.pop();
@@ -89,143 +142,76 @@
       return o;
     }
   };
-  
-  var localLoad = function(c,f){
-    if(I.debug){
-      I.lang.Store.clear();
-      throw 'I.js debug mode';
+  var checkLoad = function(callback){
+    for(var i in P){
+      if(!P[i].loaded){
+        W.setTimeout(function(){
+          checkLoad(callback);
+        },1);
+        return;
+      }
     }
-    var v = I.lang.Store.get('i_js_version');
-
-    if(!v||I.version!=v){
-      I.lang.Store.clear();
-      I.lang.Store.set('i_js_version',I.version);
-      throw 'I.js need update';
+    var cq = {};
+    for(var i in P){
+      if(!Q[i].loaded){
+        var cs =_depend(Q[i].code);
+        for(var j=0;j<cs.length;j++){
+          cq[cs[j]] = {};
+        }
+      }
     }
-    
-    var k = I.lang.Store.get(c);
-    if(!k){
-      throw c+' need update';
-    }
-    var o = D.createElement('script');
-    o.text = k;
-    D.getElementsByTagName('head')[0].appendChild(o);
-    try{
-      o.parentNode.removeChild(o);
-    }catch(e){}
-    f.apply(f);
-  };
-  
-  var checkLoad = function(c,callback){
     var over = true;
-    for(var i=0;i<c.length;i++){
-      if(!Q[c[i]]){
-        over = false;
-        break;
+    for(var i in cq){
+      if(P[i]) continue;
+      P[i] = {loaded:false};
+      tryLoad(i);
+      over = false;
+    }
+    if(!over){
+      W.setTimeout(function(){
+        checkLoad(callback);
+      },1);
+      return;
+    }
+    for(var i in P){
+      if(!Q[i].loaded){
+        initClass(i,Q[i].code);
+        Q[i].loaded = true;
       }
     }
-    if(over){
-      var mc = [];
-      for(var i=0;i<c.length;i++){
-        var code = Q[c[i]].c;
-        var nc = _depend(code);
-        for(var j=0;j<nc.length;j++){
-          var o = nc[j];
-          if(('|'+mc.join('|')+'|').indexOf('|'+o+'|')<0){
-            mc.push(o);
-          }
-        }
-      }
-      if(mc.length<1){
-        var ro = null;
-        for(var i=0;i<c.length;i++){
-          var s = c[i];
-          var cl = initClass(s,Q[s].c);
-          Q[s].l = true;
-          if(!ro){
-            ro = cl;
-          }
-        }
-        SYN = false;
-        callback.call(callback,ro);
-      }else{
-        load(mc,function(){
-          var ro = null;
-          for(var i=0;i<c.length;i++){
-            var s = c[i];
-            var cl = initClass(s,Q[s].c);
-            Q[s].l = true;
-            if(!ro){
-              ro = cl;
-            }
-          }
-          callback.call(callback,ro);
-        });
-      }
+    SYN = false;
+    callback.call(callback);
+  };
+  var tryLoad = function(c){
+    try{
+      localLoad(c,function(){
+        P[c].loaded = true;
+      });
+    }catch(e){
+      lazyLoad(c,function(){
+        P[c].loaded = true;
+      });
     }
   };
-  
-  var lazyLoad = function(c,f){
-    var o = D.createElement('script');
-    o.type = 'text/javascript';
-    var src = R+c.replace(/\./g,'/')+'.js?t='+new Date().getTime();
-    o.src = src;
-    o.onload = function(){
-      var first = false;
-      try{
-        this.parentNode.removeChild(this);
-        first = true;
-      }catch(e){}
-      if(first){
-        f.apply(f);
-      }
-    };
-    o.onreadystatechange = function(){
-      if(/loaded|complete/.test(this.readyState)){
-        var first = false;
-        try{
-          this.parentNode.removeChild(this);
-          first = true;
-        }catch(e){}
-        if(first){
-          f.apply(f);
-        }
-      }
-    };
-    D.getElementsByTagName('head')[0].appendChild(o);
-  };
-  
-  var load = function(c,f){
+  var load = function(cs,callback){
     SYN = true;
-    var skip = true;
-    for(var i=0;i<c.length;i++){
-      var s = c[i];
-      if(Q[s]){
-        continue;
-      }
-      skip = false;
-      try{
-        localLoad(s,function(){
-          checkLoad(c,f);
-        });
-      }catch(e){
-        lazyLoad(s,function(){
-          checkLoad(c,f);
-        });
-      }
+    for(var i=0;i<cs.length;i++){
+      var s = cs[i];
+      if(Q[s]) continue;
+      if(P[s]) continue;
+      P[s] = {loaded:false};
+      tryLoad(s);
     }
-    if(skip){
-      checkLoad(c,f);
-    }
+    checkLoad(callback);
   };
   
-  var preLoad = function(c,f){
+  var preLoad = function(cs,f){
     if(SYN){
       W.setTimeout(function(){
-        preLoad(c,f);
+        preLoad(cs,f);
       },1);
     }else{
-      load(c,f);
+      load(cs,f);
     }
   };
   
@@ -244,26 +230,26 @@
     }catch(e){}
   }
     
-  var _regist = function(klass,code){
-    Q[klass] = {
-      l:false,
-      c:code
+  var _regist = function(c,cd){
+    Q[c] = {
+      loaded:false,
+      code:cd
     };
-    if(0==klass.indexOf('lang')){
+    if(0==c.indexOf('lang.')){
       try{
-        initClass(klass,code);
+        initClass(c,cd);
       }catch(e){
         throw e;
       }
     }else{
       try{
-        I.lang.Store.set(klass,'I.regist(\''+klass+'\','+code+'+\'\');');
+        I.lang.Store.set('I.'+c,'I.regist(\''+c+'\','+cd+'+\'\');');
       }catch(e){}
     }
   };
   
   var _depend = function(code){
-    var c = [];
+    var c = {};
     var s = code;
     var idx = s.indexOf('I.');
     while(idx>-1){
@@ -290,38 +276,79 @@
       if(q.indexOf('.')>-1){
         var k = q.substr(0, q.lastIndexOf('.'));
         if(k.indexOf('.')>-1){
-          if(('|'+c.join('|')+'|').indexOf('|'+k+'|')<0){
-            c.push(k);
-          }
+          c[k] = {};
         }
       }
       idx = s.indexOf('I.');
     }
-    return c;
+    s = code;
+    idx = 0;
+    var arr = /skin\s*:\s*['|"]/g.exec(s);
+    while(null!=arr){
+      idx = arr.index;
+      s = s.substr(idx+arr[0].length);
+      var h = arr[0];
+      h = h.substr(h.length-1);
+      idx = s.indexOf(h);
+      var skin = s.substr(0,idx);
+      skin = 'skin.'+skin;
+      c[skin] = {};
+      arr = /skin\s*:\s*['|"]/g.exec(s);
+    }
+    s = code;
+    arr = /util\.Skin\.init\(['|"]/g.exec(s);
+    while(null!=arr){
+      idx = arr.index;
+      s = s.substr(idx+arr[0].length);
+      var h = arr[0];
+      h = h.substr(h.length-1);
+      idx = s.indexOf(h);
+      var skin = s.substr(0,idx);
+      skin = 'skin.'+skin;
+      c[skin] = {};
+      arr = /util\.Skin\.init\(['|"]/g.exec(s);
+    }
+    var z = [];
+    for(var i in c){
+      if(i.indexOf('+')>-1){
+        i = i.substr(0,i.indexOf('+'));
+      }
+      if(0==i.indexOf('lang.')||'ROOT'==i||'debug'==i||'version'==i){
+        continue;
+      }
+      z.push(i);
+    }
+    return z;
   };
   
-  var _run = function(callback){
-    var c = _depend(callback+'');
-    if(c.length<1){
+  var _want = function(callback){
+    var cs = _depend(callback+'');
+    if(cs.length<1){
       callback.apply(callback);
     }else{
-      preLoad(c,callback);
+      preLoad(cs,callback);
     }
   };
   
   var _get = function(klass,callback){
-    var c = [];
-    c.push(klass);
-    preLoad(c,callback);
+    preLoad([klass],function(){
+      var k = klass.split('.');
+      var name = k.pop();
+      var obj = I;
+      for(var i=0;i<k.length;i++){
+        obj = obj[k];
+      }
+      callback.call(obj[name]);
+    });
   };
 
   I.regist = function(klass,code){_regist(klass,code);return this;};
   I.dir = function(res){return _dir(res);};
-  I.run = function(callback){_run(callback);};
+  I.want = function(callback){_want(callback);};
   I.get = function(klass,callback){_get(klass,callback);};
   
   I.regist('lang.Store',function(w,d){
-    var _host = location.hostname;
+    var _host = location.hostname||'localhost';
     var _LS = [{
       loaded:false,
       instance:null,
@@ -340,6 +367,35 @@
       },
       clear:function(){
        this.instance.clear();
+      },
+      removeItem:function(k){
+        var inst = this.instance;
+        var c = [];
+        var l = inst.length;
+        switch(k.indexOf('*')){
+          case 0:
+            var suffix = k.substr(1);
+            for(var i=0;i<l;i++){
+              var key = inst.key(i);
+              if(key.indexOf(suffix)==key.length-suffix.length){
+                c.push(key);
+              }
+            }
+          break;
+          case k.length-1:
+            var prefix = k.substr(0,k.length-1);
+            for(var i=0;i<l;i++){
+              var key = inst.key(i);
+              if(0==key.indexOf(prefix)){
+                c.push(key);
+              }
+            }
+          break;
+          default:c.push(k);break;
+        }
+        for(var i =0;i<c.length;i++){
+          inst.removeItem(c[i]);
+        }
       }
     },
     {
@@ -348,11 +404,12 @@
       support:function(){
         if(!this.loaded){
           try{
+            var box = d.body||d.getElementsByTagName('head')[0]||d.documentElement;
             var o = d.createElement('input');
             o.type = 'hidden';
             o.style.display = 'none';
             o.addBehavior ("#default#userData");
-            d.body.appendChild(o);
+            box.appendChild(o);
             var exp = new Date();
             exp.setDate(exp.getDate()+365);
             o.expires = exp.toUTCString();
@@ -363,9 +420,10 @@
         return this.instance?true:false;
       },
       setItem:function(k,v){
-        this.instance.load(_host);
-        this.instance.setAttribute(k,v);
-        this.instance.save(_host);
+        var obj = this.instance;
+        obj.load(_host);
+        obj.setAttribute(k,v);
+        obj.save(_host);
       },
       getItem:function(k){
         this.instance.load(_host);
@@ -378,6 +436,16 @@
         exp = new Date();
         exp.setDate(exp.getDate()+365);
         this.instance.expires = exp.toUTCString();
+      },
+      removeItem:function(k){
+        var index = k.indexOf('*');
+        if(0!=index&&k.length-1!=index){
+          this.instance.load(_host);
+          this.instance.removeAttribute(k);
+          this.instance.save(_host);
+        }else{
+          this.clear();
+        }
       }
     }];
     var _set = function(k,v){
@@ -404,9 +472,18 @@
         }
       }
     };
+    var _remove = function(k){
+      for(var i=0;i<_LS.length;i++){
+        if(_LS[i].support()){
+          _LS[i].removeItem(k);
+          break;
+        }
+      }
+    };
     return {
       set:function(k,v){_set(k,v);},
       get:function(k){return _get(k);},
+      remove:function(k){return _remove(k);},
       clear:function(){_clear();}
     };
   }+'');
@@ -463,12 +540,38 @@
         }
         return c;
       },
+      NEXT:function(d,o){
+        var pt = o.parentNode;
+        var chd = this.CHILD(pt);
+        var me = false;
+        for(var i=0;i<chd.length;i++){
+          if(me){
+            return chd[i];
+          }
+          if(chd[i]==o){
+            me = true;
+          }
+        }
+        return null;
+      },
+      PREVIOUS:function(d,o){
+        var pt = o.parentNode;
+        var chd = this.CHILD(pt);
+        var last = null;
+        for(var i=0;i<chd.length;i++){
+          if(chd[i]==o){
+            return last;
+          }
+          last = chd[i];
+        }
+        return null;
+      },
       CLASS:function(o,s){
         if(o.getElementsByClassName){
           return o.getElementsByClassName(s);
         }
         var c = [];
-        var els = this['NAME'](o,'*');
+        var els = this['TAG'](o,'*');
         var i = els.length;
         var ss = s.replace(/\-/g, '\\-');
         var pattern = new RegExp('(^|\\s)'+ss+'(\\s|$)');
@@ -581,6 +684,11 @@
         f(l,0);
       }
     };
+    var _delay = function(time,callback){
+      W.setTimeout(function(){
+        callback.call(callback);
+      },time);
+    };
    
     I['$'] = function(){return $(arguments);};
     I['region'] = function(){return _region(arguments);};
@@ -592,6 +700,7 @@
     I['opacity'] = function(o,n){_opacity(o,n);return I;};
     I['style'] = function(s){_style(s);return I;};
     I['each'] = function(l,f){_each(l,f);return I;};
+    I['delay'] = function(time,callback){_delay(time,callback);};
     
     return {};
   }+'');

@@ -1,27 +1,28 @@
 package nc.liat6.npress.service;
 
 import java.util.List;
-
 import nc.liat6.npress.bean.Cat;
 
 /**
- * 分类业务接口
+ * 鍒嗙被涓氬姟鎺ュ彛
+ * 
  * @author 6tail
- *
+ * 
  */
 public interface ICatService{
-	
-	/**
-	 * 获取分类列表
-	 * @return 分类列表
-	 */
-	public List<Cat> listCats();
-	
-	/**
-	 * 根据ID获取分类
-	 * @param id 分类ID
-	 * @return 分类
-	 */
-	public Cat getCat(long id);
 
+  /**
+   * 鑾峰彇鍒嗙被鍒楄〃
+   * 
+   * @return 鍒嗙被鍒楄〃
+   */
+  public List<Cat> listCats();
+
+  /**
+   * 鏍规嵁ID鑾峰彇鍒嗙被
+   * 
+   * @param id 鍒嗙被ID
+   * @return 鍒嗙被
+   */
+  public Cat getCat(long id);
 }

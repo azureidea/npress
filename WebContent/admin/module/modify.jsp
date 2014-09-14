@@ -4,94 +4,86 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<div class="bar"><label>修改模块</label><a class="fa fa-minus-square" href="javascript:void(0);" onclick="deleteModule();">删除</a></div>
-<div id="form" class="form"></div>
-<nlft:jsbegin>
-I.run(function(){
-  var form = I.awt.Form.create(I.$('form'));
-  form.add({
-    id : 'id',
-    type:'hidden',
-    value:'${id}'
+<div class="bar">
+  <label>修改模块</label>
+  <a class="fa fa-minus-square" href="javascript:void(0);" onclick="deleteModule();">删除</a>
+</div>
+<div class="form">
+<div id="form">
+  <ul>
+    <li data-width="15">名称：</li>
+    <li><input id="name" type="text" value="${module.name}" /></li>
+  </ul>
+  <ul>
+    <li data-width="15">序号：</li>
+    <li><input id="index" type="text" value="${module.index}" /></li>
+  </ul>
+  <ul>
+    <li data-width="15">类型：</li>
+    <li><select id="type">
+          <option value="0">本窗口打开的本站URL</option>
+          <option value="1">新窗口打开的本站URL</option>
+          <option value="2">本窗口打开的外站URL</option>
+          <option value="3">新窗口打开的外站URL</option>
+          <option value="4">本窗口打开的页面</option>
+          <option value="5">新窗口打开的页面</option>
+        </select></li>
+  </ul>
+  <ul>
+    <li data-width="15">URL：</li>
+    <li><input id="url" type="text" value="${module.url}" /></li>
+  </ul>
+  <ul>
+    <li data-width="15">内容：</li>
+    <li><textarea id="content" rows="10">${module.content}</textarea></li>
+  </ul>
+  <ul>
+    <li data-width="15">是否首页：</li>
+    <li><select id="home">
+          <option value="0">否</option>
+          <option value="1">是</option>
+        </select></li>
+  </ul>
+  <ul>
+    <li></li>
+    <li data-width="20"><a id="btn">修改</a></li>
+  </ul>
+</div>
+</div>
+<script type="text/javascript">
+I.want(function(){
+  I.$('type').value = '${module.type}';
+  I.$('home').value = '${module.home}';
+  I.ui.Form.render('form');
+  I.ui.Button.render('btn',{
+    callback:function(){
+      I.net.Rmi.set('id','${id}');
+      I.net.Rmi.set('name',I.$('name').value);
+      I.net.Rmi.set('index',I.$('index').value);
+      I.net.Rmi.set('type',I.$('type').value);
+      I.net.Rmi.set('content',I.$('content').value);
+      I.net.Rmi.set('url',I.$('url').value);
+      I.net.Rmi.set('home',I.$('home').value);
+      I.net.Rmi.call('admin-Module', 'modify', function(r) {
+        I.net.Page.find('admin-Module/pageList');
+        hidePanel();
+      });
+    }
   });
-  form.add({
-    id : 'name',
-    label : '名称',
-    required : true
-  });
-  form.add({
-    id : 'index',
-    label : '序号',
-    required : true
-  });
-  form.add({
-    id : 'type',
-    type : 'select',
-    label : '类型',
-    options:[
-    {text:'本窗口打开的本站URL',value:'0'},
-    {text:'新窗口打开的本站URL',value:'1'},
-    {text:'本窗口打开的外站URL',value:'2'},
-    {text:'新窗口打开的外站URL',value:'3'},
-    {text:'本窗口打开的页面',value:'4'},
-    {text:'新窗口打开的页面',value:'5'}
-    ]
-  });
-  form.add({
-    id : 'url',
-    label : 'URL'
-  });
-  form.add({
-    id : 'content',
-    label : '内容',
-    type:'textarea'
-  });
-  form.add({
-    id : 'home',
-    label : '首页',
-    type:'select',
-    options:[
-      {text:'是',value:'1'},
-      {text:'否',value:'0'}
-    ]
-  });
-  form.add({
-    type : 'line'
-  });
-  form.add({
-    id : 'btn',
-    type : 'button',
-    label : '修改'
-  });
-  form.get('btn').onclick(function(m, e) {
-    form.post('admin-Module', 'modify', function(r) {
-      find('admin-Module/pageList');
-      hidePanel();
-    });
-  });
-  form.get('name').setValue(I.$('name').value);
-  form.get('index').setValue(I.$('index').value);
-  form.get('type').setValue(I.$('type').value);
-  form.get('content').setValue(I.$('content').value);
-  form.get('url').setValue(I.$('url').value);
-  form.get('home').setValue(I.$('home').value);
 });
 
 function deleteModule(){
-  I.run(function(){
-    I.z.Confirm.create('您确定要删除该模块吗？',function(){
-      I.net.Rmi.set('id','${id}');
-      I.net.Rmi.call('admin-Module','delete',function(r){
-        find('admin-Module/pageList');
-        hidePanel();
-      });
+  I.want(function(){
+    I.z.Confirm.create({
+      content:'您确定要删除该模块吗？',
+      yes:function(){
+        I.net.Rmi.set('id','${id}');
+        I.net.Rmi.call('admin-Module','delete',function(r){
+          I.net.Page.find('admin-Module/pageList');
+          hidePanel();
+        });
+      }
     });
   });
 }
-</nlft:jsbegin>
-<textarea id="name" class="hide">${module.name}</textarea>
-<textarea id="index" class="hide">${module.index}</textarea>
-<textarea id="type" class="hide">${module.type}</textarea>
-<textarea id="content" class="hide">${module.content}</textarea>
-<textarea id="url" class="hide">${module.url}</textarea>
-<textarea id="home" class="hide">${module.home}</textarea>
+</script>

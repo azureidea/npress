@@ -1,35 +1,27 @@
 package nc.liat6.npress;
 
 /**
- * È«¾Ö³£Á¿£¬²»Òª¸ü¸Ä
+ * å…¨å±€å¸¸é‡ï¼Œä¸è¦æ›´æ”¹
  * 
  * @author 6tail
  * 
  */
 public class Global{
 
-	/** Ä¬ÈÏÖ÷Ìâ */
-	public static final String DEFAULT_THEME = "basic";
-
-	/** ÓÃ»§session±êÊ¶ */
-	public static final String SESSION_USER = "user";
-
-	/** Ä¬ÈÏÍøÕ¾Ãû */
-	public static final String DEFAULT_WEB_NAME = "ÁùÌØ¶û";
-
-	/** Ä¬ÈÏ×÷Õß */
-	public static final String DEFAULT_WEB_AUTHOR = "6tail";
-
-	/** Ä¬ÈÏÍøÕ¾¹Ø¼ü´Ê */
-	public static final String DEFAULT_WEB_KEY = "npress,java¿ªÔ´,blog,ÁùÌØ¶û,6tail,javascript,webgame,NLF¿ò¼Ü,i.js¿ò¼Ü";
-
-	/** Ä¬ÈÏÍøÕ¾ÃèÊö */
-	public static final String DEFAULT_WEB_DESCIPTION = "npressÊÇÁùÌØ¶û»ùÓÚNLF¿ò¼Ü¿ª·¢µÄÒ»¿îjava¿ªÔ´²©¿Í³ÌĞò¡£";
-	
-	/** Ä¬ÈÏ°æÈ¨ */
-	public static final String DEFAULT_WEB_COPYRIGHT = "2014 &copy; 6tail.cn";
-
-	/** Ä¬ÈÏ»º´æÎÄ¼ş¼Ğ */
-	public static final String DEFAULT_CACHE_DIR = "cache";
-
+  /** é»˜è®¤ä¸»é¢˜ */
+  public static final String DEFAULT_THEME = "basic";
+  /** ç”¨æˆ·sessionæ ‡è¯† */
+  public static final String SESSION_USER = "user";
+  /** é»˜è®¤ç½‘ç«™å */
+  public static final String DEFAULT_WEB_NAME = "å…­ç‰¹å°”";
+  /** é»˜è®¤ä½œè€… */
+  public static final String DEFAULT_WEB_AUTHOR = "6tail";
+  /** é»˜è®¤ç½‘ç«™å…³é”®è¯ */
+  public static final String DEFAULT_WEB_KEY = "npress,javaå¼€æº,blog,å…­ç‰¹å°”,6tail,javascript,webgame,NLFæ¡†æ¶,i.jsæ¡†æ¶";
+  /** é»˜è®¤ç½‘ç«™æè¿° */
+  public static final String DEFAULT_WEB_DESCIPTION = "npressæ˜¯å…­ç‰¹å°”åŸºäºNLFæ¡†æ¶å¼€å‘çš„ä¸€æ¬¾javaå¼€æºåšå®¢ç¨‹åºã€‚";
+  /** é»˜è®¤ç‰ˆæƒ */
+  public static final String DEFAULT_WEB_COPYRIGHT = "2014 &copy; 6tail.cn";
+  /** é»˜è®¤ç¼“å­˜æ–‡ä»¶å¤¹ */
+  public static final String DEFAULT_CACHE_DIR = "cache";
 }

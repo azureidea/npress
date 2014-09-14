@@ -8,35 +8,35 @@ import nc.liat6.frame.util.Dater;
 import nc.liat6.npress.init.IInit;
 
 /**
- * ÎÄÕÂ³õÊ¼»¯
+ * æ–‡ç« åˆå§‹åŒ–
+ * 
  * @author 6tail
- *
+ * 
  */
 public class InitArticle implements IInit{
 
-	@Override
-	public void init(){
-		ITrans t = TransFactory.getTrans();
-		try{
-			if(t.getCounter().table("T_ARTICLE").count() > 0){
-				t.rollback();
-				t.close();
-				return;
-			}
-		}catch(DaoException e){}
-
-		IInserter ins = t.getInserter();
-		ins.table("T_ARTICLE");
-		ins.set("C_ID",1);
-		ins.set("C_USER_ID",1);
-		ins.set("C_TITLE","Hello World!");
-		ins.set("C_CONTENT","<p>»¶Ó­Ê¹ÓÃnpress£¬ÕâÊÇ³õÊ¼»¯ºó×Ô¶¯Éú³ÉµÄÒ»ÆªÎÄÕÂ¡£</p>");
-		ins.set("C_DESC","<p>»¶Ó­Ê¹ÓÃnpress£¬ÕâÊÇ³õÊ¼»¯ºó×Ô¶¯Éú³ÉµÄÒ»ÆªÎÄÕÂ¡£</p>");
-		ins.set("C_DAY",Dater.ymd(Dater.now()));
-		ins.set("C_TIME",Dater.ymdhms(Dater.now()));
-		ins.insert();
-		t.commit();
-		t.close();
-	}
-
+  @Override
+  public void init(){
+    ITrans t = TransFactory.getTrans();
+    try{
+      if(t.getCounter().table("T_ARTICLE").count()>0){
+        t.rollback();
+        t.close();
+        return;
+      }
+    }catch(DaoException e){
+    }
+    IInserter ins = t.getInserter();
+    ins.table("T_ARTICLE");
+    ins.set("C_ID",1);
+    ins.set("C_USER_ID",1);
+    ins.set("C_TITLE","Hello World!");
+    ins.set("C_CONTENT","<p>æ¬¢è¿ä½¿ç”¨npressï¼Œè¿™æ˜¯åˆå§‹åŒ–åè‡ªåŠ¨ç”Ÿæˆçš„ä¸€ç¯‡æ–‡ç« ã€‚</p>");
+    ins.set("C_DESC","<p>æ¬¢è¿ä½¿ç”¨npressï¼Œè¿™æ˜¯åˆå§‹åŒ–åè‡ªåŠ¨ç”Ÿæˆçš„ä¸€ç¯‡æ–‡ç« ã€‚</p>");
+    ins.set("C_DAY",Dater.ymd(Dater.now()));
+    ins.set("C_TIME",Dater.ymdhms(Dater.now()));
+    ins.insert();
+    t.commit();
+    t.close();
+  }
 }

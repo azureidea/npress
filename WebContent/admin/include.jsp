@@ -4,11 +4,10 @@
 <meta http-equiv="Content-Language" content="zh-cn" />
 <link type="text/css" rel="stylesheet" href="${PATH}/css/admin.css" />
 <link type="text/css" rel="stylesheet" href="${PATH}/css/font-awesome.css" />
-<script type="text/javascript" src="${PATH}/js/iloader.js"></script>
-<script type="text/javascript" src="${PATH}/js/find.js"></script>
+<script type="text/javascript" src="${PATH}/js/icore.js"></script>
 <script type="text/javascript">
 function userLogin(){
-  I.run(function(){
+  I.want(function(){
     I.net.Rmi.from('account','password');
     I.net.Rmi.call('action-Login','login',function(r){
       if('1'==r){
@@ -20,7 +19,7 @@ function userLogin(){
   });
 }
 function userLogout(){
-  I.run(function(){
+  I.want(function(){
     I.net.Rmi.call('action-Login','logout',function(r){
       self.location = '${PATH}/';
     });
