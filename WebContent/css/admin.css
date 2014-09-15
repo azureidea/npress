@@ -111,6 +111,10 @@ li.fst a.module:before {
   content: "\f0e8";
 }
 
+li.fst a.link:before {
+  content: "\f0c1";
+}
+
 li.fst a.custom:before {
   content: "\f183";
 }

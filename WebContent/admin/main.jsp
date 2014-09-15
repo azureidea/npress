@@ -83,7 +83,7 @@ function trOnSelected(table,callback){
 <body>
   <div id="top">
     <div id="logo">管理控制台</div>
-    <a id="exit" class="fa fa-sign-out" href="javascript:void(0);" title="退出" onclick="userLogout();"></a>
+    <a id="exit" class="fa fa-power-off" href="javascript:void(0);" title="退出" onclick="userLogout();"></a>
     <div id="user">${user.name}</div>
   </div>
   <div id="main"></div>
@@ -292,6 +292,10 @@ function trOnSelected(table,callback){
       {n:'module',t:'模块管理',c:[
         {n:'module_add',t:'添加模块',u:'admin-Module/pageAdd'},
         {n:'module_list',t:'模块列表',u:'admin-Module/pageList'}
+      ]},
+      {n:'link',t:'友情链接',c:[
+        {n:'link_add',t:'添加网站',u:'admin-Link/pageAdd'},
+        {n:'link_list',t:'网站列表',u:'admin-Link/pageList'}
       ]}
     ];
     initMenu(r);
