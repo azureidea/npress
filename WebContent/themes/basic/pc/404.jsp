@@ -7,11 +7,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/themes/basic/include.jsp" />
+<jsp:include page="/themes/basic/pc/include.jsp" />
 <title>404 - ${WEB_NAME}</title>
 </head>
 <body>
-    <jsp:include page="/themes/basic/header.jsp" />
+    <jsp:include page="/themes/basic/pc/header.jsp" />
     <div class="body">
         <div class="container">
           <div class="art_desc">您访问的页面被猫吃了！</div>
@@ -19,6 +19,6 @@
           <div class="clear"></div>
         </div>
     </div>
-    <jsp:include page="/themes/basic/footer.jsp" />
+    <jsp:include page="/themes/basic/pc/footer.jsp" />
 </body>
 </html>

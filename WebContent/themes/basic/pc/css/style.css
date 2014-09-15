@@ -53,6 +53,29 @@ ol {
   list-style: none
 }
 
+a.weixin ol{
+  cursor:default;
+  margin-left:-5px;
+  margin-top:3px;
+  display:none;
+  position:absolute;
+  z-index:1000;
+  width:128px;
+  height:128px;
+  background-color:#FFF;
+  border:1px solid #C8C8C8;
+  overflow:hidden;
+}
+
+a.weixin:hover ol {
+  display:block;
+}
+
+a.weixin li{
+  margin:0;
+  display:block;
+}
+
 div.header {
   margin: 0 auto;
   width: 998px;

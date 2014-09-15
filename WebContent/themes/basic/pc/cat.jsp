@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/themes/basic/include.jsp" />
+<jsp:include page="/themes/basic/pc/include.jsp" />
 <title>${cat.name} - ${WEB_NAME}</title>
 </head>
 <body>
-    <jsp:include page="/themes/basic/header.jsp" />
+    <jsp:include page="/themes/basic/pc/header.jsp" />
     <div class="body">
         <div class="left">
         <ul>
@@ -30,10 +30,10 @@
         <div><nlft:page near="1" /></div>
         </div>
         <div class="right">
-          <jsp:include page="/themes/basic/comp/cat.jsp" />
+          <jsp:include page="/themes/basic/pc/comp/cat.jsp" />
         </div>
         <div class="clear"></div>
     </div>
-    <jsp:include page="/themes/basic/footer.jsp" />
+    <jsp:include page="/themes/basic/pc/footer.jsp" />
 </body>
 </html>

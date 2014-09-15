@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import nc.liat6.frame.context.Context;
+import nc.liat6.frame.context.Statics;
 import nc.liat6.frame.execute.Request;
 import nc.liat6.frame.web.WebContext;
 import nc.liat6.frame.web.WebExecute;
@@ -97,12 +98,19 @@ public class WebManagerNPress extends WebManager{
   @Override
   public void filter(){
     super.filter();
-    Object r = Context.get(WebExecute.EXECUTE_RETURN);
+    Request r = Context.get(Statics.REQUEST);
+    //返回结果
+    Object o = Context.get(WebExecute.EXECUTE_RETURN);
     // 如果返回的是Page，自动重定向到当前主题下
-    if(r instanceof Page){
-      Page p = (Page)r;
+    if(o instanceof Page){
+      Page p = (Page)o;
       if(!p.getUri().startsWith("/")){
-        p.setUri("/themes/"+theme+"/"+p.getUri());
+        //如果是移动客户端，转到mobile目录
+        if(Request.CLIENT_TYPE_MOBILE==r.getClientType()){
+          p.setUri("/themes/"+theme+"/mobile/"+p.getUri());
+        }else{
+          p.setUri("/themes/"+theme+"/pc/"+p.getUri());
+        }
       }
     }
   }

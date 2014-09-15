@@ -3,9 +3,13 @@
 <div class="header">
   <div class="topbar">
     <div class="pull-right">
-      <a>关注微信</a>
+      <a class="weixin">微信扫一扫
+        <ol>
+          <li><img src="${PATH}/themes/basic/pc/images/weixin.jpg" width="128" height="128" /></li>
+        </ol>
+      </a>
       &nbsp;|&nbsp;
-      <a href="http://weibo.com/midew" target="_blank">新浪微博</a>
+      <a href="http://weibo.com/liat6" target="_blank">新浪微博</a>
     </div>
   </div>
   <form id="searchForm" class="search pull-right" method="get" action="${PATH}/">
