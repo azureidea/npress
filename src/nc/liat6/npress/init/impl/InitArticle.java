@@ -31,7 +31,7 @@ public class InitArticle implements IInit{
     ins.set("C_ID",1);
     ins.set("C_USER_ID",1);
     ins.set("C_TITLE","Hello World!");
-    ins.set("C_CONTENT","<p>欢迎使用npress，这是初始化后自动生成的说明文档。</p><p>npress可以在无需数据库的情况下直接运行，它使用NLF框架自带的csv数据库，当然，你也可以在classes/db/下修改配置文件以使用其他数据库。</p><p>后台登录地址为：/login.jsp，默认管理员用户名：admin，默认密码：admin，请登录后台进行修改。</p><p>源代码github：<a target=\"_blank\" href=\"https://github.com/6tail/npress\">https://github.com/6tail/npress</a></p>");
+    ins.set("C_CONTENT","<p>欢迎使用npress，这是初始化后自动生成的说明文档。</p><p>npress可以在无需数据库的情况下直接运行，它使用NLF框架自带的csv数据库，当然，你也可以在classes/db/下修改配置文件以使用其他数据库。</p><p>后台登录地址为：/login.jsp，默认管理员用户名：admin，默认密码：admin，请登录后台进行修改。</p><p>源代码github：<a target=\"_blank\" href=\"https://github.com/6tail/npress\">https://github.com/6tail/npress</a></p><p>还有一个需要注意的，在部署的时候，记得把js/icore.js中的debug改为false。</p>");
     ins.set("C_DESC","<p>欢迎使用npress，这是初始化后自动生成的说明文档。</p>npress可以在无需数据库的情况下直接运行，它使用NLF框架自带的csv数据库，当然，你也可以在classes/db/下修改配置文件");
     ins.set("C_DAY",Dater.ymd(Dater.now()));
     ins.set("C_TIME",Dater.ymdhms(Dater.now()));
