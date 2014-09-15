@@ -16,7 +16,7 @@
     <input name="s" type="text" placeholder="输入关键字" x-webkit-speech />
     <a href="javascript:void(0);" onclick="document.getElementById('searchForm').submit();">搜索</a>
   </form>
-  <div class="logo"></div>
+  <a class="logo" href="${PATH}/"></a>
   <ul class="module">
   <c:forEach items="${modules}" var="o">
      <c:choose>

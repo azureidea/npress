@@ -129,7 +129,8 @@ form.search a {
   line-height:40px;
   height: 40px;
 }
-div.logo{
+a.logo{
+  display:block;
   margin-top:30px;
   margin-left:20px;
   background-image:url('../images/logo.jpg');
@@ -243,19 +244,23 @@ ul.infos li a{
   font-size:14px;
 }
 ul.links{
-  float: right;
+  float: left;
+  margin-left:-1px;
   display: block;
   width:860px;
+  border-left:1px solid #444;
 }
 ul.links div{
+  margin-left:20px;
   height:28px;
   color:#888;
   font-size:16px;
 }
 ul.links li{
   float:left;
+  margin-left:20px;
   display: block;
-  width:86px;
+  width:87px;
   height:26px;
   line-height:26px;
 }
