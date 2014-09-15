@@ -34,6 +34,8 @@ public class Module{
   private String content;
   /** 序号 */
   private int index;
+  /** 位置，0顶部，1底部 */
+  private int pos;
 
   public int getIndex(){
     return index;
@@ -89,5 +91,13 @@ public class Module{
 
   public void setUrl(String url){
     this.url = url;
+  }
+
+  public int getPos(){
+    return pos;
+  }
+
+  public void setPos(int pos){
+    this.pos = pos;
   }
 }

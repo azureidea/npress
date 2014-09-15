@@ -10,6 +10,13 @@
     <li><input id="index" type="text" /></li>
   </ul>
   <ul>
+    <li data-width="10">位置：</li>
+    <li><select id="pos">
+          <option value="0">顶部</option>
+          <option value="1">底部</option>
+        </select></li>
+  </ul>
+  <ul>
     <li data-width="10">类型：</li>
     <li><select id="type">
           <option value="0">本窗口打开的本站URL</option>
@@ -48,6 +55,7 @@ I.want(function(){
     callback:function(){
       I.net.Rmi.set('name',I.$('name').value);
       I.net.Rmi.set('index',I.$('index').value);
+      I.net.Rmi.set('pos',I.$('pos').value);
       I.net.Rmi.set('type',I.$('type').value);
       I.net.Rmi.set('content',I.$('content').value);
       I.net.Rmi.set('url',I.$('url').value);

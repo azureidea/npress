@@ -1,0 +1,10 @@
+{
+  alias:'csvdb',
+  dbtype:'csv',
+  server:null,
+  port:0,
+  dbname:'D:\\db\\npress',
+  user:null,
+  password:null,
+  type:'csv'
+}

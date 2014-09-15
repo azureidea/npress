@@ -19,6 +19,13 @@
     <li><input id="index" type="text" value="${module.index}" /></li>
   </ul>
   <ul>
+    <li data-width="15">位置：</li>
+    <li><select id="pos">
+          <option value="0">顶部</option>
+          <option value="1">底部</option>
+        </select></li>
+  </ul>
+  <ul>
     <li data-width="15">类型：</li>
     <li><select id="type">
           <option value="0">本窗口打开的本站URL</option>
@@ -53,6 +60,7 @@
 <script type="text/javascript">
 I.want(function(){
   I.$('type').value = '${module.type}';
+  I.$('pos').value = '${module.pos}';
   I.$('home').value = '${module.home}';
   I.ui.Form.render('form');
   I.ui.Button.render('btn',{
@@ -60,6 +68,7 @@ I.want(function(){
       I.net.Rmi.set('id','${id}');
       I.net.Rmi.set('name',I.$('name').value);
       I.net.Rmi.set('index',I.$('index').value);
+      I.net.Rmi.set('pos',I.$('pos').value);
       I.net.Rmi.set('type',I.$('type').value);
       I.net.Rmi.set('content',I.$('content').value);
       I.net.Rmi.set('url',I.$('url').value);

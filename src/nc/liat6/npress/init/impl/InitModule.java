@@ -35,6 +35,7 @@ public class InitModule implements IInit{
     ins.set("C_CONTENT","");
     ins.set("C_IS_HOME",1);
     ins.set("C_INDEX",0);
+    ins.set("C_POS",0);
     ins.insert();
     t.commit();
     t.close();

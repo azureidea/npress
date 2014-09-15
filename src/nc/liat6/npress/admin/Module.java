@@ -78,6 +78,7 @@ public class Module{
     String home = r.get("home");
     String content = r.get("content");
     int index = r.getInt("index");
+    int pos = r.getInt("pos");
     Validator.check(name,new RuleNotEmpty("模块名"));
     ITrans t = TransFactory.getTrans();
     String id = ID.next()+"";
@@ -89,6 +90,7 @@ public class Module{
     ins.set("C_IS_HOME",home);
     ins.set("C_CONTENT",content);
     ins.set("C_INDEX",index);
+    ins.set("C_POS",pos);
     ins.insert();
     t.commit();
     t.close();
@@ -109,6 +111,7 @@ public class Module{
     String home = r.get("home");
     String content = r.get("content");
     int index = r.getInt("index");
+    int pos = r.getInt("pos");
     Validator.check(name,new RuleNotEmpty("模块名"));
     ITrans t = TransFactory.getTrans();
     IUpdater iup = t.getUpdater().table("T_MODULE");
@@ -119,6 +122,7 @@ public class Module{
     iup.set("C_IS_HOME",home);
     iup.set("C_CONTENT",content);
     iup.set("C_INDEX",index);
+    iup.set("C_POS",pos);
     iup.update();
     t.commit();
     t.close();

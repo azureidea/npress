@@ -20,6 +20,7 @@ public class ModuleAdapter implements IBeanRule{
     map.put("content","C_CONTENT");
     map.put("home","C_IS_HOME");
     map.put("index","C_INDEX");
+    map.put("pos","C_POS");
   }
 
   @Override
