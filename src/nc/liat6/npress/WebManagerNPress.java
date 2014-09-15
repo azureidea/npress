@@ -63,7 +63,7 @@ public class WebManagerNPress extends WebManager{
       ncm.setKlass("nc.liat6.npress."+klass);
       HttpServletRequest r = Context.get("NLF_HTTP_SERVLET_REQUEST");
       // 需要请求缓存
-      if(cacheMethods.contains(method)){
+      if(cacheMethods.contains(method)&&"true".equalsIgnoreCase(Global.CONFIG_SERVICE.getConfig("CACHE_ENABLE").getValue())){
         // 传来的id参数
         String id = r.getParameter("id");
         id = null==id?"":id;
@@ -75,7 +75,7 @@ public class WebManagerNPress extends WebManager{
        
         // 缓存文件唯一名称
         String fileName = klass+"-"+id+"-"+pageNum+".html";
-        File dir = new File(WebContext.REAL_PATH,Global.DEFAULT_CACHE_DIR);
+        File dir = new File(WebContext.REAL_PATH,Global.CONFIG_SERVICE.getConfig("CACHE_DIR").getValue());
         if(!dir.exists()||!dir.isDirectory()){
           dir.mkdirs();
         }

@@ -23,6 +23,8 @@ import nc.liat6.npress.cache.CacheResponse;
  * 
  */
 public class ExecuterNPress extends WebExecute{
+  
+  
 
   protected void responsePage(Page p){
     Request r = Context.get(Statics.REQUEST);
@@ -49,7 +51,7 @@ public class ExecuterNPress extends WebExecute{
       String klass = cm.getKlass();
       String method = cm.getMethod();
       // 写缓存文件
-      if(klass.startsWith("action.")){
+      if(klass.startsWith("action.")&&"true".equalsIgnoreCase(Global.CONFIG_SERVICE.getConfig("CACHE_ENABLE").getValue())){
         if(WebManagerNPress.cacheMethods.contains(method)){
           // 传来的id参数
           String id = r.get("id");
@@ -57,7 +59,7 @@ public class ExecuterNPress extends WebExecute{
           int pageNum = r.getPageNumber();
           // 缓存文件唯一名称
           String fileName = klass+"-"+id+"-"+pageNum+".html";
-          File dir = new File(WebContext.REAL_PATH,Global.DEFAULT_CACHE_DIR);
+          File dir = new File(WebContext.REAL_PATH,Global.CONFIG_SERVICE.getConfig("CACHE_DIR").getValue());
           if(!dir.exists()||!dir.isDirectory()){
             dir.mkdirs();
           }
