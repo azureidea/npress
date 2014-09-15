@@ -13,7 +13,7 @@
 <body>
     <jsp:include page="/themes/basic/header.jsp" />
     <div class="body">
-        <div class="left container">
+        <div class="left">
         <ul>
             <li>
                 <div class="art_header"><a href="${PATH}/action-Article/detail?id=${art.id}">${art.title}</a></div>

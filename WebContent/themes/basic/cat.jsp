@@ -10,13 +10,21 @@
 <body>
     <jsp:include page="/themes/basic/header.jsp" />
     <div class="body">
-        <div class="left container">
+        <div class="left">
         <ul>
         <c:forEach items="${nlfPagingData.data}" var="o">
-            <li>
-                <div class="art_header"><a href="${PATH}/action-Article/detail?id=${o.id}">${o.title}</a></div>
-                <div class="clear"></div>
-            </li>
+        <li>
+          <div class="art_header"><a href="${PATH}/action-Article/detail?id=${o.id}">${o.title}</a></div>
+          <div class="art_desc">${o.description}...<a class="detail" href="${PATH}/action-Article/detail?id=${o.id}">阅读全文</a></div>
+          <div class="art_footer">
+            <div class="pull-right">
+              <a class="fa fa-share-alt"></a>
+              <a class="fa fa-comment-o"></a>
+            </div>
+            <i class="fa fa-clock-o">&nbsp;${o.day}</i>
+          </div>
+          <div class="clear"></div>
+        </li>
         </c:forEach>
         </ul>
         <div><nlft:page near="1" /></div>
