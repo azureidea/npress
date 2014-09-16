@@ -20,6 +20,8 @@ public class Article{
   private String day;
   /** 发布时间 */
   private String time;
+  /** 图片路径 */
+  private String pic;
 
   public long getId(){
     return id;
@@ -67,5 +69,13 @@ public class Article{
 
   public void setTime(String time){
     this.time = time;
+  }
+
+  public String getPic(){
+    return pic;
+  }
+
+  public void setPic(String pic){
+    this.pic = pic;
   }
 }

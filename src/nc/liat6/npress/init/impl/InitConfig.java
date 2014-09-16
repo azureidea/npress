@@ -73,7 +73,13 @@ public class InitConfig implements IInit{
     ins.set("C_KEY","CACHE_DIR");
     ins.set("C_VALUE","cache");
     ins.set("C_NAME","缓存目录名");
-    ins.set("C_DESC","");
+    ins.set("C_DESC","一般情况下不建议修改");
+    ins.insert();
+    
+    ins.set("C_KEY","UPLOAD_DIR");
+    ins.set("C_VALUE","uploads");
+    ins.set("C_NAME","文件上传目录名");
+    ins.set("C_DESC","一般情况下不建议修改");
     ins.insert();
     t.commit();
     t.close();

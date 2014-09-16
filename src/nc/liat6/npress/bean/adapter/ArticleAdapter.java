@@ -19,6 +19,7 @@ public class ArticleAdapter implements IBeanRule{
     map.put("description","C_DESC");
     map.put("day","C_DAY");
     map.put("time","C_TIME");
+    map.put("pic","C_PIC");
   }
 
   @Override
