@@ -47,7 +47,7 @@ I.want(function(){
     width:120,
     height:30,
     checkKlass:'nc-liat6-frame-web-upload-UploadStatus',
-    url:'${PATH}/admin-File/upload',
+    url:'${PATH}/admin-File/uploadPic',
     onSuccess:function(r){
       I.$('pic').value = r.data;
     }
@@ -67,6 +67,7 @@ I.want(function(){
       }
       I.net.Rmi.set('cats',ps.join(','));
       I.net.Rmi.call('admin-Article', 'add', function(r) {
+        I.net.Page.find('admin-Article/pageList');
       });
     }
   });

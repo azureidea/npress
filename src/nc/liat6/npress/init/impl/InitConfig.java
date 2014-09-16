@@ -81,6 +81,18 @@ public class InitConfig implements IInit{
     ins.set("C_NAME","文件上传目录名");
     ins.set("C_DESC","一般情况下不建议修改");
     ins.insert();
+    
+    ins.set("C_KEY","PIC_WIDTH");
+    ins.set("C_VALUE","160");
+    ins.set("C_NAME","头图宽度");
+    ins.set("C_DESC","像素");
+    ins.insert();
+    
+    ins.set("C_KEY","PIC_HEIGHT");
+    ins.set("C_VALUE","160");
+    ins.set("C_NAME","头图高度");
+    ins.set("C_DESC","像素");
+    ins.insert();
     t.commit();
     t.close();
   }

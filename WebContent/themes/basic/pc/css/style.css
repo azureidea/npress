@@ -76,6 +76,12 @@ a.weixin li{
   display:block;
 }
 
+img.pic{
+  float:left;
+  margin-right:20px;
+  border:1px solid #DDD;
+}
+
 div.header {
   margin: 0 auto;
   width: 998px;

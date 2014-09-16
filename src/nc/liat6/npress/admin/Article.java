@@ -178,4 +178,19 @@ public class Article{
     t.close();
     return new Tip("修改成功");
   }
+  
+  /**
+   * 删除文章
+   * 
+   * @return
+   */
+  public Object delete(){
+    Request r = Context.get(Statics.REQUEST);
+    long id = r.getLong("id");
+    ITrans t = TransFactory.getTrans();
+    t.getDeleter().table("T_ARTICLE").where("C_ID",id).delete();
+    t.commit();
+    t.close();
+    return new Tip("删除成功");
+  }
 }
