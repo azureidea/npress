@@ -25,8 +25,12 @@
               ${o.description}...<a class="detail" href="${PATH}/action-Article/detail?id=${o.id}">阅读全文</a></div>
               <div class="art_footer">
                 <div class="pull-right">
-                  <a class="fa fa-share-alt"></a>
-                  <a class="fa fa-comment-o"></a>
+                  <a class="fa fa-share-alt">
+                    <ol>
+                      <li class="fa fa-weibo" onclick="shareTo('weibo','${o.title}','${DOMAIN}${PATH}/action-Article/detail?id=${o.id}');">分享到新浪微博</li>
+                      <li class="fa fa-qq" onclick="shareTo('qzone','${o.title}','${DOMAIN}${PATH}/action-Article/detail?id=${o.id}');">分享到QQ空间</li>
+                    </ol>
+                  </a>
                 </div>
                 <i class="fa fa-clock-o">&nbsp;${o.day}</i>
               </div>

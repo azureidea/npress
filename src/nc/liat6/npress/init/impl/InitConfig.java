@@ -93,6 +93,13 @@ public class InitConfig implements IInit{
     ins.set("C_NAME","头图高度");
     ins.set("C_DESC","像素");
     ins.insert();
+    
+    ins.set("C_KEY","DOMAIN");
+    ins.set("C_VALUE","localhost");
+    ins.set("C_NAME","域名");
+    ins.set("C_DESC","前面不要加http://，后面不要加/");
+    ins.insert();
+    
     t.commit();
     t.close();
   }
