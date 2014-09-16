@@ -470,7 +470,7 @@ table.list tfoot td {
   border: 0;
 }
 
-#nlfPagingForm {
+.nlfPagingForm {
   margin: 0;
   padding: 0;
   float: right;
@@ -478,58 +478,26 @@ table.list tfoot td {
   margin-bottom: 20px;
   text-align: center
 }
-
-#nlfPagingForm span {
-  display: none;
-  margin: 3px;
-  padding: 1px;
-  cursor: default
+.nlfPagingForm span {
+  display:none;
 }
-
-#nlfPagingForm button {
-  margin: 3px;
-  border: 1px solid #AAA;
-  border-radius: 5px;
-  background-color: #FBFAFA;
-  color: #695554;
-  padding: 0;
-  padding-left: 5px;
-  padding-right: 5px;
-  height: 25px;
-  cursor: pointer
+.nlfPagingForm input {
+  display:none;
 }
-
-#nlfPagingForm button b {
-  font-weight: normal;
-  font-size: 12px
+.nlfPagingForm a {
+  margin-left:3px;
+  color: #888;
+  text-align: center;
+  text-decoration: none;
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4E4;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  padding: 5px 5px;
 }
-
-#nlfPagingForm button.current {
+.nlfPagingForm a:hover {
   background-color: #F0F0F0;
-  border: 1px solid #C5C5C5;
-  color: #333333;
-}
-
-#nlfPagingForm button.current b {
-  font-weight: bold;
-  font-size: 12px
-}
-
-#nlfPagingForm button.number,#nlfPagingForm button.first,#nlfPagingForm button.previous,#nlfPagingForm button.next,#nlfPagingForm button.last
-  {
-  
-}
-
-#nlfPagingForm input.go {
-  display: none;
-  width: 26px;
-  border: 1px solid #999
-}
-
-#nlfPagingForm input.size {
-  display: none;
-  width: 26px;
-  border: 1px solid #999
 }
 
 .round-left-top {
