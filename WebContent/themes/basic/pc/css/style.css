@@ -149,7 +149,7 @@ ul.module {
   margin:0 20px;
   margin-top:20px;
   overflow: hidden;
-  background-color:#0099FF;
+  background-color:#4DAEFF;
 }
 
 ul.module li {
@@ -161,21 +161,21 @@ ul.module li a {
   height: 40px;
   line-height: 40px;
   font-size: 16px;
-  background-color:#0099FF;
+  background-color:#4DAEFF;
   color: #FFF;
   padding: 0 25px;
 }
 
 ul.module li a:hover {
-  background-color: #008BE7
+  background-color: #34A3FF
 }
 
 ul.module li.current a {
-  background-color: #008BE7
+  background-color: #34A3FF
 }
 
 ul.module li.home a {
-  background-color: #008BE7
+  background-color: #2099FE
 }
 
 div.body {
