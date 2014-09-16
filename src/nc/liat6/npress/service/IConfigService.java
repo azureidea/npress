@@ -25,9 +25,12 @@ public interface IConfigService{
    * @return 配置
    */
   public Config getConfig(String key);
-  
+
   /**
    * 刷新配置
    */
   public void fresh();
+
+  /** 更新到网站Application */
+  public void updateToApplication();
 }

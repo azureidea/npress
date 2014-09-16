@@ -115,6 +115,10 @@ li.fst a.link:before {
   content: "\f0c1";
 }
 
+li.fst a.config:before {
+  content: "\f013";
+}
+
 li.fst a.custom:before {
   content: "\f183";
 }
@@ -159,6 +163,14 @@ li.fst_current a.user:before {
 
 li.fst_current a.module:before {
   content: "\f0e8";
+}
+
+li.fst_current a.link:before {
+  content: "\f0c1";
+}
+
+li.fst_current a.config:before {
+  content: "\f013";
 }
 
 li.fst_current a.custom:before {

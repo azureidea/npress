@@ -296,6 +296,9 @@ function trOnSelected(table,callback){
       {n:'link',t:'友情链接',c:[
         {n:'link_add',t:'添加网站',u:'admin-Link/pageAdd'},
         {n:'link_list',t:'网站列表',u:'admin-Link/pageList'}
+      ]},
+      {n:'config',t:'系统设置',c:[
+        {n:'config_page',t:'网站配置',u:'admin-Config/page'}
       ]}
     ];
     initMenu(r);
