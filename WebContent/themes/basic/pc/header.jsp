@@ -12,8 +12,8 @@
       <a href="http://weibo.com/liat6" target="_blank">新浪微博</a>
     </div>
   </div>
-  <form id="searchForm" class="search pull-right" method="get" action="${PATH}/">
-    <input name="s" type="text" placeholder="输入关键字" x-webkit-speech />
+  <form id="searchForm" class="search pull-right" method="get" action="${PATH}/action-Search/result">
+    <input value="${s}" name="s" type="text" placeholder="输入关键字" x-webkit-speech />
     <a href="javascript:void(0);" onclick="document.getElementById('searchForm').submit();">搜索</a>
   </form>
   <a class="logo" href="${PATH}/"></a>

@@ -93,4 +93,21 @@ public class ArticleService implements IArticleService{
     }
     return cats;
   }
+
+  @Override
+  public PageData search(String keywords,int pageNumber,int pageSize){
+    ITrans t = TransFactory.getTrans();
+    PageData pd = t.getSelecter().table("T_ARTICLE").whereLike("C_TITLE",keywords).desc("C_ID").page(pageNumber,pageSize);
+    t.rollback();
+    t.close();
+    List<?> l = pd.getData();
+    List<Article> articles = new ArrayList<Article>(l.size());
+    for(int i = 0;i<l.size();i++){
+      Bean o = pd.getBean(i);
+      Article m = o.toObject(Article.class,articleAdapter);
+      articles.add(m);
+    }
+    pd.setData(articles);
+    return pd;
+  }
 }

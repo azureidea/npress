@@ -21,6 +21,14 @@ public interface IArticleService{
   public PageData pageArticles(int pageNumber,int pageSize);
 
   /**
+   * 按关键词搜索文章分页列表
+   * 
+   * @param keywords 关键词
+   * @return 文章列表
+   */
+  public PageData search(String keywords,int pageNumber,int pageSize);
+
+  /**
    * 根据ID获取文章
    * 
    * @param id 文章ID

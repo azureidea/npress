@@ -286,12 +286,12 @@ i.info {
 }
 
 .title {
-  height: 100px;
-  line-height: 100px;
+  height: 30px;
+  line-height: 30px;
   text-align: left;
-  text-indent: 10px;
-  font-size: 60px;
-  color: #0CA565
+  font-size: 16px;
+  color: #0CA565;
+  border-bottom:1px solid #DDD;
 }
 
 .left ul li {
