@@ -40,6 +40,7 @@
     </div>
     <div class="right">
       <jsp:include page="/themes/basic/pc/comp/cat.jsp" />
+      <jsp:include page="/themes/basic/pc/comp/plugin_3.jsp" />
     </div>
     <div class="space"></div>
   </div>

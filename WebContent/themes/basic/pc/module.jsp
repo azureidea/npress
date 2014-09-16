@@ -16,9 +16,11 @@
                 <div class="clear"></div>
             </li>
         </ul>
+        <jsp:include page="/themes/basic/pc/comp/plugin_2.jsp" />
         </div>
         <div class="right">
           <jsp:include page="/themes/basic/pc/comp/cat.jsp" />
+          <jsp:include page="/themes/basic/pc/comp/plugin_3.jsp" />
         </div>
         <div class="clear"></div>
     </div>

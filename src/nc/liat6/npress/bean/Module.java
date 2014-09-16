@@ -20,6 +20,8 @@ public class Module{
   public static final int TYPE_SELF_PAGE = 4;
   /** 新窗口打开的页面 */
   public static final int TYPE_BLANK_PAGE = 5;
+  /** 插件 */
+  public static final int TYPE_PLUGIN = 6;
   /** ID */
   private long id;
   /** 名称 */
@@ -34,7 +36,7 @@ public class Module{
   private String content;
   /** 序号 */
   private int index;
-  /** 位置，0顶部，1底部 */
+  /** 位置，0顶部，1底部，2文章详情底部，3右侧边栏 */
   private int pos;
 
   public int getIndex(){

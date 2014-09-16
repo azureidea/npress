@@ -12,8 +12,10 @@
   <ul>
     <li data-width="10">位置：</li>
     <li><select id="pos">
-          <option value="0">顶部</option>
-          <option value="1">底部</option>
+          <option value="0">顶部导航</option>
+          <option value="1">底部导航</option>
+          <option value="2">文章详情底部</option>
+          <option value="3">右侧边栏</option>
         </select></li>
   </ul>
   <ul>
@@ -25,6 +27,7 @@
           <option value="3">新窗口打开的外站URL</option>
           <option value="4">本窗口打开的页面</option>
           <option value="5">新窗口打开的页面</option>
+          <option value="6">插件</option>
         </select></li>
   </ul>
   <ul>

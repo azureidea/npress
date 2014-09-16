@@ -8,17 +8,18 @@
             <th class="sn">序号</th>
             <th>名称</th>
             <th>位置</th>
+            <th>类型</th>
         </tr>
     </thead>
     <tfoot>
         <tr>
-            <td colspan="4"></td>
+            <td colspan="5"></td>
         </tr>
     </tfoot>
     <tbody>
     <c:if test="${empty modules}">
         <tr>
-            <td colspan="4">暂无模块</td>
+            <td colspan="5">暂无模块</td>
         </tr>
     </c:if>
     <c:forEach items="${modules}" var="o" varStatus="index">
@@ -28,8 +29,21 @@
             <td>${o.name}</td>
             <td>
               <c:choose>
-                <c:when test="${0 eq o.pos}">顶部</c:when>
-                <c:when test="${1 eq o.pos}">底部</c:when>
+                <c:when test="${0 eq o.pos}">顶部导航</c:when>
+                <c:when test="${1 eq o.pos}">底部导航</c:when>
+                <c:when test="${2 eq o.pos}">文章详情底部</c:when>
+                <c:when test="${3 eq o.pos}">右侧边栏</c:when>
+              </c:choose>
+            </td>
+            <td>
+              <c:choose>
+                <c:when test="${0 eq o.type}">本窗口打开的本站URL</c:when>
+                <c:when test="${1 eq o.type}">新窗口打开的本站URL</c:when>
+                <c:when test="${2 eq o.type}">本窗口打开的外站URL</c:when>
+                <c:when test="${3 eq o.type}">新窗口打开的外站URL</c:when>
+                <c:when test="${4 eq o.type}">本窗口打开的页面</c:when>
+                <c:when test="${5 eq o.type}">新窗口打开的页面</c:when>
+                <c:when test="${6 eq o.type}">插件</c:when>
               </c:choose>
             </td>
         </tr>

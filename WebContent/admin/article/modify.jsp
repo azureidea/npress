@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="/nlfe" prefix="nlfe"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <div class="bar">
   <label>修改文章</label>
-  <a class="fa fa-minus-square" href="javascript:void(0);" onclick="deleteArticle();">删除</a>
+  <a class="fa fa-minus-square" href="javascript:void(0);" onclick="deleteArticle();">&nbsp;删除</a>
 </div>
 <div class="form">
   <div class="body">

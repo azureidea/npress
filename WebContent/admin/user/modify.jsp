@@ -2,7 +2,7 @@
 <%@ taglib uri="/nlft" prefix="nlft"%>
 <div class="bar">
   <label>修改用户</label>
-  <a class="fa fa-unlock-alt" href="javascript:void(0);" onclick="modifyPwd();">修改密码</a>
+  <a class="fa fa-unlock-alt" href="javascript:void(0);" onclick="modifyPwd();">&nbsp;修改密码</a>
 </div>
 <div class="form">
 <div id="form">
