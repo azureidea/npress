@@ -61,4 +61,23 @@ public class File{
     }
     return new Json(dirString+"/"+fileName);
   }
+  
+  public Object uploadBigPic(){
+    Request r = Context.get(Statics.REQUEST);
+    FileUploader uploader = r.find(WebExecute.TAG_UPLOADER);
+    UploadedFile file = uploader.getFile("jpg","gif","bmp","png");
+    String dirString = Global.CONFIG_SERVICE.getConfig("UPLOAD_DIR").getValue();
+    java.io.File dir = new java.io.File(WebContext.REAL_PATH,dirString);
+    if(!dir.exists()||!dir.isDirectory()){
+      dir.mkdirs();
+    }
+    String fileName = ID.next()+".jpg";
+    try{
+      BufferedImage img = ImageHelper.image(file.getBody());
+      ImageHelper.writeJPG(img,new java.io.File(dir,fileName));
+    }catch(IOException e){
+      throw new BadUploadException("文件上传失败",e);
+    }
+    return new Json(WebContext.CONTEXT_PATH+"/"+dirString+"/"+fileName);
+  }
 }

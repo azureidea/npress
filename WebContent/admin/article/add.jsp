@@ -52,7 +52,10 @@ I.want(function(){
       I.$('pic').value = r.data;
     }
   });
-  var editor = I.ui.Editor.render('content');
+  var editor = I.ui.Editor.render('content',{
+    checkKlass:'nc-liat6-frame-web-upload-UploadStatus',
+    uploadUrl:'${PATH}/admin-File/uploadBigPic'
+  });
   I.ui.Button.render('btn',{
     callback:function(){
       I.net.Rmi.set('title',I.$('title').value);

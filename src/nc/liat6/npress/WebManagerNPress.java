@@ -22,6 +22,8 @@ import nc.liat6.npress.cache.CacheAction;
  * 
  */
 public class WebManagerNPress extends WebManager{
+  
+  static final String[] MOBILE_AGENT = {"iphone","ipad","android","phone","mobile","wap","netfront","java","opera mobi","opera mini","ucweb","windows ce","symbian","series","webos","sony","blackberry","dopod","nokia","samsung","palmsource","xda","pieplus","meizu","midp","cldc","motorola","foma","docomo","up.browser","up.link","blazer","helio","hosin","huawei","novarra","coolpad","webos","techfaith","palmsource","alcatel","amoi","ktouch","nexian","ericsson","philips","sagem","wellcom","bunjalloo","maui","smartphone","iemobile","spice","bird","zte-","longcos","pantech","gionee","portalmmm","jig browser","hiptop","benq","haier","^lct","320x320","240x320","176x220","w3c ","acs-","alav","alca","amoi","audi","avan","benq","bird","blac","blaz","brew","cell","cldc","cmd-","dang","doco","eric","hipt","inno","ipaq","java","jigs","kddi","keji","leno","lg-c","lg-d","lg-g","lge-","maui","maxo","midp","mits","mmef","mobi","mot-","moto","mwbp","nec-","newt","noki","oper","palm","pana","pant","phil","play","port","prox","qwap","sage","sams","sany","sch-","sec-","send","seri","sgh-","shar","sie-","siem","smal","smar","sony","sph-","symb","t-mo","teli","tim-","tsm-","upg1","upsi","vk-v","voda","wap-","wapa","wapi","wapp","wapr","webc","winw","winw","xda","xda-","Googlebot-Mobile"};
 
   /** 网站使用的主题 */
   private String theme;
@@ -31,6 +33,19 @@ public class WebManagerNPress extends WebManager{
   static{
     cacheMethods.add("page");
     cacheMethods.add("detail");
+  }
+  
+  private int getClientType(HttpServletRequest oreq){
+    // 判断移动浏览器
+    String userAgent = oreq.getHeader("User-Agent");
+    if(null!=userAgent){
+      for(String ma:MOBILE_AGENT){
+        if(userAgent.toLowerCase().contains(ma)){
+          return Request.CLIENT_TYPE_MOBILE;
+        }
+      }
+    }
+    return Request.CLIENT_TYPE_COMPUTER;
   }
 
   public WebManagerNPress(IWebConfig config){
@@ -72,9 +87,9 @@ public class WebManagerNPress extends WebManager{
         try{
           pageNum = Integer.parseInt(r.getParameter(Request.PAGE_NUMBER_VAR));
         }catch(Exception e){}
-       
+        int clientType = getClientType(r);
         // 缓存文件唯一名称
-        String fileName = klass+"-"+id+"-"+pageNum+".html";
+        String fileName = (Request.CLIENT_TYPE_MOBILE==clientType?"mobile":"pc")+"-"+klass+"-"+id+"-"+pageNum+".html";
         File dir = new File(WebContext.REAL_PATH,Global.CONFIG_SERVICE.getConfig("CACHE_DIR").getValue());
         if(!dir.exists()||!dir.isDirectory()){
           dir.mkdirs();
