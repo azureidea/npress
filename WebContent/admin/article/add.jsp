@@ -52,11 +52,12 @@ I.want(function(){
       I.$('pic').value = r.data;
     }
   });
+  var editor = I.ui.Editor.render('content');
   I.ui.Button.render('btn',{
     callback:function(){
       I.net.Rmi.set('title',I.$('title').value);
       I.net.Rmi.set('desc',I.$('desc').value);
-      I.net.Rmi.set('content',I.$('content').value);
+      I.net.Rmi.set('content',editor.getContent());
       I.net.Rmi.set('pic',I.$('pic').value);
       var l = I.$('name','cats');
       var ps = [];
