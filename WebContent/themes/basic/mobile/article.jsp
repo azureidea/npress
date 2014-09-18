@@ -7,39 +7,23 @@
 <meta charset="utf-8">
 <jsp:include page="/themes/basic/mobile/include.jsp" />
 <script type="text/javascript" src="${PATH}/js/share.js"></script>
-<title>首页 - ${WEB_NAME}</title>
+<title>${art.title} - ${WEB_NAME}</title>
 </head>
 <body>
   <section id="aside" data-transition="slide" data-aside="right">
-    <header data-title="${WEB_NAME}首页" data-back="home">
+    <header data-title="${art.title}" data-back="chevron-left">
         <nav class="on-right">
             <button data-view-aside="right" data-icon="menu"></button>
         </nav>
     </header>
-    <article id="listview" class="active list indented scroll">
-      <c:choose>
-        <c:when test="${empty nlfPagingData.data}"><ul><li>没有数据！</li></ul></c:when>
-        <c:otherwise>
-          <ul>
-          <c:forEach items="${nlfPagingData.data}" var="o">
-          <li class="thumb">
-            <c:if test="${not empty o.pic}">
-              <a href="${PATH}/action-Article/detail?id=${o.id}"><img class="pic" src="${o.pic}" width="${PIC_WIDTH}" height="${PIC_HEIGHT}" /></a>
-            </c:if>
-            <div>
-            <div class="on-right">
-            <i class="fa fa-clock-o">&nbsp;${o.day}</i>
-            </div>
-            <strong><a href="${PATH}/action-Article/detail?id=${o.id}">${o.title}</a></strong>
-            <div class="space"></div>
-            <small>${o.description}</small>
-            </div>
-          </li>
-          </c:forEach>
-          </ul>
-          <div><nlft:page near="1" /></div>
-        </c:otherwise>
-      </c:choose>
+    <article id="listview" class="list active scroll">
+      <ul>
+      <li>
+      <strong><a href="${PATH}/action-Article/detail?id=${art.id}">${art.title}</a></strong>
+      <div class="space"></div>
+      <small>${art.content}</small>
+      </li>
+      </ul>
     </article>
     <footer>
       <nav>

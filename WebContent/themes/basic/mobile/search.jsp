@@ -7,11 +7,11 @@
 <meta charset="utf-8">
 <jsp:include page="/themes/basic/mobile/include.jsp" />
 <script type="text/javascript" src="${PATH}/js/share.js"></script>
-<title>首页 - ${WEB_NAME}</title>
+<title>搜索 ${s} - ${WEB_NAME}</title>
 </head>
 <body>
   <section id="aside" data-transition="slide" data-aside="right">
-    <header data-title="${WEB_NAME}首页" data-back="home">
+    <header data-title="搜索 ${s}" data-back="chevron-left">
         <nav class="on-right">
             <button data-view-aside="right" data-icon="menu"></button>
         </nav>

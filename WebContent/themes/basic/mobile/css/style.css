@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+div.clear {
+  font-size: 0;
+  height: 0;
+  clear: both;
+}
+
+div.space {
+  font-size:0;
+  height:20px;
+  clear:both;
+}
+
+img.pic{
+  border:1px solid #EEE;
+}
+
+a.button {
+  color: #9A9A9A;
+  background: #F4F4F4;
+  border: 1px solid #E4E4E4;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+a.button:hover {
+  color: #50A0D0;
+}
+
+a ol{
+  cursor:default;
+  left:40%;
+  margin-top:3px;
+  display:none;
+  position:absolute;
+  z-index:1000;
+  width:50%;
+  background-color:#FFF;
+  border:1px solid #C8C8C8;
+  overflow:hidden;
+}
+
+a:hover ol {
+  display:block;
+}
+
+a:hover ol li{
+  margin:0;
+  border-bottom:1px solid #EEE;
+  display:block;
+  color:#636363;
+}
+
+small p{
+  line-height:2em;
+}
+
+.nlfPagingForm {
+  margin: 0;
+  padding: 0;
+  float: right;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center
+}
+.nlfPagingForm span {
+  display:none;
+}
+.nlfPagingForm input {
+  display:none;
+}
+form input.go{
+  display:none;
+}
+form input.size{
+  display:none;
+}
+.nlfPagingForm a {
+  margin-left:3px;
+  color: #888;
+  text-align: center;
+  text-decoration: none;
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4E4;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  padding: 5px 5px;
+}
+.nlfPagingForm a:hover {
+  background-color: #F0F0F0;
+}
