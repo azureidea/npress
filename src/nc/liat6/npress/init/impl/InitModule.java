@@ -9,9 +9,9 @@ import nc.liat6.npress.init.IInit;
 
 /**
  * 模块初始化
- * 
+ *
  * @author 6tail
- * 
+ *
  */
 public class InitModule implements IInit{
 
@@ -36,6 +36,17 @@ public class InitModule implements IInit{
     ins.set("C_IS_HOME",1);
     ins.set("C_INDEX",0);
     ins.set("C_POS",0);
+    ins.insert();
+
+    ins.table("T_MODULE");
+    ins.set("C_ID",2);
+    ins.set("C_NAME","RSS");
+    ins.set("C_TYPE",Module.TYPE_IN_BLANK_URL);
+    ins.set("C_URL","action-RSS/page");
+    ins.set("C_CONTENT","");
+    ins.set("C_IS_HOME",0);
+    ins.set("C_INDEX",0);
+    ins.set("C_POS",1);
     ins.insert();
     t.commit();
     t.close();

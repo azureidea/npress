@@ -1,10 +1,13 @@
 package nc.liat6.npress.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 文章
- * 
+ *
  * @author 6tail
- * 
+ *
  */
 public class Article{
 
@@ -22,6 +25,8 @@ public class Article{
   private String time;
   /** 图片路径 */
   private String pic;
+  /** 分类 */
+  private List<Cat> cats = new ArrayList<Cat>();
 
   public long getId(){
     return id;
@@ -77,5 +82,17 @@ public class Article{
 
   public void setPic(String pic){
     this.pic = pic;
+  }
+
+  public List<Cat> getCats(){
+    return cats;
+  }
+
+  public void setCats(List<Cat> cats){
+    this.cats = cats;
+  }
+
+  public void addCat(Cat cat){
+    cats.add(cat);
   }
 }
