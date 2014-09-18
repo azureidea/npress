@@ -10,7 +10,6 @@
     <div class="body">
         <div class="container">
           <div class="art_desc">${empty e?"未知错误":(empty e.message?"未知错误":e.message)}</div>
-          <div class="art_footer"><a href="${PATH}/">首页</a></div>
           <div class="clear"></div>
         </div>
     </div>

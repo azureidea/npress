@@ -15,7 +15,6 @@
     <div class="body">
         <div class="container">
           <div class="art_desc">您访问的页面被猫吃了！</div>
-          <div class="art_footer"><a href="${PATH}/">首页</a></div>
           <div class="clear"></div>
         </div>
     </div>
