@@ -21,7 +21,7 @@ import nc.liat6.npress.Global;
  *
  */
 public class File{
- 
+
   public Object upload(){
     Request r = Context.get(Statics.REQUEST);
     FileUploader uploader = r.find(WebExecute.TAG_UPLOADER);
@@ -39,7 +39,7 @@ public class File{
     }
     return new Json(dirString+"/"+fileName);
   }
-  
+
   public Object uploadPic(){
     Request r = Context.get(Statics.REQUEST);
     FileUploader uploader = r.find(WebExecute.TAG_UPLOADER);
@@ -59,9 +59,9 @@ public class File{
     }catch(IOException e){
       throw new BadUploadException("文件上传失败",e);
     }
-    return new Json(dirString+"/"+fileName);
+    return new Json(WebContext.CONTEXT_PATH+"/"+dirString+"/"+fileName);
   }
-  
+
   public Object uploadBigPic(){
     Request r = Context.get(Statics.REQUEST);
     FileUploader uploader = r.find(WebExecute.TAG_UPLOADER);
