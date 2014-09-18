@@ -27,8 +27,8 @@
               <div class="pull-right">
                 <a class="fa fa-share-alt">
                 <ol>
-                  <li class="fa fa-weibo" onclick="shareTo('weibo','${o.title}','${DOMAIN}${PATH}/action-Article/detail?id=${o.id}');">分享到新浪微博</li>
-                  <li class="fa fa-qq" onclick="shareTo('qzone','${o.title}','${DOMAIN}${PATH}/action-Article/detail?id=${o.id}');">分享到QQ空间</li>
+                  <li class="fa fa-weibo" onclick="shareTo('weibo','${o.title}','http://${DOMAIN}${PATH}/action-Article/detail?id=${o.id}');">分享到新浪微博</li>
+                  <li class="fa fa-qq" onclick="shareTo('qzone','${o.title}','http://${DOMAIN}${PATH}/action-Article/detail?id=${o.id}');">分享到QQ空间</li>
                 </ol>
                 </a>
               </div>
