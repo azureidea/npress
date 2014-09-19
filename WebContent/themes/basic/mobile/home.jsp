@@ -41,44 +41,8 @@
         </c:otherwise>
       </c:choose>
     </article>
-    <footer>
-      <nav>
-        <c:forEach items="${modules}" var="o">
-          <c:choose>
-            <c:when test="${0 eq o.pos}">
-              <c:choose>
-                <c:when test="${0 eq o.type}"><a <c:if test="${1 eq o.home}">class="active"</c:if> target="_self" href="${PATH}/${o.url}">${o.name}</a></c:when>
-                <c:when test="${1 eq o.type}"><a <c:if test="${1 eq o.home}">class="active"</c:if> target="_blank" href="${PATH}/${o.url}">${o.name}</a></c:when>
-                <c:when test="${2 eq o.type}"><a <c:if test="${1 eq o.home}">class="active"</c:if> target="_self" href="${o.url}">${o.name}</a></c:when>
-                <c:when test="${3 eq o.type}"><a <c:if test="${1 eq o.home}">class="active"</c:if> target="_blank" href="${o.url}">${o.name}</a></c:when>
-                <c:when test="${4 eq o.type}"><a <c:if test="${1 eq o.home}">class="active"</c:if> target="_self" href="${PATH}/action-Module/detail?id=${o.id}">${o.name}</a></c:when>
-                <c:when test="${5 eq o.type}"><a <c:if test="${1 eq o.home}">class="active"</c:if> target="_blank" href="${PATH}/action-Module/detail?id=${o.id}">${o.name}</a></c:when>
-              </c:choose>
-            </c:when>
-          </c:choose>
-        </c:forEach>
-      </nav>
-    </footer>
+    <jsp:include page="/themes/basic/mobile/footer_home.jsp" />
   </section>
-  <aside id="right" data-transition="right">
-    <header data-title="分类"></header>
-    <article class="list active">
-        <ul>
-        <c:forEach items="${cats}" var="o">
-          <li data-view-aside="right"><a href="${PATH}/action-Cat/page?id=${o.id}" target="_self">${o.name}(${o.count})</a></li>
-        </c:forEach>
-        </ul>
-    </article>
-  </aside>
-  <script type="text/javascript" src="${PATH}/themes/${theme}/mobile/js/quo.js"></script>
-  <script type="text/javascript" src="${PATH}/themes/${theme}/mobile/js/lungo.js"></script>
-  <script type="text/javascript">
-     Lungo.init({});
-     I.want(function(){
-       I.listen(I.$('aside','tag','a')[0],'click',function(m,e){
-         self.location = '${PATH}/';
-       });
-     });
-  </script>
+  <jsp:include page="/themes/basic/mobile/include_cat.jsp" />
 </body>
 </html>
