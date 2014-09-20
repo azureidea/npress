@@ -26,9 +26,9 @@ import nc.liat6.npress.service.ICatService;
 
 /**
  * 后台-文章管理
- * 
+ *
  * @author 6tail
- * 
+ *
  */
 public class Article{
 
@@ -47,7 +47,7 @@ public class Article{
 
   /**
    * 发布文章页面
-   * 
+   *
    * @return
    */
   public Object pageAdd(){
@@ -58,7 +58,7 @@ public class Article{
 
   /**
    * 修改文章页面
-   * 
+   *
    * @return
    */
   public Object pageModify(){
@@ -74,7 +74,7 @@ public class Article{
 
   /**
    * 文章分页列表
-   * 
+   *
    * @return
    */
   public Object pageList(){
@@ -87,7 +87,7 @@ public class Article{
 
   /**
    * 发布文章
-   * 
+   *
    * @return
    */
   public Object add(){
@@ -134,7 +134,7 @@ public class Article{
 
   /**
    * 修改文章
-   * 
+   *
    * @return
    */
   public Object modify(){
@@ -178,10 +178,10 @@ public class Article{
     t.close();
     return new Tip("修改成功");
   }
-  
+
   /**
    * 删除文章
-   * 
+   *
    * @return
    */
   public Object delete(){
@@ -189,6 +189,7 @@ public class Article{
     long id = r.getLong("id");
     ITrans t = TransFactory.getTrans();
     t.getDeleter().table("T_ARTICLE").where("C_ID",id).delete();
+    t.getDeleter().table("T_ARTICLE_CAT").where("C_ARTICLE_ID",id).delete();
     t.commit();
     t.close();
     return new Tip("删除成功");
