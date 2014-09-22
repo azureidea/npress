@@ -7,7 +7,10 @@
 </div>
 <ul class="cats">
   <c:forEach items="${cats}" var="o" varStatus="index">
-  <li><input type="checkbox" name="cats" value="${o.id}" /><a href="javascript:void(0);" onclick="modifyCat(this,'${o.id}');">${o.name}</a></li>
+  <li>
+    <input type="checkbox" name="cats" value="${o.id}" />
+    <a href="javascript:void(0);" onclick="modifyCat(this,'${o.id}');" data-cat-type="${o.type}" data-cat-name="${o.name}">${o.name}
+    <c:if test="${0 eq o.type}">(隐藏)</c:if></a></li>
   </c:forEach>
 </ul>
 <nlft:tpl id="add_cat">
@@ -15,6 +18,10 @@
   <ul>
     <li data-width="30">分类名称：</li>
     <li><input id="catName" type="text" /></li>
+  </ul>
+  <ul>
+    <li data-width="30">分类类型：</li>
+    <li><select id="catType"><option value="1">显示</option><option value="0">隐藏</option></select></li>
   </ul>
   <ul>
     <li></li>
@@ -28,6 +35,14 @@
   <ul>
     <li data-width="30">分类名称：</li>
     <li><input id="catName" type="text" value="{$=data.catName$}" /></li>
+  </ul>
+  <ul>
+    <li data-width="30">分类类型：</li>
+    <li><select id="catType"><option value="1">显示</option><option value="0">隐藏</option></select></li>
+  </ul>
+  <ul>
+    <li data-width="30">URL：</li>
+    <li><div>action-Cat/page?id={$=data.catId$}</div></li>
   </ul>
   <ul>
     <li></li>
@@ -53,6 +68,7 @@ function addCat(){
     I.ui.Button.render('btnAdd',{
       callback:function(){
         I.net.Rmi.set('name',I.$('catName').value);
+        I.net.Rmi.set('type',I.$('catType').value);
         I.net.Rmi.call('admin-Cat', 'add', function(r) {
           win.close();
           var cats = I.$('class','cats')[0];
@@ -68,9 +84,10 @@ function modifyCat(obj,id){
     var win = I.z.Win.create({
       title:'修改分类',
       width:400,
-      height:140,
-      content:I.util.Template.render({catId:id,catName:obj.innerHTML},I.$('TPL_modify_cat').value)
+      height:180,
+      content:I.util.Template.render({catId:id,catName:obj.getAttribute('data-cat-name')},I.$('TPL_modify_cat').value)
     });
+    I.$('catType').value = obj.getAttribute('data-cat-type');
     I.ui.Form.render('modForm',{
       border:'0',
       border_hover:'0'
@@ -79,6 +96,7 @@ function modifyCat(obj,id){
       callback:function(){
         I.net.Rmi.set('id',I.$('catId').value);
         I.net.Rmi.set('name',I.$('catName').value);
+        I.net.Rmi.set('type',I.$('catType').value);
         I.net.Rmi.call('admin-Cat', 'modify', function(r) {
           win.close();
           obj.innerHTML = r.name;

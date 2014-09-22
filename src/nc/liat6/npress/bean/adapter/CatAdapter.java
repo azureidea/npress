@@ -15,6 +15,7 @@ public class CatAdapter implements IBeanRule{
   static{
     map.put("id","C_ID");
     map.put("name","C_NAME");
+    map.put("type","C_TYPE");
   }
 
   @Override

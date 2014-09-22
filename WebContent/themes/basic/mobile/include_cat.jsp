@@ -5,7 +5,9 @@
   <article class="list active">
       <ul>
       <c:forEach items="${cats}" var="o">
+        <c:if test="${1 eq o.type}">
         <li data-view-aside="right"><a href="${PATH}/action-Cat/page?id=${o.id}" target="_self">${o.name}(${o.count})</a></li>
+        </c:if>
       </c:forEach>
       </ul>
   </article>

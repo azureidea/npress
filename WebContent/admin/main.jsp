@@ -17,7 +17,7 @@ function suit(){
     var rp = I.region(I.$('panel'));
     I.$('left').style.height = (r.height-40)+'px';
     I.$('sec').style.left = '-1000px';
-    
+
     I.$('main').style.top = '98px';
     I.$('main').style.width = (r.width-rl.width)+'px';
     I.$('main').style.height = (r.height-98)+'px';
@@ -67,7 +67,7 @@ function trOnSelected(table,callback){
                       }else{
                           ipt1[0].checked = '';
                       }
-                  }      
+                  }
                   if(n==m){
                       I.cls(n,'current');
                   }else{
@@ -298,16 +298,17 @@ function trOnSelected(table,callback){
         {n:'link_list',t:'网站列表',u:'admin-Link/pageList'}
       ]},
       {n:'config',t:'系统设置',c:[
-        {n:'config_page',t:'网站配置',u:'admin-Config/page'}
+        {n:'config_page',t:'网站配置',u:'admin-Config/page'},
+        {n:'config_cache',t:'缓存管理',u:'admin-Cache/page'}
       ]}
     ];
     initMenu(r);
-    
+
     I.listen(I.$('panel_close'),'click',function(){
       panel_show=false;
       suit();
     });
-    
+
     I.listen(self,'resize',function(){
       suit();
     });

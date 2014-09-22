@@ -8,9 +8,9 @@ import nc.liat6.npress.init.IInit;
 
 /**
  * 分类初始化
- * 
+ *
  * @author 6tail
- * 
+ *
  */
 public class InitCat implements IInit{
 
@@ -29,6 +29,8 @@ public class InitCat implements IInit{
     ins.table("T_CAT");
     ins.set("C_ID",1);
     ins.set("C_NAME","未分类");
+    //类型：1显示，0隐藏
+    ins.set("C_TYPE",1);
     ins.insert();
     t.commit();
     t.close();

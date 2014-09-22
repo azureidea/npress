@@ -13,20 +13,21 @@ import nc.liat6.frame.web.response.Tip;
 
 /**
  * 后台-分类管理
- * 
+ *
  * @author 6tail
- * 
+ *
  */
 public class Cat{
 
   /**
    * 添加分类
-   * 
+   *
    * @return
    */
   public Object add(){
     Request r = Context.get(Statics.REQUEST);
     String name = r.get("name");
+    int type = r.getInt("type");
     Validator.check(name,new RuleNotEmpty("分类名"));
     ITrans t = TransFactory.getTrans();
     if(t.getCounter().table("T_CAT").where("C_NAME",name).count()>0){
@@ -35,7 +36,7 @@ public class Cat{
       throw new BadException("该分类名已存在");
     }
     long id = ID.next().longValue();
-    t.getInserter().table("T_CAT").set("C_ID",id).set("C_NAME",name).insert();
+    t.getInserter().table("T_CAT").set("C_ID",id).set("C_NAME",name).set("C_TYPE",type).insert();
     t.commit();
     t.close();
     nc.liat6.npress.bean.Cat cat = new nc.liat6.npress.bean.Cat();
@@ -46,13 +47,14 @@ public class Cat{
 
   /**
    * 修改分类
-   * 
+   *
    * @return
    */
   public Object modify(){
     Request r = Context.get(Statics.REQUEST);
     long id = r.getLong("id");
     String name = r.get("name");
+    int type = r.getInt("type");
     Validator.check(name,new RuleNotEmpty("分类名"));
     ITrans t = TransFactory.getTrans();
     if(t.getCounter().table("T_CAT").where("C_NAME",name).whereNq("C_ID",id).count()>0){
@@ -60,7 +62,7 @@ public class Cat{
       t.close();
       throw new BadException("该分类名已存在");
     }
-    t.getUpdater().table("T_CAT").where("C_ID",id).set("C_NAME",name).update();
+    t.getUpdater().table("T_CAT").where("C_ID",id).set("C_NAME",name).set("C_TYPE",type).update();
     t.commit();
     t.close();
     nc.liat6.npress.bean.Cat cat = new nc.liat6.npress.bean.Cat();
@@ -71,7 +73,7 @@ public class Cat{
 
   /**
    * 删除分类
-   * 
+   *
    * @return
    */
   public Object delete(){

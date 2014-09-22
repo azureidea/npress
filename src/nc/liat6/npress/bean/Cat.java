@@ -2,9 +2,9 @@ package nc.liat6.npress.bean;
 
 /**
  * 分类
- * 
+ *
  * @author 6tail
- * 
+ *
  */
 public class Cat{
 
@@ -14,6 +14,16 @@ public class Cat{
   private String name;
   /** 文章数 */
   private int count;
+  /** 类型，1显示，0隐藏 */
+  private int type;
+
+  public int getType(){
+    return type;
+  }
+
+  public void setType(int type){
+    this.type = type;
+  }
 
   public int getCount(){
     return count;
