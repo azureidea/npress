@@ -32,7 +32,7 @@
             </div>
             <strong><a href="${PATH}/action-Article/detail?id=${o.id}">${o.title}</a></strong>
             <div class="space"></div>
-            <small>${o.description}</small>
+            <div class="content">${o.description}</div>
             </div>
           </li>
           </c:forEach>

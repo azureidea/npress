@@ -21,7 +21,7 @@
       <li>
       <strong><a href="${PATH}/action-Article/detail?id=${art.id}">${art.title}</a></strong>
       <div class="space"></div>
-      <small>${art.content}</small>
+      <div class="content">${art.content}</div>
       </li>
       </ul>
     </article>

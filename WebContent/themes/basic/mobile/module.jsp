@@ -21,7 +21,7 @@
       <li>
       <strong><a href="${PATH}/action-Module/detail?id=${module.id}">${module.name}</a></strong>
       <div class="space"></div>
-      <small>${module.content}</small>
+      <div class="content">${module.content}</div>
       </li>
       </ul>
     </article>

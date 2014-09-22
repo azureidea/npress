@@ -52,8 +52,12 @@ a:hover ol li{
   color:#636363;
 }
 
-small p{
+div.content{
+  color:#666;
+  font-size:0.9em;
   line-height:2em;
+  word-break: break-all;
+  word-wrap:break-word;
 }
 
 .nlfPagingForm {
