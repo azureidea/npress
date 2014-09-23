@@ -1,0 +1,10 @@
+{
+  alias:'mysqldb',
+  dbtype:'mysql',
+  server:'localhost',
+  port:3906,
+  dbname:'blog',
+  user:'root',
+  password:'',
+  type:'jdbc'
+}
