@@ -9,6 +9,9 @@ import nc.liat6.frame.context.Statics;
 import nc.liat6.frame.exception.BadException;
 import nc.liat6.frame.execute.Request;
 import nc.liat6.frame.execute.Response;
+import nc.liat6.frame.locale.L;
+import nc.liat6.frame.locale.LocaleFactory;
+import nc.liat6.frame.log.Logger;
 import nc.liat6.frame.util.Stringer;
 import nc.liat6.frame.web.WebContext;
 import nc.liat6.frame.web.WebExecute;
@@ -18,31 +21,31 @@ import nc.liat6.npress.cache.CacheResponse;
 
 /**
  * 网站执行器
- * 
+ *
  * @author 6tail
- * 
+ *
  */
 public class ExecuterNPress extends WebExecute{
-  
-  
 
   protected void responsePage(Page p){
     Request r = Context.get(Statics.REQUEST);
     Response res = Context.get(Statics.RESPONSE);
     HttpServletRequest oreq = r.find(TAG_REQUEST);
     HttpServletResponse ores = res.find(TAG_RESPONSE);
+    ores.setStatus(p.getStatus());
     // debug
     Iterator<String> it = p.keySet().iterator();
     if(it.hasNext()){
-      appendLog("页面赋值：\r\n");
+      logs.append(L.get(LocaleFactory.locale,"web.res_page_var")+"\r\n");
     }
     while(it.hasNext()){
       String key = it.next();
       oreq.setAttribute(key,p.get(key));
-      appendLog(Stringer.print("\t?=?",key,p.get(key))+"\r\n");
+      logs.append(Stringer.print("\t?=?",key,p.get(key))+"\r\n");
     }
-    appendLog(Stringer.print("返回页面：?",p.getUri()));
-    writeLog();
+    logs.append(Stringer.print("??\r\n",L.get(LocaleFactory.locale,"web.res_status"),p.getStatus()));
+    logs.append(Stringer.print("??",L.get(LocaleFactory.locale,"web.res_page"),p.getUri()));
+    Logger.getLog().debug(logs.toString());
     try{
       CacheResponse wrapperResponse = new CacheResponse(ores);
       oreq.getRequestDispatcher(p.getUri()).include(oreq,wrapperResponse);

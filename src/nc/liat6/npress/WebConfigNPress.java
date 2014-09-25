@@ -1,19 +1,21 @@
 package nc.liat6.npress;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import nc.liat6.frame.Factory;
 import nc.liat6.frame.execute.IExecute;
 import nc.liat6.frame.web.config.IWebManager;
 import nc.liat6.frame.web.config.WebConfig;
+import nc.liat6.frame.web.upload.UploadStatus;
 import nc.liat6.npress.bean.Config;
 import nc.liat6.npress.init.IInit;
 
 /**
  * 网站配置
- * 
+ *
  * @author 6tail
- * 
+ *
  */
 public class WebConfigNPress extends WebConfig{
 
@@ -47,8 +49,16 @@ public class WebConfigNPress extends WebConfig{
   @Override
   public List<String> getForbiddenPaths(){
     List<String> l = super.getForbiddenPaths();
+    String pkg = this.getClass().getPackage().getName();
     // 屏蔽访问
-    l.add("/nc.liat6.npress");
+    l.add("/"+pkg);
+    l.add("/"+pkg.replace(".","-"));
+    return l;
+  }
+
+  public List<String> getAllowPaths(){
+    List<String> l = new ArrayList<String>();
+    l.add("/"+UploadStatus.class.getName().replace(".","-"));
     return l;
   }
 
