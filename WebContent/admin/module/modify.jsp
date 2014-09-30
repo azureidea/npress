@@ -66,6 +66,10 @@ I.want(function(){
   I.$('pos').value = '${module.pos}';
   I.$('home').value = '${module.home}';
   I.ui.Form.render('form');
+  var editor = I.ui.Editor.render('content',{
+    checkKlass:'nc-liat6-frame-web-upload-UploadStatus',
+    uploadUrl:'${PATH}/admin-File/uploadBigPic'
+  });
   I.ui.Button.render('btn',{
     callback:function(){
       I.net.Rmi.set('id','${id}');
@@ -73,7 +77,7 @@ I.want(function(){
       I.net.Rmi.set('index',I.$('index').value);
       I.net.Rmi.set('pos',I.$('pos').value);
       I.net.Rmi.set('type',I.$('type').value);
-      I.net.Rmi.set('content',I.$('content').value);
+      I.net.Rmi.set('content',editor.getContent());
       I.net.Rmi.set('url',I.$('url').value);
       I.net.Rmi.set('home',I.$('home').value);
       I.net.Rmi.call('admin-Module', 'modify', function(r) {

@@ -120,6 +120,7 @@ header{
   -ms-box-ordinal-group:1;
   -o-box-ordinal-group:1;
   box-ordinal-group:1;
+  overflow:hidden;
   white-space:nowrap;
   text-overflow:ellipsis;
   -moz-user-select:none;
@@ -205,6 +206,7 @@ footer{
   text-align:center;
   color:#FFF;
   font-size:1.2em;
+  overflow:hidden;
   -webkit-box-ordinal-group: 3;
   -moz-box-ordinal-group: 3;
   -ms-box-ordinal-group: 3;
