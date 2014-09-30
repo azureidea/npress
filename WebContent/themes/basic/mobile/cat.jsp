@@ -10,30 +10,26 @@
 <title>${cat.name} - ${WEB_NAME}</title>
 </head>
 <body>
-  <section id="aside" data-transition="slide" data-aside="right">
-    <header data-title="${cat.name}" data-back="chevron-left">
-        <nav class="on-right">
-            <button data-view-aside="right" data-icon="menu"></button>
-        </nav>
+  <section>
+    <header>
+      <nav><a class="fa fa-home" href="${PATH}/"></a></nav>
+      ${cat.name}
+      <nav>
+        <a class="fa fa-bars" data-aside="right"></a>
+      </nav>
     </header>
-    <article id="listview" class="active list indented scroll">
+    <article class="padding">
       <c:choose>
         <c:when test="${empty nlfPagingData.data}"><ul><li>没有数据！</li></ul></c:when>
         <c:otherwise>
           <ul>
           <c:forEach items="${nlfPagingData.data}" var="o">
-          <li class="thumb">
+          <li>
             <c:if test="${not empty o.pic}">
-              <a href="${PATH}/action-Article/detail?id=${o.id}"><img class="pic" src="${o.pic}" width="${PIC_WIDTH}" height="${PIC_HEIGHT}" /></a>
+              <a class="thumb" href="${PATH}/action-Article/detail?id=${o.id}"><img src="${o.pic}" width="${PIC_WIDTH}" height="${PIC_HEIGHT}" /></a>
             </c:if>
-            <div>
-            <div class="on-right">
-            <i class="fa fa-clock-o">&nbsp;${o.day}</i>
-            </div>
-            <strong><a href="${PATH}/action-Article/detail?id=${o.id}">${o.title}</a></strong>
-            <div class="space"></div>
-            <div class="content">${o.description}</div>
-            </div>
+            <strong><a href="${PATH}/action-Article/detail?id=${o.id}" target="_self">${o.title}</a></strong>
+            <small>${o.description}</small>
           </li>
           </c:forEach>
           </ul>

@@ -10,19 +10,20 @@
 <title>${module.name} - ${WEB_NAME}</title>
 </head>
 <body>
-  <section id="aside" data-transition="slide" data-aside="right">
-    <header data-title="${module.name}" data-back="chevron-left">
-        <nav class="on-right">
-            <button data-view-aside="right" data-icon="menu"></button>
-        </nav>
+  <section>
+    <header>
+      <nav><a class="fa fa-arrow-circle-left" href="${PATH}/"></a></nav>
+      ${module.name}
+      <nav>
+        <a class="fa fa-bars" data-aside="right"></a>
+      </nav>
     </header>
-    <article id="listview" class="list active scroll">
+    <article class="padding">
       <ul>
-      <li>
-      <strong><a href="${PATH}/action-Module/detail?id=${module.id}">${module.name}</a></strong>
-      <div class="space"></div>
-      <div class="content">${module.content}</div>
-      </li>
+        <li>
+          <strong><a href="${PATH}/action-Article/detail?id=${module.id}" target="_self">${module.name}</a></strong>
+          <small>${module.content}</small>
+        </li>
       </ul>
     </article>
     <jsp:include page="/themes/basic/mobile/footer_module.jsp" />

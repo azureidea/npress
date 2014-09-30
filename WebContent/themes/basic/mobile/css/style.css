@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+body{display:none;}
+
 div.clear {
   font-size: 0;
   height: 0;
@@ -10,10 +12,6 @@ div.space {
   font-size:0;
   height:20px;
   clear:both;
-}
-
-img.pic{
-  border:1px solid #EEE;
 }
 
 a.button {
@@ -86,7 +84,7 @@ form input.size{
   text-align: center;
   text-decoration: none;
   background-color: #FFFFFF;
-  border: 1px solid #E4E4E4;
+  border: 1px solid #AAA;
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;

@@ -10,19 +10,20 @@
 <title>${art.title} - ${WEB_NAME}</title>
 </head>
 <body>
-  <section id="aside" data-transition="slide" data-aside="right">
-    <header data-title="${art.title}" data-back="chevron-left">
-        <nav class="on-right">
-            <button data-view-aside="right" data-icon="menu"></button>
-        </nav>
+  <section>
+    <header>
+      <nav><a class="fa fa-arrow-circle-left" href="${PATH}/"></a></nav>
+      ${art.title}
+      <nav>
+        <a class="fa fa-bars" data-aside="right"></a>
+      </nav>
     </header>
-    <article id="listview" class="list active scroll">
+    <article class="padding">
       <ul>
-      <li>
-      <strong><a href="${PATH}/action-Article/detail?id=${art.id}">${art.title}</a></strong>
-      <div class="space"></div>
-      <div class="content">${art.content}</div>
-      </li>
+        <li>
+          <strong><a href="${PATH}/action-Article/detail?id=${art.id}" target="_self">${art.title}</a></strong>
+          <small>${art.content}</small>
+        </li>
       </ul>
     </article>
     <jsp:include page="/themes/basic/mobile/footer_home.jsp" />
