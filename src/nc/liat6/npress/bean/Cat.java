@@ -14,7 +14,7 @@ public class Cat{
   private String name;
   /** 文章数 */
   private int count;
-  /** 类型，1显示，0隐藏 */
+  /** 类型，1显示，0隐藏，2tag */
   private int type;
 
   public int getType(){

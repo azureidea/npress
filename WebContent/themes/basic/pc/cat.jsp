@@ -8,7 +8,7 @@
 <title>${cat.name} - ${WEB_NAME}</title>
 </head>
 <body>
-    <jsp:include page="/themes/basic/pc/header.jsp" />
+    <jsp:include page="/themes/basic/pc/header_cat.jsp" />
     <div class="body">
         <div class="left">
         <div class="title">${cat.name}</div>
@@ -32,7 +32,14 @@
                 </ol>
                 </a>
               </div>
-              <i class="fa fa-clock-o">&nbsp;${o.day}</i>
+              <i class="fa fa-calendar">&nbsp;${o.day}</i>
+              <i class="fa fa-tags">
+              <c:forEach items="${o.tags}" var="tag" varStatus="index">
+                <c:if test="${index.index>0}">|</c:if>
+                <a class="tag" href="${PATH}/action-Cat/page?id=${tag.id}" target="_self">${tag.name}</a>
+              </c:forEach>
+              <c:if test="${empty o.tags}">无标签</c:if>
+              </i>
             </div>
             <div class="clear"></div>
           </li>
@@ -43,6 +50,7 @@
         </c:choose>
         </div>
         <div class="right">
+          <jsp:include page="/themes/basic/pc/comp/plugin_5.jsp" />
           <jsp:include page="/themes/basic/pc/comp/cat.jsp" />
           <jsp:include page="/themes/basic/pc/comp/plugin_3.jsp" />
         </div>

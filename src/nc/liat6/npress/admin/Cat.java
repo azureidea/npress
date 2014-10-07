@@ -41,6 +41,7 @@ public class Cat{
     t.close();
     nc.liat6.npress.bean.Cat cat = new nc.liat6.npress.bean.Cat();
     cat.setId(id);
+    cat.setType(type);
     cat.setName(name);
     return new Tip(cat,"添加成功");
   }
@@ -68,6 +69,7 @@ public class Cat{
     nc.liat6.npress.bean.Cat cat = new nc.liat6.npress.bean.Cat();
     cat.setId(id);
     cat.setName(name);
+    cat.setType(type);
     return new Tip(cat,"修改成功");
   }
 

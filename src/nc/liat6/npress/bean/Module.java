@@ -2,9 +2,9 @@ package nc.liat6.npress.bean;
 
 /**
  * 模块
- * 
+ *
  * @author 6tail
- * 
+ *
  */
 public class Module{
 
@@ -36,7 +36,7 @@ public class Module{
   private String content;
   /** 序号 */
   private int index;
-  /** 位置，0顶部，1底部，2文章详情底部，3右侧边栏 */
+  /** 位置，0顶部，1底部，2文章详情底部，3右侧边栏底部，4文章详情顶部，5右侧边栏顶部 */
   private int pos;
 
   public int getIndex(){

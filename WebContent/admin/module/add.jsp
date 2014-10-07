@@ -14,8 +14,10 @@
     <li><select id="pos">
           <option value="0">顶部导航</option>
           <option value="1">底部导航</option>
-          <option value="2">文章详情底部</option>
-          <option value="3">右侧边栏</option>
+          <option value="2">文章详情底部插件</option>
+          <option value="3">右侧边栏底部插件</option>
+          <option value="4">文章详情顶部插件</option>
+          <option value="5">右侧边栏顶部插件</option>
         </select></li>
   </ul>
   <ul>

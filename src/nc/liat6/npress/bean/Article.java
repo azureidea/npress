@@ -27,6 +27,8 @@ public class Article{
   private String pic;
   /** 分类 */
   private List<Cat> cats = new ArrayList<Cat>();
+  /** 标签 */
+  private List<Cat> tags = new ArrayList<Cat>();
 
   public long getId(){
     return id;
@@ -94,5 +96,17 @@ public class Article{
 
   public void addCat(Cat cat){
     cats.add(cat);
+  }
+
+  public List<Cat> getTags(){
+    return tags;
+  }
+
+  public void setTags(List<Cat> tags){
+    this.tags = tags;
+  }
+
+  public void addTag(Cat tag){
+    tags.add(tag);
   }
 }

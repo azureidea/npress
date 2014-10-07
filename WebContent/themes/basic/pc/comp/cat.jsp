@@ -12,3 +12,20 @@
   </ul>
   </div>
 </div>
+<div class="comp container">
+  <div class="comp_header">标签</div>
+  <div class="comp_body">
+  <ul>
+  <c:set var="existsTag" value="false"></c:set>
+  <c:forEach items="${cats}" var="o">
+    <c:if test="${2 eq o.type}">
+    <c:set var="existsTag" value="true"></c:set>
+    <li><a href="${PATH}/action-Cat/page?id=${o.id}" target="_self">${o.name}(${o.count})</a></li>
+    </c:if>
+  </c:forEach>
+  <c:if test="${not existsTag}">
+    <li>暂无标签</li>
+  </c:if>
+  </ul>
+  </div>
+</div>

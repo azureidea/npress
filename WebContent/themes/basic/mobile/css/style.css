@@ -58,6 +58,25 @@ div.content{
   word-wrap:break-word;
 }
 
+.art_tag{
+  color:#9A9A9A;
+}
+.art_tag i{
+  margin-right:5px;
+}
+.art_tag a.tag {
+  color:#888;
+  padding:0;
+  background-color:transparent;
+  border:0;
+  border-radius:0;
+  -webkit-border-radius:0;
+  -moz-border-radius:0;
+}
+.art_tag a.tag:hover {
+  color: #50A0D0;
+}
+
 .nlfPagingForm {
   margin: 0;
   padding: 0;

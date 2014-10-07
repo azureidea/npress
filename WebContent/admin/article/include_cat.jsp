@@ -10,7 +10,11 @@
   <li>
     <input type="checkbox" name="cats" value="${o.id}" />
     <a href="javascript:void(0);" onclick="modifyCat(this,'${o.id}');" data-cat-type="${o.type}" data-cat-name="${o.name}">${o.name}
-    <c:if test="${0 eq o.type}">(隐藏)</c:if></a></li>
+    <c:choose>
+      <c:when test="${0 eq o.type}">(隐藏)</c:when>
+      <c:when test="${2 eq o.type}">(tag)</c:when>
+    </c:choose>
+    </a></li>
   </c:forEach>
 </ul>
 <nlft:tpl id="add_cat">
@@ -21,7 +25,7 @@
   </ul>
   <ul>
     <li data-width="30">分类类型：</li>
-    <li><select id="catType"><option value="1">显示</option><option value="0">隐藏</option></select></li>
+    <li><select id="catType"><option value="1">显示</option><option value="0">隐藏</option><option value="2">tag</option></select></li>
   </ul>
   <ul>
     <li></li>
@@ -38,7 +42,7 @@
   </ul>
   <ul>
     <li data-width="30">分类类型：</li>
-    <li><select id="catType"><option value="1">显示</option><option value="0">隐藏</option></select></li>
+    <li><select id="catType"><option value="1">显示</option><option value="0">隐藏</option><option value="2">tag</option></select></li>
   </ul>
   <ul>
     <li data-width="30">URL：</li>

@@ -31,8 +31,10 @@
               <c:choose>
                 <c:when test="${0 eq o.pos}">顶部导航</c:when>
                 <c:when test="${1 eq o.pos}">底部导航</c:when>
-                <c:when test="${2 eq o.pos}">文章详情底部</c:when>
-                <c:when test="${3 eq o.pos}">右侧边栏</c:when>
+                <c:when test="${2 eq o.pos}">文章详情底部插件</c:when>
+                <c:when test="${3 eq o.pos}">右侧边栏底部插件</c:when>
+                <c:when test="${4 eq o.pos}">文章详情顶部插件</c:when>
+                <c:when test="${5 eq o.pos}">右侧边栏顶部插件</c:when>
               </c:choose>
             </td>
             <td>

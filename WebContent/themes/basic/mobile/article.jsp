@@ -22,6 +22,16 @@
       <ul>
         <li>
           <strong><a href="${PATH}/action-Article/detail?id=${art.id}" target="_self">${art.title}</a></strong>
+          <small class="art_tag">
+            <i class="fa fa-calendar">&nbsp;${art.day}</i>
+            <i class="fa fa-tags">
+            <c:forEach items="${art.tags}" var="tag" varStatus="index">
+              <c:if test="${index.index>0}">|</c:if>
+              <a class="tag" href="${PATH}/action-Cat/page?id=${tag.id}" target="_self">${tag.name}</a>
+            </c:forEach>
+            <c:if test="${empty art.tags}">无标签</c:if>
+            </i>
+          </small>
           <small>${art.content}</small>
         </li>
       </ul>

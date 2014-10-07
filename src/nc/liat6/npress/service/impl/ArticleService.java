@@ -15,15 +15,15 @@ import nc.liat6.npress.service.IArticleService;
 
 /**
  * 文章业务实现
- * 
+ *
  * @author 6tail
- * 
+ *
  */
 public class ArticleService implements IArticleService{
-  
+
   /** Article转换适配器 */
   private static final IBeanRule articleAdapter = new ArticleAdapter();
-  
+
   /** Cat转换适配器 */
   private static final IBeanRule catAdapter = new CatAdapter();
 
@@ -38,6 +38,16 @@ public class ArticleService implements IArticleService{
     for(int i = 0;i<l.size();i++){
       Bean o = pd.getBean(i);
       Article m = o.toObject(Article.class,articleAdapter);
+      List<Cat> cats = listCats(m.getId());
+      for(Cat cat:cats){
+        switch(cat.getType()){
+          case 2:
+            m.addTag(cat);
+            break;
+          default:
+            m.addCat(cat);
+        }
+      }
       articles.add(m);
     }
     pd.setData(articles);
@@ -51,6 +61,16 @@ public class ArticleService implements IArticleService{
     t.rollback();
     t.close();
     Article m = o.toObject(Article.class,articleAdapter);
+    List<Cat> cats = listCats(m.getId());
+    for(Cat cat:cats){
+      switch(cat.getType()){
+        case 2:
+          m.addTag(cat);
+          break;
+        default:
+          m.addCat(cat);
+      }
+    }
     return m;
   }
 
@@ -71,6 +91,16 @@ public class ArticleService implements IArticleService{
     for(int i = 0;i<l.size();i++){
       Bean o = pd.getBean(i);
       Article m = o.toObject(Article.class,articleAdapter);
+      List<Cat> cats = listCats(m.getId());
+      for(Cat cat:cats){
+        switch(cat.getType()){
+          case 2:
+            m.addTag(cat);
+            break;
+          default:
+            m.addCat(cat);
+        }
+      }
       articles.add(m);
     }
     pd.setData(articles);
@@ -105,6 +135,16 @@ public class ArticleService implements IArticleService{
     for(int i = 0;i<l.size();i++){
       Bean o = pd.getBean(i);
       Article m = o.toObject(Article.class,articleAdapter);
+      List<Cat> cats = listCats(m.getId());
+      for(Cat cat:cats){
+        switch(cat.getType()){
+          case 2:
+            m.addTag(cat);
+            break;
+          default:
+            m.addCat(cat);
+        }
+      }
       articles.add(m);
     }
     pd.setData(articles);

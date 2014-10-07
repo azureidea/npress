@@ -25,11 +25,23 @@
           <ul>
           <c:forEach items="${nlfPagingData.data}" var="o">
           <li>
-            <c:if test="${not empty o.pic}">
-              <a class="thumb" href="${PATH}/action-Article/detail?id=${o.id}"><img src="${o.pic}" width="${PIC_WIDTH}" height="${PIC_HEIGHT}" /></a>
-            </c:if>
             <strong><a href="${PATH}/action-Article/detail?id=${o.id}" target="_self">${o.title}</a></strong>
-            <small>${o.description}</small>
+            <small class="art_tag">
+              <i class="fa fa-calendar">&nbsp;${o.day}</i>
+              <i class="fa fa-tags">
+              <c:forEach items="${o.tags}" var="tag" varStatus="index">
+                <c:if test="${index.index>0}">|</c:if>
+                <a class="tag" href="${PATH}/action-Cat/page?id=${tag.id}" target="_self">${tag.name}</a>
+              </c:forEach>
+              <c:if test="${empty o.tags}">无标签</c:if>
+              </i>
+            </small>
+            <div>
+              <c:if test="${not empty o.pic}">
+                <a class="thumb" href="${PATH}/action-Article/detail?id=${o.id}"><img src="${o.pic}" width="${PIC_WIDTH}" height="${PIC_HEIGHT}" /></a>
+              </c:if>
+              <small>${o.description}</small>
+            </div>
           </li>
           </c:forEach>
           </ul>
