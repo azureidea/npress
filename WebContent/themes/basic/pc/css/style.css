@@ -469,6 +469,16 @@ div.comp_body ul li {
   -moz-border-radius: 3px;
   padding: 5px 5px;
 }
+.nlfPagingForm a.current,a.ellipsis {
+  border:0;
+  border-radius:0;
+  -webkit-border-radius:0;
+  -moz-border-radius:0;
+  padding: 5px 5px;
+}
 .nlfPagingForm a:hover {
   background-color: #F0F0F0;
+}
+.nlfPagingForm a.current:hover,a.ellipsis:hover {
+  background-color: transparent;
 }

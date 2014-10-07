@@ -77,13 +77,15 @@ public class ArticleService implements IArticleService{
   @Override
   public PageData pageByCat(long catId,int pageNumber,int pageSize){
     ITrans t = TransFactory.getTrans();
-    PageData pd = t.getSelecter().table("T_ARTICLE_CAT").where("C_CAT_ID",catId).asc("C_ID").page(pageNumber,pageSize);
-    List<Long> artIds = new ArrayList<Long>(pd.getSize());
-    for(int i = 0;i<pd.getSize();i++){
-      Bean o = pd.getBean(i);
-      artIds.add(o.getLong("C_ARTICLE_ID",0));
+    List<Bean> acs = t.getSelecter().table("T_ARTICLE_CAT").where("C_CAT_ID",catId).select();
+    List<Long> artIds = new ArrayList<Long>(acs.size());
+    for(Bean o:acs){
+      long id = o.getLong("C_ARTICLE_ID",0);
+      if(!artIds.contains(id)){
+        artIds.add(id);
+      }
     }
-    pd = t.getSelecter().table("T_ARTICLE").whereIn("C_ID",artIds.toArray()).asc("C_ID").page(1,pd.getSize());
+    PageData pd = t.getSelecter().table("T_ARTICLE").whereIn("C_ID",artIds.toArray()).desc("C_ID").page(pageNumber,pageSize);
     t.rollback();
     t.close();
     List<?> l = pd.getData();
