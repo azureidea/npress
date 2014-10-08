@@ -9,9 +9,9 @@ import nc.liat6.npress.init.IInit;
 
 /**
  * 文章初始化
- * 
+ *
  * @author 6tail
- * 
+ *
  */
 public class InitArticle implements IInit{
 
@@ -36,6 +36,7 @@ public class InitArticle implements IInit{
     ins.set("C_DESC","<p>欢迎使用npress，这是初始化后自动生成的说明文档。</p>npress可以在无需数据库的情况下直接运行，它使用NLF框架自带的csv数据库，当然，你也可以在classes/db/下修改配置文件");
     ins.set("C_DAY",Dater.ymd(Dater.now()));
     ins.set("C_TIME",Dater.ymdhms(Dater.now()));
+    ins.set("C_KEYWORDS","");
     ins.insert();
     t.commit();
     t.close();

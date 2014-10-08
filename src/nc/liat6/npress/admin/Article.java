@@ -97,6 +97,7 @@ public class Article{
     String content = r.get("content");
     String cats = r.get("cats");
     String pic = r.get("pic");
+    String keywords = r.get("keywords");
     List<String> l = new ArrayList<String>();
     String[] cs = cats.split(",");
     for(String s:cs){
@@ -119,6 +120,7 @@ public class Article{
     ins.set("C_TIME",Dater.ymdhms(Dater.now()));
     ins.set("C_DAY",Dater.ymd(Dater.now()));
     ins.set("C_PIC",pic);
+    ins.set("C_KEYWORDS",keywords);
     ins.insert();
     if(l.size()>0){
       for(String cat:l){
@@ -145,6 +147,7 @@ public class Article{
     String content = r.get("content");
     String cats = r.get("cats");
     String pic = r.get("pic");
+    String keywords = r.get("keywords");
     List<String> l = new ArrayList<String>();
     String[] cs = cats.split(",");
     for(String s:cs){
@@ -165,6 +168,7 @@ public class Article{
     iup.set("C_USER_ID",user.getId());
     iup.set("C_CONTENT",content);
     iup.set("C_PIC",pic);
+    iup.set("C_KEYWORDS",keywords);
     iup.update();
     t.getDeleter().table("T_ARTICLE_CAT").where("C_ARTICLE_ID",id).delete();
     if(l.size()>0){

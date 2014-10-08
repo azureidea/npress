@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="Content-Language" content="zh-cn" />
-<meta name="keywords" content="${WEB_KEY}" />
+<meta name="keywords" content="${WEB_KEY}${empty art?'':(empty art.keywords?'':','.concat(art.keywords))}" />
 <meta name="description" content="${WEB_DESC}" />
 <meta name="author" content="${WEB_AUTHOR}" />
 <meta name="copyright" content="${WEB_COPYRIGHT}" />

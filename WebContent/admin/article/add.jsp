@@ -19,6 +19,10 @@
         </li>
       </ul>
       <ul>
+        <li data-width="10">关键词：</li>
+        <li><input id="keywords" type="text" /></li>
+      </ul>
+      <ul>
         <li data-width="10">简介：</li>
         <li><textarea id="desc" rows="10"></textarea></li>
       </ul>
@@ -62,6 +66,7 @@ I.want(function(){
       I.net.Rmi.set('desc',I.$('desc').value);
       I.net.Rmi.set('content',editor.getContent());
       I.net.Rmi.set('pic',I.$('pic').value);
+      I.net.Rmi.set('keywords',I.$('keywords').value);
       var l = I.$('name','cats');
       var ps = [];
       for(var i=0;i<l.length;i++){

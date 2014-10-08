@@ -25,6 +25,8 @@ public class Article{
   private String time;
   /** 图片路径 */
   private String pic;
+  /** 关键词 */
+  private String keywords;
   /** 分类 */
   private List<Cat> cats = new ArrayList<Cat>();
   /** 标签 */
@@ -84,6 +86,14 @@ public class Article{
 
   public void setPic(String pic){
     this.pic = pic;
+  }
+
+  public String getKeywords(){
+    return keywords;
+  }
+
+  public void setKeywords(String keywords){
+    this.keywords = keywords;
   }
 
   public List<Cat> getCats(){

@@ -9,7 +9,7 @@
   <c:forEach items="${cats}" var="o" varStatus="index">
   <li>
     <input type="checkbox" name="cats" value="${o.id}" />
-    <a href="javascript:void(0);" onclick="modifyCat(this,'${o.id}');" data-cat-type="${o.type}" data-cat-name="${o.name}">${o.name}
+    <a href="javascript:void(0);" onclick="modifyCat(this,'${o.id}');" data-cat-type="${o.type}" data-cat-name="${o.name}" data-cat-type="${o.type}">${o.name}
     <c:choose>
       <c:when test="${0 eq o.type}">(隐藏)</c:when>
       <c:when test="${2 eq o.type}">(tag)</c:when>
@@ -77,7 +77,7 @@ function addCat(){
           win.close();
           var cats = I.$('class','cats')[0];
           var li = I.insert('li',cats);
-          li.innerHTML = '<input type="checkbox" name="cats" value="'+r.id+'" /><a href="javascript:void(0);" onclick="modifyCat(this,\''+r.id+'\');">'+r.name+'</a>';
+          li.innerHTML = '<input type="checkbox" name="cats" value="'+r.id+'" /><a href="javascript:void(0);" onclick="modifyCat(this,\''+r.id+'\');" data-cat-type="'+r.type+'" data-cat-name="'+r.name+'" data-cat-type="'+r.type+'">'+r.name+(0==r.type?'(隐藏)':(2==r.type?'(tag)':''))+'</a>';
         });
       }
     });

@@ -29,6 +29,7 @@ CREATE TABLE `t_article` (
   `C_DESC` text,
   `C_DAY` varchar(10) DEFAULT NULL,
   `C_TIME` varchar(19) DEFAULT NULL,
+  `C_KEYWORDS` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`C_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
