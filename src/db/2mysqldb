@@ -1,5 +1,5 @@
 {
-  alias:'mysqldb',
+  alias:'1mysqldb',
   dbtype:'mysql',
   server:'localhost',
   port:3906,

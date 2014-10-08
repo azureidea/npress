@@ -1,5 +1,5 @@
 {
-  alias:'csvdb',
+  alias:'2csvdb',
   dbtype:'csv',
   server:null,
   port:0,
