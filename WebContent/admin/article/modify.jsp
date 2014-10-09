@@ -40,6 +40,8 @@
     </ul>
     <ul>
       <li></li>
+      <li data-width="10"><a id="btnPreview">预览</a></li>
+      <li data-width="1"></li>
       <li data-width="20"><a id="btn">确定修改</a></li>
     </ul>
   </div>
@@ -60,6 +62,27 @@ I.want(function(){
   var editor = I.ui.Editor.render('content',{
     checkKlass:'nc-liat6-frame-web-upload-UploadStatus',
     uploadUrl:'${PATH}/admin-File/uploadBigPic'
+  });
+  I.ui.Button.render('btnPreview',{
+    callback:function(){
+      var form = I.insert('form');
+      form.style.display = 'none';
+      form.action = '${PATH}/admin-Article/preview';
+      form.target = '_blank';
+      form.method = 'post';
+      var input = I.insert('input',form);
+      input.name = 'title';
+      input.value = I.$('title').value;
+
+      input = I.insert('input',form);
+      input.name = 'content';
+      input.value = I.$('content').value;
+
+      input = I.insert('input',form);
+      input.name = 'title';
+      input.value = I.$('title').value;
+      form.submit();
+    }
   });
   I.ui.Button.render('btn',{
     callback:function(){

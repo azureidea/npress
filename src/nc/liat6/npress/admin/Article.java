@@ -45,6 +45,21 @@ public class Article{
     this.articleService = articleService;
   }
 
+  public Object preview(){
+    Request r = Context.get(Statics.REQUEST);
+    String title = r.get("title");
+    String content = r.get("content");
+    nc.liat6.npress.bean.Article art = new nc.liat6.npress.bean.Article();
+    art.setTitle(title);
+    art.setContent(content);
+    art.setDay(Dater.ymd(Dater.now()));
+    Page p = new Page("/themes/"+Global.CONFIG_SERVICE.getConfig("theme").getValue()+"/pc/article.jsp");
+    p.set("art",art);
+    p.set("cats",catService.listCats());
+    p.deliver();
+    return p;
+  }
+
   /**
    * 发布文章页面
    *
