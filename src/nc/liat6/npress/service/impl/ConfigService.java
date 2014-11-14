@@ -8,24 +8,24 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import nc.liat6.frame.context.Context;
 import nc.liat6.frame.context.Statics;
+import nc.liat6.frame.db.Dao;
+import nc.liat6.frame.db.dao.DaoAdapter;
 import nc.liat6.frame.db.entity.Bean;
 import nc.liat6.frame.db.entity.IBeanRule;
 import nc.liat6.frame.db.transaction.ITrans;
-import nc.liat6.frame.db.transaction.TransFactory;
 import nc.liat6.frame.execute.Request;
-import nc.liat6.frame.web.WebExecute;
 import nc.liat6.npress.bean.Config;
 import nc.liat6.npress.bean.adapter.ConfigAdapter;
 import nc.liat6.npress.service.IConfigService;
 
 /**
  * 配置业务实现
- * 
+ *
  * @author 6tail
- * 
+ *
  */
 public class ConfigService implements IConfigService{
-  
+
   private static final Map<String,Config> configs = new HashMap<String,Config>();
 
   /** Config转换适配器 */
@@ -50,12 +50,17 @@ public class ConfigService implements IConfigService{
 
   @Override
   public void fresh(){
-    ITrans t = TransFactory.getTrans();
-    List<Bean> l = t.getSelecter().table("T_CONFIG").select();
-    t.rollback();
-    t.close();
-    for(Bean o:l){
-      Config m = o.toObject(Config.class,configAdapter);
+    List<Config> l = Dao.list(Config.class,new DaoAdapter(){
+      @Override
+      public List<Bean> list(ITrans t){
+        return t.getSelecter().table("T_CONFIG").select();
+      }
+      @Override
+      public IBeanRule rule(){
+        return configAdapter;
+      }
+    });
+    for(Config m:l){
       configs.put(m.getKey(),m);
     }
   }
@@ -63,7 +68,7 @@ public class ConfigService implements IConfigService{
   @Override
   public void updateToApplication(){
     Request r = Context.get(Statics.REQUEST);
-    HttpSession session = r.find(WebExecute.TAG_SESSION);
+    HttpSession session = r.find(Statics.FIND_SESSION);
     ServletContext sc = session.getServletContext();
     for(String key:configs.keySet()){
       sc.setAttribute(key,configs.get(key).getValue());

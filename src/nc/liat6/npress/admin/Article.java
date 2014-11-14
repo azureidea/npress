@@ -15,7 +15,6 @@ import nc.liat6.frame.util.Dater;
 import nc.liat6.frame.util.ID;
 import nc.liat6.frame.validate.Validator;
 import nc.liat6.frame.validate.rule.RuleNotEmpty;
-import nc.liat6.frame.web.WebExecute;
 import nc.liat6.frame.web.response.Page;
 import nc.liat6.frame.web.response.Paging;
 import nc.liat6.frame.web.response.Tip;
@@ -122,7 +121,7 @@ public class Article{
       }
     }
     Validator.check(title,new RuleNotEmpty("标题"));
-    HttpSession session = r.find(WebExecute.TAG_SESSION);
+    HttpSession session = r.find(Statics.FIND_SESSION);
     User user = (User)session.getAttribute(Global.SESSION_USER);
     ITrans t = TransFactory.getTrans();
     String id = ID.next()+"";
@@ -172,7 +171,7 @@ public class Article{
       }
     }
     Validator.check(title,new RuleNotEmpty("标题"));
-    HttpSession session = r.find(WebExecute.TAG_SESSION);
+    HttpSession session = r.find(Statics.FIND_SESSION);
     User user = (User)session.getAttribute(Global.SESSION_USER);
     Logger.getLog().info(desc);
     ITrans t = TransFactory.getTrans();

@@ -30,8 +30,8 @@ public class ExecuterNPress extends WebExecute{
   protected void responsePage(Page p){
     Request r = Context.get(Statics.REQUEST);
     Response res = Context.get(Statics.RESPONSE);
-    HttpServletRequest oreq = r.find(TAG_REQUEST);
-    HttpServletResponse ores = res.find(TAG_RESPONSE);
+    HttpServletRequest oreq = r.find(Statics.FIND_REQUEST);
+    HttpServletResponse ores = res.find(Statics.FIND_RESPONSE);
     ores.setStatus(p.getStatus());
     // debug
     Iterator<String> it = p.keySet().iterator();

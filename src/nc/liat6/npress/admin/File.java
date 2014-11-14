@@ -10,7 +10,6 @@ import nc.liat6.frame.execute.upload.UploadedFile;
 import nc.liat6.frame.util.ID;
 import nc.liat6.frame.util.ImageHelper;
 import nc.liat6.frame.web.WebContext;
-import nc.liat6.frame.web.WebExecute;
 import nc.liat6.frame.web.response.Json;
 import nc.liat6.frame.web.upload.FileUploader;
 import nc.liat6.npress.Global;
@@ -24,7 +23,7 @@ public class File{
 
   public Object upload(){
     Request r = Context.get(Statics.REQUEST);
-    FileUploader uploader = r.find(WebExecute.TAG_UPLOADER);
+    FileUploader uploader = r.find(Statics.FIND_UPLOADER);
     UploadedFile file = uploader.getFile();
     String dirString = Global.CONFIG_SERVICE.getConfig("UPLOAD_DIR").getValue();
     java.io.File dir = new java.io.File(WebContext.REAL_PATH,dirString);
@@ -42,7 +41,7 @@ public class File{
 
   public Object uploadPic(){
     Request r = Context.get(Statics.REQUEST);
-    FileUploader uploader = r.find(WebExecute.TAG_UPLOADER);
+    FileUploader uploader = r.find(Statics.FIND_UPLOADER);
     UploadedFile file = uploader.getFile("jpg","gif","bmp","png");
     String dirString = Global.CONFIG_SERVICE.getConfig("UPLOAD_DIR").getValue();
     int w = Integer.parseInt(Global.CONFIG_SERVICE.getConfig("PIC_WIDTH").getValue());
@@ -64,7 +63,7 @@ public class File{
 
   public Object uploadBigPic(){
     Request r = Context.get(Statics.REQUEST);
-    FileUploader uploader = r.find(WebExecute.TAG_UPLOADER);
+    FileUploader uploader = r.find(Statics.FIND_UPLOADER);
     UploadedFile file = uploader.getFile("jpg","gif","bmp","png");
     String dirString = Global.CONFIG_SERVICE.getConfig("UPLOAD_DIR").getValue();
     java.io.File dir = new java.io.File(WebContext.REAL_PATH,dirString);
