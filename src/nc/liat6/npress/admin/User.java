@@ -13,7 +13,6 @@ import nc.liat6.frame.execute.Request;
 import nc.liat6.frame.paging.PageData;
 import nc.liat6.frame.validate.Validator;
 import nc.liat6.frame.validate.rule.RuleNotEmpty;
-import nc.liat6.frame.web.response.Bad;
 import nc.liat6.frame.web.response.Page;
 import nc.liat6.frame.web.response.Paging;
 import nc.liat6.frame.web.response.Tip;
@@ -95,12 +94,12 @@ public class User{
     Validator.check(npd,"npd",new RuleNotEmpty("新密码"));
     Validator.check(npd1,"npd1",new RuleNotEmpty("新密码"));
     if(!npd.equals(npd1)){
-      return new Bad("两次输入的新密码不同！","npd1");
+      throw new BadException("两次输入的新密码不同！");
     }
     ITrans t = TransFactory.getTrans();
     Bean user = t.getSelecter().table("T_USER").where("C_ID",id).one();
     if(!user.get("C_PASSWORD").equals(opd)){
-      return new Bad("原密码输入有误！","opd");
+      throw new BadException("原密码输入有误！");
     }
     t.getUpdater().table("T_USER").set("C_PASSWORD",npd).where("C_ID",user.get("C_ID")).update();
     t.commit();

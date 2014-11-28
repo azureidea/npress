@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import nc.liat6.frame.Factory;
+import nc.liat6.frame.Version;
 import nc.liat6.frame.execute.IExecute;
+import nc.liat6.frame.execute.Request;
 import nc.liat6.frame.web.config.IWebManager;
 import nc.liat6.frame.web.config.WebConfig;
 import nc.liat6.frame.web.upload.UploadStatus;
@@ -31,7 +33,7 @@ public class WebConfigNPress extends WebConfig{
   }
 
   @Override
-  public String getErrorPage(){
+  public String getErrorPage(Request request,int responseStatus){
     return "/themes/"+getGlobalVars().get("theme")+"/error.jsp";
   }
 
@@ -53,6 +55,7 @@ public class WebConfigNPress extends WebConfig{
     // 屏蔽访问
     l.add("/"+pkg);
     l.add("/"+pkg.replace(".","-"));
+    l.add("/"+Version.class.getPackage().getName().replace(".","-"));
     return l;
   }
 
