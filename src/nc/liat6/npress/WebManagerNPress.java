@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import nc.liat6.frame.context.Context;
 import nc.liat6.frame.context.Statics;
+import nc.liat6.frame.execute.Client;
 import nc.liat6.frame.execute.Request;
 import nc.liat6.frame.web.WebContext;
 import nc.liat6.frame.web.WebExecute;
@@ -41,11 +42,11 @@ public class WebManagerNPress extends WebManager{
     if(null!=userAgent){
       for(String ma:MOBILE_AGENT){
         if(userAgent.toLowerCase().contains(ma)){
-          return Request.CLIENT_TYPE_MOBILE;
+          return 1;
         }
       }
     }
-    return Request.CLIENT_TYPE_COMPUTER;
+    return 0;
   }
 
   public WebManagerNPress(IWebConfig config){
@@ -89,7 +90,7 @@ public class WebManagerNPress extends WebManager{
         }catch(Exception e){}
         int clientType = getClientType(r);
         // 缓存文件唯一名称
-        String fileName = (Request.CLIENT_TYPE_MOBILE==clientType?"mobile":"pc")+"-"+klass+"-"+id+"-"+pageNum+".html";
+        String fileName = (1==clientType?"mobile":"pc")+"-"+klass+"-"+id+"-"+pageNum+".html";
         File dir = new File(WebContext.REAL_PATH,Global.CONFIG_SERVICE.getConfig("CACHE_DIR").getValue());
         if(!dir.exists()||!dir.isDirectory()){
           dir.mkdirs();
@@ -120,8 +121,9 @@ public class WebManagerNPress extends WebManager{
     if(o instanceof Page){
       Page p = (Page)o;
       if(!p.getUri().startsWith("/")){
+        Client client = r.getClient();
         //如果是移动客户端，转到mobile目录
-        if(Request.CLIENT_TYPE_MOBILE==r.getClientType()){
+        if(client.isMobile()){
           p.setUri("/themes/"+theme+"/mobile/"+p.getUri());
         }else{
           p.setUri("/themes/"+theme+"/pc/"+p.getUri());

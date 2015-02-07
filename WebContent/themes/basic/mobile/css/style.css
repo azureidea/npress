@@ -2,6 +2,10 @@
 
 body{display:none;}
 
+#right{
+  display:none;
+}
+
 div.clear {
   font-size: 0;
   height: 0;

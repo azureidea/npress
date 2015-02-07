@@ -3,20 +3,20 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<jsp:include page="/themes/basic/mobile/include.jsp" />
-<script type="text/javascript" src="${PATH}/js/share.js"></script>
-<title>搜索 ${s} - ${WEB_NAME}</title>
-</head>
-<body>
-  <section id="aside" data-transition="slide" data-aside="right">
-    <header data-title="搜索 ${s}" data-back="chevron-left">
-        <nav class="on-right">
-            <button data-view-aside="right" data-icon="menu"></button>
-        </nav>
+  <head>
+    <jsp:include page="/themes/basic/mobile/include.jsp" />
+    <script type="text/javascript" src="${PATH}/js/share.js"></script>
+    <title>搜索 ${s} - ${WEB_NAME}</title>
+  </head>
+  <body>
+    <header>
+      <nav><a class="fa fa-chevron-left" href="${PATH}/"></a></nav>
+      <i>搜索 ${s}</i>
+      <nav>
+        <a class="fa fa-bars"></a>
+      </nav>
     </header>
-    <article id="listview" class="active list indented scroll">
+    <article>
       <c:choose>
         <c:when test="${empty nlfPagingData.data}"><ul><li>没有数据！</li></ul></c:when>
         <c:otherwise>
@@ -42,7 +42,6 @@
       </c:choose>
     </article>
     <jsp:include page="/themes/basic/mobile/footer_home.jsp" />
-  </section>
-  <jsp:include page="/themes/basic/mobile/include_cat.jsp" />
-</body>
+    <jsp:include page="/themes/basic/mobile/include_cat.jsp" />
+  </body>
 </html>

@@ -3,22 +3,20 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<jsp:include page="/themes/basic/mobile/include.jsp" />
-<script type="text/javascript" src="${PATH}/js/share.js"></script>
-<title>首页 - ${WEB_NAME}</title>
-</head>
-<body>
-  <section>
+  <head>
+    <jsp:include page="/themes/basic/mobile/include.jsp" />
+    <script type="text/javascript" src="${PATH}/js/share.js"></script>
+    <title>首页 - ${WEB_NAME}</title>
+  </head>
+  <body>
     <header>
       <nav><a class="fa fa-home" href="${PATH}/"></a></nav>
-      ${WEB_NAME}首页
+      <i>${WEB_NAME}</i>
       <nav>
-        <a class="fa fa-bars" data-aside="right"></a>
+        <a class="fa fa-bars"></a>
       </nav>
     </header>
-    <article class="padding">
+    <article>
       <c:choose>
         <c:when test="${empty nlfPagingData.data}"><ul><li>没有数据！</li></ul></c:when>
         <c:otherwise>
@@ -36,6 +34,8 @@
               <c:if test="${empty o.tags}">无标签</c:if>
               </i>
             </small>
+          </li>
+          <li>
             <div>
               <c:if test="${not empty o.pic}">
                 <a class="thumb" href="${PATH}/action-Article/detail?id=${o.id}"><img src="${o.pic}" width="${PIC_WIDTH}" height="${PIC_HEIGHT}" /></a>
@@ -50,7 +50,6 @@
       </c:choose>
     </article>
     <jsp:include page="/themes/basic/mobile/footer_home.jsp" />
-  </section>
-  <jsp:include page="/themes/basic/mobile/include_cat.jsp" />
-</body>
+    <jsp:include page="/themes/basic/mobile/include_cat.jsp" />
+  </body>
 </html>

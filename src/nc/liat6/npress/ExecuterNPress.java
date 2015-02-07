@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import nc.liat6.frame.context.Context;
 import nc.liat6.frame.context.Statics;
 import nc.liat6.frame.exception.BadException;
+import nc.liat6.frame.execute.Client;
 import nc.liat6.frame.execute.Request;
 import nc.liat6.frame.execute.Response;
 import nc.liat6.frame.locale.L;
@@ -60,9 +61,9 @@ public class ExecuterNPress extends WebExecute{
           String id = r.get("id");
           // 传来的页码
           int pageNum = r.getPageNumber();
-          int clientType = r.getClientType();
+          Client client = r.getClient();
           // 缓存文件唯一名称
-          String fileName = (Request.CLIENT_TYPE_MOBILE==clientType?"mobile":"pc")+"-"+klass+"-"+id+"-"+pageNum+".html";
+          String fileName = (client.isMobile()?"mobile":"pc")+"-"+klass+"-"+id+"-"+pageNum+".html";
           File dir = new File(WebContext.REAL_PATH,Global.CONFIG_SERVICE.getConfig("CACHE_DIR").getValue());
           if(!dir.exists()||!dir.isDirectory()){
             dir.mkdirs();

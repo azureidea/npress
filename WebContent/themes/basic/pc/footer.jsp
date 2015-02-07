@@ -23,7 +23,7 @@
     <ul class="links"></ul>
     <div class="space"></div>
     <div>
-      <i class="copyright">${WEB_COPYRIGHT}</i>
+      <i class="copyright">${WEB_COPYRIGHT} 蜀ICP备15000307号-1</i>
       <i class="info">基于<a href="https://github.com/6tail/nlf/" target="_blank">NLF框架</a>构建</i>
     </div>
   </div>
