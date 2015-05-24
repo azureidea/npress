@@ -21,16 +21,13 @@
             <div class="art_desc"><c:if test="${not empty o.pic}">
               <img class="pic" src="${o.pic}" width="${PIC_WIDTH}" height="${PIC_HEIGHT}" />
             </c:if>
-            ${o.description}...<a class="detail" href="${PATH}/action-Article/detail?id=${o.id}">阅读全文</a></div>
+            ${o.description}</div>
+            <div class="clear"></div>
             <div class="art_footer">
-              <i class="fa fa-calendar">&nbsp;${o.day}</i>
-              <i class="fa fa-tags">
-              <c:forEach items="${o.tags}" var="tag" varStatus="index">
-                <c:if test="${index.index>0}">|</c:if>
+              <i class="fa fa-calendar-o">&nbsp;${o.day}</i>
+              <c:forEach items="${o.tags}" var="tag">
                 <a class="tag" href="${PATH}/action-Cat/page?id=${tag.id}" target="_self">${tag.name}</a>
               </c:forEach>
-              <c:if test="${empty o.tags}">无标签</c:if>
-              </i>
             </div>
             <div class="clear"></div>
           </li>

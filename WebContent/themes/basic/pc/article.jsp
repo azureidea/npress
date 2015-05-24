@@ -15,14 +15,10 @@
             <li>
                 <div class="art_header"><a href="${PATH}/action-Article/detail?id=${art.id}">${art.title}</a></div>
                 <div class="art_tag">
-                  <i class="fa fa-calendar">&nbsp;${art.day}</i>
-                  <i class="fa fa-tags">
-                  <c:forEach items="${art.tags}" var="tag" varStatus="index">
-                    <c:if test="${index.index>0}">|</c:if>
+                  <i class="fa fa-calendar-o">&nbsp;${art.day}</i>
+                  <c:forEach items="${art.tags}" var="tag">
                     <a class="tag" href="${PATH}/action-Cat/page?id=${tag.id}" target="_self">${tag.name}</a>
                   </c:forEach>
-                  <c:if test="${empty art.tags}">无标签</c:if>
-                  </i>
                 </div>
                 <div class="art_desc">${art.content}</div>
                 <div class="clear"></div>
