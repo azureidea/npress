@@ -4,17 +4,27 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import nc.liat6.frame.context.Context;
 import nc.liat6.frame.context.Statics;
+import nc.liat6.frame.exception.BadException;
+import nc.liat6.frame.exception.BadUploadException;
 import nc.liat6.frame.execute.Client;
 import nc.liat6.frame.execute.Request;
+import nc.liat6.frame.execute.Response;
+import nc.liat6.frame.log.Logger;
 import nc.liat6.frame.web.WebContext;
 import nc.liat6.frame.web.WebExecute;
 import nc.liat6.frame.web.config.ClassMethod;
 import nc.liat6.frame.web.config.IWebConfig;
 import nc.liat6.frame.web.config.WebManager;
+import nc.liat6.frame.web.response.Json;
 import nc.liat6.frame.web.response.Page;
+import nc.liat6.frame.web.response.Tip;
+import nc.liat6.frame.web.response.mobile.Toast;
+import nc.liat6.frame.web.upload.FileUploader;
 import nc.liat6.npress.cache.CacheAction;
+import nc.liat6.npress.exception.UserLoginException;
 
 /**
  * WEB管理器
@@ -23,35 +33,112 @@ import nc.liat6.npress.cache.CacheAction;
  * 
  */
 public class WebManagerNPress extends WebManager{
-  
+  /** 移动端浏览器标识 */
   static final String[] MOBILE_AGENT = {"iphone","ipad","android","phone","mobile","wap","netfront","java","opera mobi","opera mini","ucweb","windows ce","symbian","series","webos","sony","blackberry","dopod","nokia","samsung","palmsource","xda","pieplus","meizu","midp","cldc","motorola","foma","docomo","up.browser","up.link","blazer","helio","hosin","huawei","novarra","coolpad","webos","techfaith","palmsource","alcatel","amoi","ktouch","nexian","ericsson","philips","sagem","wellcom","bunjalloo","maui","smartphone","iemobile","spice","bird","zte-","longcos","pantech","gionee","portalmmm","jig browser","hiptop","benq","haier","^lct","320x320","240x320","176x220","w3c ","acs-","alav","alca","amoi","audi","avan","benq","bird","blac","blaz","brew","cell","cldc","cmd-","dang","doco","eric","hipt","inno","ipaq","java","jigs","kddi","keji","leno","lg-c","lg-d","lg-g","lge-","maui","maxo","midp","mits","mmef","mobi","mot-","moto","mwbp","nec-","newt","noki","oper","palm","pana","pant","phil","play","port","prox","qwap","sage","sams","sany","sch-","sec-","send","seri","sgh-","shar","sie-","siem","smal","smar","sony","sph-","symb","t-mo","teli","tim-","tsm-","upg1","upsi","vk-v","voda","wap-","wapa","wapi","wapp","wapr","webc","winw","winw","xda","xda-","Googlebot-Mobile"};
-
-  /** 网站使用的主题 */
-  private String theme;
-  
   /** 需要做缓存的方法列表 */
   public static final List<String> cacheMethods = new ArrayList<String>();
   static{
     cacheMethods.add("page");
     cacheMethods.add("detail");
   }
-  
-  private int getClientType(HttpServletRequest oreq){
-    // 判断移动浏览器
-    String userAgent = oreq.getHeader("User-Agent");
+
+  /**
+   * 判断是否移动端浏览器
+   * 
+   * @param req
+   * @return
+   */
+  private boolean isMobile(HttpServletRequest req){
+    String userAgent = req.getHeader("User-Agent");
     if(null!=userAgent){
       for(String ma:MOBILE_AGENT){
         if(userAgent.toLowerCase().contains(ma)){
-          return 1;
+          return true;
         }
       }
     }
-    return 0;
+    return false;
   }
 
   public WebManagerNPress(IWebConfig config){
     super(config);
-    theme = config.getGlobalVars().get("theme")+"";
+  }
+  
+  @Override
+  public Object failed(Throwable e){
+    Throwable cause = e;
+    while(null!=cause&&null!=cause.getCause()){
+      cause = cause.getCause();
+    }
+    if(!(cause instanceof BadException)&&!(cause instanceof UserLoginException)){
+      Logger.getLog().error(null==e?null:e.getMessage(),e);
+    }
+    String r = null==cause?null:cause.getMessage();
+    Request req = Context.get(Statics.REQUEST);
+    Client client = req.getClient();
+    HttpServletRequest oreq = req.find(Statics.FIND_REQUEST);
+    Response res = Context.get(Statics.RESPONSE);
+    HttpServletResponse ores = res.find(Statics.FIND_RESPONSE);
+    String headAjax = oreq.getHeader("x-requested-with");
+    //非ajax请求
+    if(null==headAjax||!"XMLHttpRequest".equals(headAjax)){
+      //如果需要pc端登录的，跳转到pc登录
+      if(cause instanceof UserLoginException){
+        return new Page("/go_login.jsp");
+      }
+      // 文件上传异常，转换为JSON返回
+      if(cause instanceof BadUploadException||req.get(FileUploader.ARG_ID).length()>0){
+        Json json = new Json(r);
+        json.setMsg(r);
+        json.setSuccess(false);
+        return json;
+      }
+      // 可被检测到的错误处理
+      if(cause instanceof ClassNotFoundException||cause instanceof NoSuchMethodException){
+        String errorPage = config.getErrorPage(req,404);
+        if(null==errorPage){
+          ores.setStatus(404);
+          return null;
+        }else{
+          Page p = new Page(errorPage);
+          p.set("e",cause);
+          p.setStatus(404);
+          return p;
+        }
+      }else{
+        String errorPage = config.getErrorPage(req,500);
+        if(null==errorPage){
+          ores.setStatus(500);
+          return null;
+        }else{
+          Page p = new Page(errorPage);
+          p.set("e",cause);
+          p.setStatus(500);
+          return p;
+        }
+      }
+    }else{
+      // ajax请求的错误处理
+      if(client.isMobile()){
+        Toast toast = new Toast();
+        toast.setMsg(r);
+        if(cause instanceof BadException){
+          BadException be = (BadException)cause;
+          toast.setData(be.getData());
+        }
+        toast.setSuccess(false);
+        return toast;
+      }else{
+        Tip tip = new Tip();
+        tip.setMsg(r);
+        if(cause instanceof BadException){
+          BadException be = (BadException)cause;
+          tip.setData(be.getData());
+        }
+        tip.setSuccess(false);
+        return tip;
+      }
+    }
   }
 
   @Override
@@ -88,9 +175,8 @@ public class WebManagerNPress extends WebManager{
         try{
           pageNum = Integer.parseInt(r.getParameter(Request.PAGE_NUMBER_VAR));
         }catch(Exception e){}
-        int clientType = getClientType(r);
         // 缓存文件唯一名称
-        String fileName = (1==clientType?"mobile":"pc")+"-"+klass+"-"+id+"-"+pageNum+".html";
+        String fileName = (isMobile(r)?"mobile":"pc")+"-"+klass+"-"+id+"-"+pageNum+".html";
         File dir = new File(WebContext.REAL_PATH,Global.CONFIG_SERVICE.getConfig("CACHE_DIR").getValue());
         if(!dir.exists()||!dir.isDirectory()){
           dir.mkdirs();
@@ -122,12 +208,9 @@ public class WebManagerNPress extends WebManager{
       Page p = (Page)o;
       if(!p.getUri().startsWith("/")){
         Client client = r.getClient();
+        String theme = Global.CONFIG_SERVICE.getConfig("theme").getValue();
         //如果是移动客户端，转到mobile目录
-        if(client.isMobile()){
-          p.setUri("/themes/"+theme+"/mobile/"+p.getUri());
-        }else{
-          p.setUri("/themes/"+theme+"/pc/"+p.getUri());
-        }
+        p.setUri("/themes/"+theme+"/"+(client.isMobile()?"mobile":"pc")+"/"+p.getUri());
       }
     }
   }

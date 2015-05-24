@@ -9,7 +9,9 @@ import nc.liat6.frame.execute.Request;
 import nc.liat6.frame.util.ID;
 import nc.liat6.frame.validate.Validator;
 import nc.liat6.frame.validate.rule.RuleNotEmpty;
+import nc.liat6.frame.web.response.HideJson;
 import nc.liat6.frame.web.response.Tip;
+import nc.liat6.npress.service.ICatService;
 
 /**
  * 后台-分类管理
@@ -18,6 +20,11 @@ import nc.liat6.frame.web.response.Tip;
  *
  */
 public class Cat{
+  private ICatService catService;
+
+  public void setCatService(ICatService catService){
+    this.catService = catService;
+  }
 
   /**
    * 添加分类
@@ -44,6 +51,12 @@ public class Cat{
     cat.setType(type);
     cat.setName(name);
     return new Tip(cat,"添加成功");
+  }
+
+  public Object detail(){
+    Request r = Context.get(Statics.REQUEST);
+    long id = r.getLong("id");
+    return new HideJson(catService.getCat(id));
   }
 
   /**

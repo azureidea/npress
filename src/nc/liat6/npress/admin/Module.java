@@ -2,16 +2,17 @@ package nc.liat6.npress.admin;
 
 import nc.liat6.frame.context.Context;
 import nc.liat6.frame.context.Statics;
+import nc.liat6.frame.db.Dao;
 import nc.liat6.frame.db.plugin.IInserter;
 import nc.liat6.frame.db.plugin.IUpdater;
-import nc.liat6.frame.db.transaction.ITrans;
-import nc.liat6.frame.db.transaction.TransFactory;
 import nc.liat6.frame.execute.Request;
 import nc.liat6.frame.util.ID;
 import nc.liat6.frame.validate.Validator;
 import nc.liat6.frame.validate.rule.RuleNotEmpty;
+import nc.liat6.frame.web.response.HideJson;
 import nc.liat6.frame.web.response.Page;
 import nc.liat6.frame.web.response.Tip;
+import nc.liat6.npress.Tables;
 import nc.liat6.npress.service.IModuleService;
 
 /**
@@ -39,21 +40,7 @@ public class Module{
   }
 
   /**
-   * 修改页面
-   * 
-   * @return
-   */
-  public Object pageModify(){
-    Request r = Context.get(Statics.REQUEST);
-    long id = r.getLong("id");
-    Page p = new Page("/admin/module/modify.jsp");
-    p.set("module",moduleService.getModule(id));
-    p.deliver();
-    return p;
-  }
-
-  /**
-   * 列表页面
+   * 模块列表页面
    * 
    * @return
    */
@@ -78,10 +65,8 @@ public class Module{
     int index = r.getInt("index");
     int pos = r.getInt("pos");
     Validator.check(name,new RuleNotEmpty("模块名"));
-    ITrans t = TransFactory.getTrans();
-    String id = ID.next()+"";
-    IInserter ins = t.getInserter().table("T_MODULE");
-    ins.set("C_ID",id);
+    IInserter ins = Dao.getInserter().table(Tables.MODULE);
+    ins.set("C_ID",ID.next()+"");
     ins.set("C_NAME",name);
     ins.set("C_TYPE",type);
     ins.set("C_URL",url);
@@ -90,8 +75,6 @@ public class Module{
     ins.set("C_INDEX",index);
     ins.set("C_POS",pos);
     ins.insert();
-    t.commit();
-    t.close();
     return new Tip("添加成功");
   }
 
@@ -111,8 +94,7 @@ public class Module{
     int index = r.getInt("index");
     int pos = r.getInt("pos");
     Validator.check(name,new RuleNotEmpty("模块名"));
-    ITrans t = TransFactory.getTrans();
-    IUpdater iup = t.getUpdater().table("T_MODULE");
+    IUpdater iup = Dao.getUpdater().table(Tables.MODULE);
     iup.where("C_ID",id);
     iup.set("C_NAME",name);
     iup.set("C_TYPE",type);
@@ -122,9 +104,17 @@ public class Module{
     iup.set("C_INDEX",index);
     iup.set("C_POS",pos);
     iup.update();
-    t.commit();
-    t.close();
     return new Tip("修改成功");
+  }
+  
+  /**
+   * 获取模块详情
+   * @return
+   */
+  public Object detail(){
+    Request r = Context.get(Statics.REQUEST);
+    long id = r.getLong("id");
+    return new HideJson(moduleService.getModule(id));
   }
 
   /**
@@ -135,10 +125,7 @@ public class Module{
   public Object delete(){
     Request r = Context.get(Statics.REQUEST);
     long id = r.getLong("id");
-    ITrans t = TransFactory.getTrans();
-    t.getDeleter().table("T_MODULE").where("C_ID",id).delete();
-    t.commit();
-    t.close();
+    moduleService.deleteModule(id);
     return new Tip("删除成功");
   }
 }

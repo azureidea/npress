@@ -7,7 +7,6 @@ package nc.liat6.npress.init;
  * 
  */
 public interface IInit{
-
   /**
    * 初始化
    */

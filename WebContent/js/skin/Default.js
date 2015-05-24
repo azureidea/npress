@@ -1,11 +1,7 @@
-﻿/**
- * I.skin.Default
- * <i>默认皮肤</i>
- */
-I.regist('skin.Default',function(W,D){
+﻿I.regist('skin.Default',function(W,D){
   var CSS = function(){/*
 .i-ui-Mask-${skin}{
- z-index:902;
+ z-index:992;
  position:absolute;
  margin:0;
  padding:0;
@@ -123,6 +119,22 @@ I.regist('skin.Default',function(W,D){
  white-space:nowrap;
  text-overflow:ellipsis;
 }
+.i-z-Win-${skin} a.i-max{
+ -webkit-box-sizing:border-box;
+ -moz-box-sizing:border-box;
+ -ms-box-sizing:border-box;
+ -o-box-sizing:border-box;
+ box-sizing:border-box;
+ outline:none;
+ position:absolute;
+ right:0;
+ top:0;
+ margin:0;
+ padding:0;
+ text-decoration:none;
+ border:0;
+ text-align:center;
+}
 .i-z-Win-${skin} a.i-close{
  -webkit-box-sizing:border-box;
  -moz-box-sizing:border-box;
@@ -167,7 +179,7 @@ I.regist('skin.Default',function(W,D){
 }
 
 
-.i-ui-ToolTip-${skin}{z-index:901;position:absolute;margin:0;padding:0;left:0;top:0;}
+.i-ui-ToolTip-${skin}{z-index:993;position:absolute;margin:0;padding:0;left:0;top:0;}
 .i-ui-ToolTip-${skin} b{font-weight:normal;font-style:normal;display:none;}
 .i-ui-ToolTip-${skin} b.c{display:block;margin:0;padding:0;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;}
 .i-ui-ToolTip-${skin} b.content{display:block;margin:10px;padding:0;}

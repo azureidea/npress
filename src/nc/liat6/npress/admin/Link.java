@@ -10,6 +10,7 @@ import nc.liat6.frame.execute.Request;
 import nc.liat6.frame.util.ID;
 import nc.liat6.frame.validate.Validator;
 import nc.liat6.frame.validate.rule.RuleNotEmpty;
+import nc.liat6.frame.web.response.HideJson;
 import nc.liat6.frame.web.response.Page;
 import nc.liat6.frame.web.response.Tip;
 import nc.liat6.npress.service.ILinkService;
@@ -37,19 +38,11 @@ public class Link{
   public Object pageAdd(){
     return new Page("/admin/link/add.jsp");
   }
-
-  /**
-   * 修改页面
-   * 
-   * @return
-   */
-  public Object pageModify(){
+  
+  public Object detail(){
     Request r = Context.get(Statics.REQUEST);
     long id = r.getLong("id");
-    Page p = new Page("/admin/link/modify.jsp");
-    p.set("link",linkService.getLink(id));
-    p.deliver();
-    return p;
+    return new HideJson(linkService.getLink(id));
   }
 
   /**

@@ -23,7 +23,6 @@ public class ModuleAdapter implements IBeanRule{
     map.put("pos","C_POS");
   }
 
-  @Override
   public String getKey(String property){
     return map.get(property);
   }

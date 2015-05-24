@@ -16,7 +16,7 @@ public interface IModuleService{
    * 
    * @return 模块列表
    */
-  public List<Module> listModules();
+  List<Module> listModules();
 
   /**
    * 根据ID获取模块
@@ -24,5 +24,11 @@ public interface IModuleService{
    * @param id 模块ID
    * @return 模块
    */
-  public Module getModule(long id);
+  Module getModule(long id);
+  
+  /**
+   * 删除模块
+   * @param id 模块ID
+   */
+  void deleteModule(long id);
 }

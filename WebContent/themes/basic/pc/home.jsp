@@ -5,7 +5,6 @@
 <html>
 <head>
 <jsp:include page="/themes/basic/pc/include.jsp" />
-<script type="text/javascript" src="${PATH}/js/share.js"></script>
 <title>首页 - ${WEB_NAME}</title>
 </head>
 <body>
@@ -24,14 +23,6 @@
             </c:if>
             ${o.description}...<a class="detail" href="${PATH}/action-Article/detail?id=${o.id}">阅读全文</a></div>
             <div class="art_footer">
-              <div class="pull-right">
-                <a class="fa fa-share-alt">
-                <ol>
-                  <li class="fa fa-weibo" onclick="shareTo('weibo','${o.title}','http://${DOMAIN}${PATH}/action-Article/detail?id=${o.id}');">分享到新浪微博</li>
-                  <li class="fa fa-qq" onclick="shareTo('qzone','${o.title}','http://${DOMAIN}${PATH}/action-Article/detail?id=${o.id}');">分享到QQ空间</li>
-                </ol>
-                </a>
-              </div>
               <i class="fa fa-calendar">&nbsp;${o.day}</i>
               <i class="fa fa-tags">
               <c:forEach items="${o.tags}" var="tag" varStatus="index">

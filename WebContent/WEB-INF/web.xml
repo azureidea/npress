@@ -3,15 +3,6 @@
   <display-name>npress</display-name>
 
   <filter>
-    <filter-name>loginFilter</filter-name>
-    <filter-class>nc.liat6.npress.filter.LoginFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>loginFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <filter>
     <filter-name>nlf</filter-name>
     <filter-class>nc.liat6.frame.web.Dispatcher</filter-class>
   </filter>
@@ -25,10 +16,6 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  <error-page>
-    <error-code>404</error-code>
-    <location>/themes/basic/404.jsp</location>
-  </error-page>
   <session-config>
     <session-timeout>20</session-timeout>
   </session-config>

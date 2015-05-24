@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import nc.liat6.frame.context.Context;
 import nc.liat6.frame.context.Statics;
+import nc.liat6.frame.db.Dao;
 import nc.liat6.frame.db.entity.Bean;
+import nc.liat6.frame.db.entity.IBeanRule;
 import nc.liat6.frame.db.plugin.IUpdater;
 import nc.liat6.frame.db.transaction.ITrans;
 import nc.liat6.frame.db.transaction.TransFactory;
@@ -13,12 +15,14 @@ import nc.liat6.frame.execute.Request;
 import nc.liat6.frame.paging.PageData;
 import nc.liat6.frame.validate.Validator;
 import nc.liat6.frame.validate.rule.RuleNotEmpty;
-import nc.liat6.frame.web.response.Page;
+import nc.liat6.frame.web.response.HideJson;
 import nc.liat6.frame.web.response.Paging;
 import nc.liat6.frame.web.response.Tip;
+import nc.liat6.npress.Tables;
+import nc.liat6.npress.bean.adapter.UserAdapter;
 
 public class User{
-
+  private static final IBeanRule userAdapter = new UserAdapter();
   public Object pageAdmin(){
     Request r = Context.get(Statics.REQUEST);
     ITrans t = TransFactory.getTrans();
@@ -42,23 +46,13 @@ public class User{
     p.deliver();
     return p;
   }
-
-  public Object pageModify(){
+  
+  public Object detail(){
     Request r = Context.get(Statics.REQUEST);
     long id = r.getLong("id");
-    ITrans t = TransFactory.getTrans();
-    Bean o = t.getSelecter().column("C_ID","C_NAME","C_ACCOUNT").table("T_USER").where("C_ID",id).one();
-    t.rollback();
-    t.close();
-    nc.liat6.npress.bean.User m = new nc.liat6.npress.bean.User();
-    m.setId(o.getLong("C_ID",0));
-    m.setAccount(o.getString("C_ACCOUNT",""));
-    m.setName(o.getString("C_NAME",""));
-    Page p = new Page();
-    p.setUri("/admin/user/modify.jsp");
-    p.set("u",m);
-    p.deliver();
-    return p;
+    nc.liat6.npress.bean.User user = Dao.getSelecter().table(Tables.USER).where("C_ID",id).one(nc.liat6.npress.bean.User.class,userAdapter);
+    user.setPassword(null);
+    return new HideJson(user);
   }
 
   public Object modify(){

@@ -1,57 +1,69 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div class="form">
 <div id="form">
   <ul>
     <li data-width="10">名称：</li>
     <li><input id="name" type="text" /></li>
+    <li></li>
   </ul>
   <ul>
     <li data-width="10">序号：</li>
-    <li><input id="index" type="text" /></li>
+    <li><input id="index" type="text" value="0" /></li>
+    <li></li>
   </ul>
   <ul>
     <li data-width="10">位置：</li>
-    <li><select id="pos">
-          <option value="0">顶部导航</option>
-          <option value="1">底部导航</option>
-          <option value="2">文章详情底部插件</option>
-          <option value="3">右侧边栏底部插件</option>
-          <option value="4">文章详情顶部插件</option>
-          <option value="5">右侧边栏顶部插件</option>
-        </select></li>
+    <li>
+      <select id="pos">
+        <option value="0">顶部导航</option>
+        <option value="1">底部导航</option>
+        <option value="2">文章详情底部插件</option>
+        <option value="3">右侧边栏底部插件</option>
+        <option value="4">文章详情顶部插件</option>
+        <option value="5">右侧边栏顶部插件</option>
+      </select>
+    </li>
+    <li></li>
   </ul>
   <ul>
     <li data-width="10">类型：</li>
-    <li><select id="type">
-          <option value="0">本窗口打开的本站URL</option>
-          <option value="1">新窗口打开的本站URL</option>
-          <option value="2">本窗口打开的外站URL</option>
-          <option value="3">新窗口打开的外站URL</option>
-          <option value="4">本窗口打开的页面</option>
-          <option value="5">新窗口打开的页面</option>
-          <option value="6">插件</option>
-        </select></li>
+    <li>
+      <select id="type">
+        <option value="0">本窗口打开的本站URL</option>
+        <option value="1">新窗口打开的本站URL</option>
+        <option value="2">本窗口打开的外站URL</option>
+        <option value="3">新窗口打开的外站URL</option>
+        <option value="4">本窗口打开的页面</option>
+        <option value="5">新窗口打开的页面</option>
+        <option value="6">插件</option>
+      </select>
+    </li>
+    <li></li>
   </ul>
   <ul>
     <li data-width="10">URL：</li>
     <li><input id="url" type="text" /></li>
+    <li></li>
   </ul>
   <ul>
     <li data-width="10">内容：</li>
     <li><textarea id="content" rows="10"></textarea></li>
+    <li></li>
   </ul>
   <ul>
     <li data-width="10">是否首页：</li>
-    <li><select id="home">
-          <option value="0">否</option>
-          <option value="1">是</option>
-        </select></li>
+    <li>
+      <select id="home">
+        <option value="0">否</option>
+        <option value="1">是</option>
+      </select>
+    </li>
+    <li></li>
   </ul>
   <ul>
     <li></li>
     <li data-width="10"><a id="btn">添加</a></li>
+    <li></li>
   </ul>
-</div>
 </div>
 <script type="text/javascript">
 I.want(function(){
@@ -61,6 +73,12 @@ I.want(function(){
     uploadUrl:'${PATH}/admin-File/uploadBigPic'
   });
   I.ui.Button.render('btn',{
+    background:'#5bc0de',
+    border:'1px solid #46b8da',
+    color:'#FFF',
+    background_hover:'#31b0d5',
+    border_hover:'1px solid #269abc',
+    color_hover:'#FFF',
     callback:function(){
       I.net.Rmi.set('name',I.$('name').value);
       I.net.Rmi.set('index',I.$('index').value);
@@ -70,8 +88,6 @@ I.want(function(){
       I.net.Rmi.set('url',I.$('url').value);
       I.net.Rmi.set('home',I.$('home').value);
       I.net.Rmi.call('admin-Module', 'add', function(r) {
-        I.net.Page.find('admin-Module/pageList');
-        hidePanel();
       });
     }
   });

@@ -1,10 +1,6 @@
 {
   alias:'2csvdb',
   dbtype:'csv',
-  server:null,
-  port:0,
-  dbname:'D:\\db\\npress',
-  user:null,
-  password:null,
+  dbname:'${PATH}\\npressdb',
   type:'csv'
 }

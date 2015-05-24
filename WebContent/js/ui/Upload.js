@@ -17,7 +17,6 @@ I.regist('ui.Upload',function(W,D){
     color_hover:'#333',
     checkKlass:'nc.liat6.frame.web.upload.UploadStatus',
     checkMethod:'getStatus',
-    multiple:false,
     onUpload:function(cfg){},
     onSuccess:function(result){},
     onFailed:function(result){
@@ -56,9 +55,6 @@ I.regist('ui.Upload',function(W,D){
     obj.form.method = 'post';
     obj.form.enctype = 'multipart/form-data';
     obj.input.name = 'iLibUploadFile';
-    if(cfg.multiple){
-      obj.input.multiple = 'multiple';
-    }
     I.listen(obj.input,'change',function(m,e){
       obj.upload(m.value);
     });
@@ -116,7 +112,6 @@ I.regist('ui.Upload',function(W,D){
         }else{
           I.opacity(inst.icon,100);
           inst.textLayer.innerHTML = '';
-          inst.form.reset();
         }
       });
     };
@@ -155,6 +150,7 @@ I.regist('ui.Upload',function(W,D){
       
       inst.uploaded=0;
       inst.total=0;
+      inst.iframe.contentWindow.document.body.innerHTML = '';
       I.opacity(inst.icon,0);
       inst.check();
       cfg.onUpload(cfg);

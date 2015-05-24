@@ -41,6 +41,28 @@ I.regist('ui.Mobile',function(W,D){
         }
       });
     }
+    var ipt = I.$('tag','input');
+    if(ipt&&ipt.length>0){
+      for(var i=0,j=ipt.length;i<j;i++){
+        I.listen(ipt[i],'focus',function(m,e){
+          I.delay(700,function(){
+            var p = m.parentNode;
+            if(m.id=='price'){
+              p = I.$('price-layer');
+              p.scrollIntoView(true);
+            }else if(m.id=='nprice'){
+              p.scrollIntoView(true);
+            }else{
+              var r = I.region();
+              var rp = I.region(p);
+              if(rp.y>=r.y+r.height||rp.y+rp.height<r.y){
+                p.scrollIntoView(true);
+              }
+            }
+          });
+        });
+      }
+    }
   };
   var _render = function(config){
     var obj = {config:null};

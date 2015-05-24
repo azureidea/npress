@@ -23,7 +23,6 @@ public class ArticleAdapter implements IBeanRule{
     map.put("keywords","C_KEYWORDS");
   }
 
-  @Override
   public String getKey(String property){
     return map.get(property);
   }

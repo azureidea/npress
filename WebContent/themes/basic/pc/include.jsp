@@ -15,5 +15,5 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <link type="text/css" rel="stylesheet" href="${PATH}/themes/${theme}/pc/css/style.css" />
-<link type="text/css" rel="stylesheet" href="${PATH}/css/font-awesome.css" />
+<link type="text/css" rel="stylesheet" href="${PATH}/css/font-awesome.min.css" />
 <script type="text/javascript" src="${PATH}/js/icore.js"></script>

@@ -1,9 +1,9 @@
 package nc.liat6.npress.init.impl;
 
+import nc.liat6.frame.db.Dao;
 import nc.liat6.frame.db.exception.DaoException;
 import nc.liat6.frame.db.plugin.IInserter;
-import nc.liat6.frame.db.transaction.ITrans;
-import nc.liat6.frame.db.transaction.TransFactory;
+import nc.liat6.npress.Tables;
 import nc.liat6.npress.init.IInit;
 
 /**
@@ -13,26 +13,20 @@ import nc.liat6.npress.init.IInit;
  *
  */
 public class InitCat implements IInit{
-
-  @Override
   public void init(){
-    ITrans t = TransFactory.getTrans();
     try{
-      if(t.getCounter().table("T_CAT").count()>0){
-        t.rollback();
-        t.close();
+      if(Dao.getCounter().table(Tables.CAT).count()>0){
         return;
       }
-    }catch(DaoException e){
-    }
-    IInserter ins = t.getInserter();
-    ins.table("T_CAT");
+    }catch(DaoException e){}
+    IInserter ins = Dao.getInserter();
+    ins.table(Tables.CAT);
+    //ID
     ins.set("C_ID",1);
+    //名称
     ins.set("C_NAME","未分类");
     //类型：1显示，0隐藏
     ins.set("C_TYPE",1);
     ins.insert();
-    t.commit();
-    t.close();
   }
 }

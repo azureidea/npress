@@ -20,7 +20,6 @@ public class UserAdapter implements IBeanRule{
     map.put("admin","C_IS_ADMIN");
   }
 
-  @Override
   public String getKey(String property){
     return map.get(property);
   }

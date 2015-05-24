@@ -19,7 +19,6 @@ public class LinkAdapter implements IBeanRule{
     map.put("index","C_INDEX");
   }
 
-  @Override
   public String getKey(String property){
     return map.get(property);
   }

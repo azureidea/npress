@@ -7,7 +7,6 @@ package nc.liat6.npress.bean;
  *
  */
 public class Module{
-
   /** 本窗口打开的本站URL */
   public static final int TYPE_IN_SELF_URL = 0;
   /** 新窗口打开的本站URL */
@@ -22,6 +21,18 @@ public class Module{
   public static final int TYPE_BLANK_PAGE = 5;
   /** 插件 */
   public static final int TYPE_PLUGIN = 6;
+  /** 模块位置：顶部 */
+  public static final int POS_TOP = 0;
+  /** 模块位置：底部 */
+  public static final int POS_BOTTOM = 1;
+  /** 模块位置：中间底部 */
+  public static final int POS_CENTER_BOTTOM = 2;
+  /** 模块位置：右边底部 */
+  public static final int POS_RIGHT_BOTTOM = 3;
+  /** 模块位置：中间顶部 */
+  public static final int POS_CENTER_TOP = 4;
+  /** 模块位置：右边顶部 */
+  public static final int POS_RIGHT_TOP = 5;
   /** ID */
   private long id;
   /** 名称 */

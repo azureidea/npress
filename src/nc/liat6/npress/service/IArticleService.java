@@ -12,13 +12,12 @@ import nc.liat6.npress.bean.Cat;
  * 
  */
 public interface IArticleService{
-
   /**
    * 获取文章分页列表
    * 
    * @return 文章列表
    */
-  public PageData pageArticles(int pageNumber,int pageSize);
+  PageData pageArticles(int pageNumber,int pageSize);
 
   /**
    * 按关键词搜索文章分页列表
@@ -26,7 +25,7 @@ public interface IArticleService{
    * @param keywords 关键词
    * @return 文章列表
    */
-  public PageData search(String keywords,int pageNumber,int pageSize);
+  PageData search(String keywords,int pageNumber,int pageSize);
 
   /**
    * 根据ID获取文章
@@ -34,14 +33,14 @@ public interface IArticleService{
    * @param id 文章ID
    * @return 文章
    */
-  public Article getArticle(long id);
+  Article getArticle(long id);
 
   /**
    * 获取指定分类下的文章分页列表
    * 
    * @return 文章列表
    */
-  public PageData pageByCat(long catId,int pageNumber,int pageSize);
+  PageData pageByCat(long catId,int pageNumber,int pageSize);
 
   /**
    * 获取文章所属分类列表
@@ -49,5 +48,12 @@ public interface IArticleService{
    * @param id 文章ID
    * @return 分类列表
    */
-  public List<Cat> listCats(long id);
+  List<Cat> listCats(long id);
+
+  /**
+   * 删除文章
+   * 
+   * @param id 文章ID
+   */
+  void deleteArticle(long id);
 }

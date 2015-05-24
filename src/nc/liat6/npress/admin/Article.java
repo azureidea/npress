@@ -30,7 +30,6 @@ import nc.liat6.npress.service.ICatService;
  *
  */
 public class Article{
-
   /** 分类业务接口 */
   private ICatService catService;
   /** 文章业务接口 */
@@ -205,11 +204,7 @@ public class Article{
   public Object delete(){
     Request r = Context.get(Statics.REQUEST);
     long id = r.getLong("id");
-    ITrans t = TransFactory.getTrans();
-    t.getDeleter().table("T_ARTICLE").where("C_ID",id).delete();
-    t.getDeleter().table("T_ARTICLE_CAT").where("C_ARTICLE_ID",id).delete();
-    t.commit();
-    t.close();
+    articleService.deleteArticle(id);
     return new Tip("删除成功");
   }
 }

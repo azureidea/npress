@@ -21,7 +21,7 @@ var CFG={
  close_hover_color:'#000',
  content:'',
  content_background:'#FFF',
- footer_height:40,
+ footer_height:60,
  footer_background:'#FFF',
  footer_border_color:'#EEE',
  footer_border_height:1,
@@ -67,7 +67,6 @@ var _create=function(obj){
   round:cfg.yes_button_round,
   round_hover:cfg.yes_button_round_hover,
   callback:function(){
-   obj.close();
    obj.config.yes.call(obj);
   }
  });
@@ -89,8 +88,8 @@ var _create=function(obj){
   round:cfg.no_button_round,
   round_hover:cfg.no_button_round_hover,
   callback:function(){
-   obj.close();
    obj.config.no.call(obj);
+   obj.close();
   }
  });
  I.util.Boost.addStyle(btnNo.dom,'position:absolute;right:'+(space+space+r.width)+'px;top:'+space+'px;');

@@ -18,7 +18,6 @@ public class CatAdapter implements IBeanRule{
     map.put("type","C_TYPE");
   }
 
-  @Override
   public String getKey(String property){
     return map.get(property);
   }

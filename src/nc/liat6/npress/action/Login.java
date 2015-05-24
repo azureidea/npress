@@ -4,10 +4,7 @@ import javax.servlet.http.HttpSession;
 import nc.liat6.frame.context.Context;
 import nc.liat6.frame.context.Statics;
 import nc.liat6.frame.db.Dao;
-import nc.liat6.frame.db.dao.DaoAdapter;
-import nc.liat6.frame.db.entity.Bean;
 import nc.liat6.frame.db.entity.IBeanRule;
-import nc.liat6.frame.db.transaction.ITrans;
 import nc.liat6.frame.exception.BadException;
 import nc.liat6.frame.execute.Request;
 import nc.liat6.frame.validate.Validator;
@@ -35,7 +32,7 @@ public class Login{
    * @return
    */
   public Object page(){
-    return new Page("login.jsp");
+    return new Page("/login.jsp");
   }
 
   /**
@@ -51,16 +48,7 @@ public class Login{
     Validator.check(password,new RuleNotEmpty("密码"));
     User user = null;
     try{
-      user = Dao.one(User.class,new DaoAdapter(account){
-        @Override
-        public Bean one(ITrans t){
-          return t.getSelecter().table("T_USER").where("C_ACCOUNT",params[0]).one();
-        }
-        @Override
-        public IBeanRule rule(){
-          return userAdapter;
-        }
-      });
+      user = Dao.getSelecter().table("T_USER").where("C_ACCOUNT",account).one(User.class,userAdapter);
     }catch(Exception e){
       throw new BadException("账号密码错误");
     }

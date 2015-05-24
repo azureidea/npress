@@ -19,7 +19,6 @@ public class ConfigAdapter implements IBeanRule{
     map.put("description","C_DESC");
   }
 
-  @Override
   public String getKey(String property){
     return map.get(property);
   }
